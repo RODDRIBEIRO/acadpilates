@@ -1,0 +1,36 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "br.com.ribeiro"
+    },
+    "jhipsterVersion": "6.1.2",
+    "applicationType": "monolith",
+    "baseName": "acadpilates",
+    "packageName": "br.com.ribeiro",
+    "packageFolder": "br/com/ribeiro",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ZmZkMGI5MWE0YWFkMDUyNTk1ZThlZTZhNzY1ZWVkODhjZTEwMDA1YmRjMjA3NjZkNDU2Y2EwZWNjMTBlMGI1MjkyMzk1OGM4ZTVjNmRmOTNiNjNlOWFjNzZiMzIxYzFkMmUzOGIyOWU5NTZjYmQ2Y2I4ZjgwYmU2Yjk3MThkODQ=",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "flatly",
+    "clientThemeVariant": "primary",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false
+  }
+}
