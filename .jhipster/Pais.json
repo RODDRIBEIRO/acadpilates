@@ -1,0 +1,26 @@
+{
+    "name": "Pais",
+    "fields": [
+        {
+            "fieldName": "nomePais",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "estado",
+            "otherEntityRelationshipName": "pais",
+            "relationshipName": "estado"
+        }
+    ],
+    "changelogDate": "20190627133343",
+    "entityTableName": "pais",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

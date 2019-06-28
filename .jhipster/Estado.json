@@ -1,0 +1,33 @@
+{
+    "name": "Estado",
+    "fields": [
+        {
+            "fieldName": "nomeEstado",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "pais",
+            "otherEntityRelationshipName": "estado",
+            "relationshipName": "pais",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "endereco",
+            "otherEntityRelationshipName": "estado",
+            "relationshipName": "endereco"
+        }
+    ],
+    "changelogDate": "20190627133344",
+    "entityTableName": "estado",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

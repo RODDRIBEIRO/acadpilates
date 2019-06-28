@@ -1,0 +1,43 @@
+{
+    "name": "Contato",
+    "fields": [
+        {
+            "fieldName": "tipo",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "numero",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ddd",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "principal",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "pessoa",
+            "otherEntityRelationshipName": "contato",
+            "relationshipName": "pessoa",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190627133341",
+    "entityTableName": "contato",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

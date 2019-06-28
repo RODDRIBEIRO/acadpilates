@@ -1,0 +1,61 @@
+{
+    "name": "Pessoa",
+    "fields": [
+        {
+            "fieldName": "nome",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tipo",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "cpfCnpj",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "rgInscEst",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dataCadastro",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "dataNascimento",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "foto",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "situacao",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "endereco",
+            "otherEntityRelationshipName": "pessoa",
+            "relationshipName": "endereco"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "contato",
+            "otherEntityRelationshipName": "pessoa",
+            "relationshipName": "contato"
+        }
+    ],
+    "changelogDate": "20190627133340",
+    "entityTableName": "pessoa",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
