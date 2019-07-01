@@ -37,6 +37,8 @@ public class PessoaDTO implements Serializable {
 
 	private String fotoContentType;
 	private Boolean situacao;
+	
+	private String enderecoLogradouro;
 
 	private List<EnderecoDTO> enderecos = new ArrayList<>();
 	
@@ -128,6 +130,14 @@ public class PessoaDTO implements Serializable {
 
 	public void setEnderecos(List<EnderecoDTO> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public String getEnderecoLogradouro() {
+		return enderecoLogradouro;
+	}
+
+	public void setEnderecoLogradouro(String enderecoLogradouro) {
+		this.enderecoLogradouro = enderecoLogradouro;
 	}
 
 	@Override

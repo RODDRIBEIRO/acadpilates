@@ -8,6 +8,7 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IPessoa, Pessoa } from 'app/shared/model/pessoa.model';
 import { PessoaService } from './pessoa.service';
+import { IEndereco } from 'app/shared/model/endereco.model';
 
 @Component({
   selector: 'jhi-pessoa-update',
@@ -15,6 +16,8 @@ import { PessoaService } from './pessoa.service';
 })
 export class PessoaUpdateComponent implements OnInit {
   isSaving: boolean;
+  endereco: IEndereco;
+  pessoa: IPessoa;
 
   editForm = this.fb.group({
     id: [],
@@ -26,7 +29,8 @@ export class PessoaUpdateComponent implements OnInit {
     dataNascimento: [],
     foto: [],
     fotoContentType: [],
-    situacao: []
+    situacao: [],
+    enderecoLogradouro: []
   });
 
   constructor(
@@ -45,7 +49,7 @@ export class PessoaUpdateComponent implements OnInit {
     });
   }
 
-  updateForm(pessoa: IPessoa) {
+  updateForm(pessoa) {
     this.editForm.patchValue({
       id: pessoa.id,
       nome: pessoa.nome,
@@ -56,8 +60,15 @@ export class PessoaUpdateComponent implements OnInit {
       dataNascimento: pessoa.dataNascimento != null ? pessoa.dataNascimento.format(DATE_TIME_FORMAT) : null,
       foto: pessoa.foto,
       fotoContentType: pessoa.fotoContentType,
-      situacao: pessoa.situacao
+      situacao: pessoa.situacao,
+      enderecoLogradouro: pessoa.enderecoLogradouro
     });
+  }
+
+  addItem() {
+    this.endereco = {};
+    this.endereco.logradouro = this.pessoa.enderecoLogradouro;
+    this.pessoa.enderecos.push(Object.assign({}, this.endereco));
   }
 
   byteSize(field) {
@@ -132,7 +143,8 @@ export class PessoaUpdateComponent implements OnInit {
           : undefined,
       fotoContentType: this.editForm.get(['fotoContentType']).value,
       foto: this.editForm.get(['foto']).value,
-      situacao: this.editForm.get(['situacao']).value
+      situacao: this.editForm.get(['situacao']).value,
+      enderecoLogradouro: this.editForm.get(['enderecoLogradouro']).value
     };
   }
 

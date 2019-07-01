@@ -1,6 +1,5 @@
 import { Moment } from 'moment';
-import { IEndereco } from 'app/shared/model/endereco.model';
-import { IContato } from 'app/shared/model/contato.model';
+import { IEndereco } from './endereco.model';
 
 export interface IPessoa {
   id?: number;
@@ -13,8 +12,8 @@ export interface IPessoa {
   fotoContentType?: string;
   foto?: any;
   situacao?: boolean;
+  enderecoLogradouro?: string;
   enderecos?: IEndereco[];
-  contatoes?: IContato[];
 }
 
 export class Pessoa implements IPessoa {
@@ -29,8 +28,7 @@ export class Pessoa implements IPessoa {
     public fotoContentType?: string,
     public foto?: any,
     public situacao?: boolean,
-    public enderecos?: IEndereco[],
-    public contatoes?: IContato[]
+    public enderecoLogradouro?: string
   ) {
     this.situacao = this.situacao || false;
   }
