@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
@@ -30,7 +30,7 @@ export class PessoaUpdateComponent implements OnInit {
     foto: [],
     fotoContentType: [],
     situacao: [],
-    enderecoLogradouro: []
+    enderecos: this.fb.array([this.addEnderecoGroup])
   });
 
   constructor(
@@ -60,15 +60,30 @@ export class PessoaUpdateComponent implements OnInit {
       dataNascimento: pessoa.dataNascimento != null ? pessoa.dataNascimento.format(DATE_TIME_FORMAT) : null,
       foto: pessoa.foto,
       fotoContentType: pessoa.fotoContentType,
-      situacao: pessoa.situacao,
-      enderecoLogradouro: pessoa.enderecoLogradouro
+      situacao: pessoa.situacao
     });
   }
 
-  addItem() {
-    this.endereco = {};
-    this.endereco.logradouro = this.pessoa.enderecoLogradouro;
-    this.pessoa.enderecos.push(Object.assign({}, this.endereco));
+  addEnderecoGroup() {
+    return this.fb.group({
+      logradouro: []
+    });
+  }
+
+  addEnderecos() {
+    this.enderecosArray.push(this.addEnderecoGroup());
+  }
+
+  removeEnderecos(index) {
+    this.enderecosArray.removeAt(index);
+  }
+
+  get enderecosArray() {
+    return <FormArray>this.editForm.get('enderecos');
+  }
+
+  submitHandler() {
+    console.log(this.editForm.value);
   }
 
   byteSize(field) {
@@ -143,8 +158,7 @@ export class PessoaUpdateComponent implements OnInit {
           : undefined,
       fotoContentType: this.editForm.get(['fotoContentType']).value,
       foto: this.editForm.get(['foto']).value,
-      situacao: this.editForm.get(['situacao']).value,
-      enderecoLogradouro: this.editForm.get(['enderecoLogradouro']).value
+      situacao: this.editForm.get(['situacao']).value
     };
   }
 
