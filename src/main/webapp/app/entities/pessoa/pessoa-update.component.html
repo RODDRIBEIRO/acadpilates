@@ -87,21 +87,23 @@
                     <input type="hidden" class="form-control" name="fotoContentType" id="field_fotoContentType"
                         formControlName="fotoContentType" />
                 </div>
+                <!--Enderecos-->
                 <div class="form-group" formArrayName="enderecos">
-                    <div class="col-4 control-buttons">
-                        <button class="btn btn-primary" (click)="addEnderecos">
-                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
-                        </button>
-                        <!--<img src="/assets/icons/remove.svg" alt="" width="24" height="24" (click)="removeEnderecos">
-                    -->
-                    </div>
                     <div *ngFor="let group of enderecosArray.controls; let i = index;" [formGroupName]="i">
+                        <fa-icon [icon]="'plus'" (click)="addEnderecos()"></fa-icon>
+                        <fa-icon [icon]="'remove'" (click)="removeEnderecos()"></fa-icon>
                         <label class="form-control-label" for="field_logradouro">Logradouro</label>
                         <input type="text" class="form-control" name="logradouro" id="field_logradouro"
                             formControlName="logradouro" />
                     </div>
                 </div>
+                <!--Enderecos-->
             </div>
+
+
+
+
+
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>

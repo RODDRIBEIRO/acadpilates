@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
@@ -16,8 +16,8 @@ import { IEndereco } from 'app/shared/model/endereco.model';
 })
 export class PessoaUpdateComponent implements OnInit {
   isSaving: boolean;
-  endereco: IEndereco;
-  pessoa: IPessoa;
+
+  enderecos: FormArray;
 
   editForm = this.fb.group({
     id: [],
@@ -30,7 +30,7 @@ export class PessoaUpdateComponent implements OnInit {
     foto: [],
     fotoContentType: [],
     situacao: [],
-    enderecos: this.fb.array([this.addEnderecoGroup])
+    enderecos: this.fb.array([this.addEnderecoGroup()])
   });
 
   constructor(
@@ -49,7 +49,7 @@ export class PessoaUpdateComponent implements OnInit {
     });
   }
 
-  updateForm(pessoa) {
+  updateForm(pessoa: IPessoa) {
     this.editForm.patchValue({
       id: pessoa.id,
       nome: pessoa.nome,
@@ -60,11 +60,12 @@ export class PessoaUpdateComponent implements OnInit {
       dataNascimento: pessoa.dataNascimento != null ? pessoa.dataNascimento.format(DATE_TIME_FORMAT) : null,
       foto: pessoa.foto,
       fotoContentType: pessoa.fotoContentType,
-      situacao: pessoa.situacao
+      situacao: pessoa.situacao,
+      enderecos: this.fb.array([this.addEnderecoGroup()])
     });
   }
 
-  addEnderecoGroup() {
+  addEnderecoGroup(): FormGroup {
     return this.fb.group({
       logradouro: []
     });
@@ -158,7 +159,8 @@ export class PessoaUpdateComponent implements OnInit {
           : undefined,
       fotoContentType: this.editForm.get(['fotoContentType']).value,
       foto: this.editForm.get(['foto']).value,
-      situacao: this.editForm.get(['situacao']).value
+      situacao: this.editForm.get(['situacao']).value,
+      enderecos: this.editForm.get(['enderecos']).value
     };
   }
 
