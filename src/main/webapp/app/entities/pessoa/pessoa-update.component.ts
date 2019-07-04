@@ -67,7 +67,11 @@ export class PessoaUpdateComponent implements OnInit {
 
   addEnderecoGroup(): FormGroup {
     return this.fb.group({
-      logradouro: []
+      logradouro: [],
+      numero: [],
+      bairro: [],
+      complemento: [],
+      principal: []
     });
   }
 

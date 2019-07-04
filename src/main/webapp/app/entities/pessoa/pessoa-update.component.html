@@ -25,7 +25,7 @@
                         formControlName="situacao" />
                         -->
                         <select class="form-control" id="field_situacao" name="situacao" formControlName="situacao">
-                            <option selected value="true">ATIVO</option>
+                            <option value="true">ATIVO</option>
                             <option value="false">INATIVO</option>
                         </select>
                     </div>
@@ -35,7 +35,7 @@
                         <input type="number" class="form-control" name="tipo" id="field_tipo" formControlName="tipo" />
                         -->
                         <select class="form-control" id="field_tipo" name="tipo" formControlName="tipo">
-                            <option selected value="0">FISICA</option>
+                            <option value="0">FISICA</option>
                             <option value="1">JURIDICA</option>
                         </select>
                     </div>
@@ -88,22 +88,38 @@
                         formControlName="fotoContentType" />
                 </div>
                 <!--Enderecos-->
-                <div class="form-group" formArrayName="enderecos">
+                <div formArrayName="enderecos">
                     <div *ngFor="let group of enderecosArray.controls; let i = index;" [formGroupName]="i">
-                        <fa-icon [icon]="'plus'" (click)="addEnderecos()"></fa-icon>
-                        <fa-icon [icon]="'remove'" (click)="removeEnderecos()"></fa-icon>
-                        <label class="form-control-label" for="field_logradouro">Logradouro</label>
-                        <input type="text" class="form-control" name="logradouro" id="field_logradouro"
-                            formControlName="logradouro" />
+                        <div class="form-group">
+                            <fa-icon [icon]="'plus'" (click)="addEnderecos()"></fa-icon>
+                            <fa-icon [icon]="'plus'" (click)="removeEnderecos()"></fa-icon>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 col-md-6">
+                                <label class="form-control-label" for="field_logradouro">Logradouro</label>
+                                <input class="form-control" type="text" name="logradouro" id="field_logradouro"
+                                    formControlName="logradouro" />
+                            </div>
+                            <div class="form-group col-sm-6 col-md-4">
+                                <label class="form-control-label" for="field_bairro">Bairro</label>
+                                <input class="form-control" type="text" name="bairro" id="field_bairro"
+                                    formControlName="bairro" />
+                            </div>
+                            <div class="form-group col-sm-6 col-md-2">
+                                <label class="form-control-label" for="field_numero">Número</label>
+                                <input class="form-control" type="text" name="numero" id="field_numero"
+                                    formControlName="numero" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_complemento">Complemento</label>
+                            <input class="form-control" type="text" name="complemento" id="field_complemento"
+                                formControlName="complemento" />
+                        </div>
                     </div>
                 </div>
                 <!--Enderecos-->
             </div>
-
-
-
-
-
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
