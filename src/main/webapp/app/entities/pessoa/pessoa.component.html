@@ -26,6 +26,7 @@
             <th jhiSortBy="dataNascimento"><span>Data Nascimento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="foto"><span>Foto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="situacao"><span>Situacao</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="categoria"><span>Categoria</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -45,6 +46,7 @@
                     <span *ngIf="pessoa.foto">{{pessoa.fotoContentType}}, {{byteSize(pessoa.foto)}}</span>
                 </td>
                 <td>{{pessoa.situacao}}</td>
+                <td>{{pessoa.categoria}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

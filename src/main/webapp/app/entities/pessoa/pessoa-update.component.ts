@@ -30,6 +30,7 @@ export class PessoaUpdateComponent implements OnInit {
     foto: [],
     fotoContentType: [],
     situacao: [],
+    categoria: [],
     enderecos: this.fb.array([this.addEnderecoGroup()])
   });
 
@@ -61,6 +62,7 @@ export class PessoaUpdateComponent implements OnInit {
       foto: pessoa.foto,
       fotoContentType: pessoa.fotoContentType,
       situacao: pessoa.situacao,
+      categoria: pessoa.categoria,
       enderecos: this.fb.array([this.addEnderecoGroup()])
     });
   }
@@ -164,6 +166,7 @@ export class PessoaUpdateComponent implements OnInit {
       fotoContentType: this.editForm.get(['fotoContentType']).value,
       foto: this.editForm.get(['foto']).value,
       situacao: this.editForm.get(['situacao']).value,
+      categoria: this.editForm.get(['categoria']).value,
       enderecos: this.editForm.get(['enderecos']).value
     };
   }

@@ -24,7 +24,6 @@
             <th jhiSortBy="complemento"><span>Complemento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="principal"><span>Principal</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="estadoId"><span>Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="pessoaId"><span>Pessoa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -39,11 +38,6 @@
                 <td>
                     <div *ngIf="endereco.estadoId">
                         <a [routerLink]="['../estado', endereco.estadoId , 'view' ]" >{{endereco.estadoId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="endereco.pessoaId">
-                        <a [routerLink]="['../pessoa', endereco.pessoaId , 'view' ]" >{{endereco.pessoaId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

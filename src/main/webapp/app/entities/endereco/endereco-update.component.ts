@@ -9,8 +9,6 @@ import { IEndereco, Endereco } from 'app/shared/model/endereco.model';
 import { EnderecoService } from './endereco.service';
 import { IEstado } from 'app/shared/model/estado.model';
 import { EstadoService } from 'app/entities/estado';
-import { IPessoa } from 'app/shared/model/pessoa.model';
-import { PessoaService } from 'app/entities/pessoa';
 
 @Component({
   selector: 'jhi-endereco-update',
@@ -21,8 +19,6 @@ export class EnderecoUpdateComponent implements OnInit {
 
   estados: IEstado[];
 
-  pessoas: IPessoa[];
-
   editForm = this.fb.group({
     id: [],
     logradouro: [],
@@ -30,15 +26,13 @@ export class EnderecoUpdateComponent implements OnInit {
     bairro: [],
     complemento: [],
     principal: [],
-    estadoId: [],
-    pessoaId: []
+    estadoId: []
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected enderecoService: EnderecoService,
     protected estadoService: EstadoService,
-    protected pessoaService: PessoaService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -55,13 +49,6 @@ export class EnderecoUpdateComponent implements OnInit {
         map((response: HttpResponse<IEstado[]>) => response.body)
       )
       .subscribe((res: IEstado[]) => (this.estados = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.pessoaService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IPessoa[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IPessoa[]>) => response.body)
-      )
-      .subscribe((res: IPessoa[]) => (this.pessoas = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(endereco: IEndereco) {
@@ -72,8 +59,7 @@ export class EnderecoUpdateComponent implements OnInit {
       bairro: endereco.bairro,
       complemento: endereco.complemento,
       principal: endereco.principal,
-      estadoId: endereco.estadoId,
-      pessoaId: endereco.pessoaId
+      estadoId: endereco.estadoId
     });
   }
 
@@ -100,8 +86,7 @@ export class EnderecoUpdateComponent implements OnInit {
       bairro: this.editForm.get(['bairro']).value,
       complemento: this.editForm.get(['complemento']).value,
       principal: this.editForm.get(['principal']).value,
-      estadoId: this.editForm.get(['estadoId']).value,
-      pessoaId: this.editForm.get(['pessoaId']).value
+      estadoId: this.editForm.get(['estadoId']).value
     };
   }
 
@@ -122,10 +107,6 @@ export class EnderecoUpdateComponent implements OnInit {
   }
 
   trackEstadoById(index: number, item: IEstado) {
-    return item.id;
-  }
-
-  trackPessoaById(index: number, item: IPessoa) {
     return item.id;
   }
 }

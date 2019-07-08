@@ -1,5 +1,20 @@
 {
-    "name": "Pessoa",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "endereco",
+            "otherEntityRelationshipName": "pessoa",
+            "relationshipName": "endereco"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "contato",
+            "otherEntityRelationshipName": "pessoa",
+            "relationshipName": "contato"
+        }
+    ],
     "fields": [
         {
             "fieldName": "nome",
@@ -33,29 +48,23 @@
         {
             "fieldName": "situacao",
             "fieldType": "Boolean"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "endereco",
-            "otherEntityRelationshipName": "pessoa",
-            "relationshipName": "endereco"
         },
         {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "contato",
-            "otherEntityRelationshipName": "pessoa",
-            "relationshipName": "contato"
+            "fieldName": "categoria",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "max"
+            ],
+            "fieldValidateRulesMax": "1"
         }
     ],
     "changelogDate": "20190627133340",
-    "entityTableName": "pessoa",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "serviceImpl",
+    "entityTableName": "pessoa",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }

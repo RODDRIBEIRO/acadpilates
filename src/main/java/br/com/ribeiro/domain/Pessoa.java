@@ -1,6 +1,7 @@
 package br.com.ribeiro.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -14,252 +15,254 @@ import java.util.Set;
 @Table(name = "pessoa")
 public class Pessoa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "nome")
-    private String nome;
+	@Column(name = "nome")
+	private String nome;
 
-    @Column(name = "tipo")
-    private Integer tipo;
+	@Column(name = "tipo")
+	private Integer tipo;
 
-    @Column(name = "cpf_cnpj")
-    private String cpfCnpj;
+	@Column(name = "cpf_cnpj")
+	private String cpfCnpj;
 
-    @Column(name = "rg_insc_est")
-    private String rgInscEst;
+	@Column(name = "rg_insc_est")
+	private String rgInscEst;
 
-    @Column(name = "data_cadastro")
-    private Instant dataCadastro;
+	@Column(name = "data_cadastro")
+	private Instant dataCadastro;
 
-    @Column(name = "data_nascimento")
-    private Instant dataNascimento;
+	@Column(name = "data_nascimento")
+	private Instant dataNascimento;
 
-    @Lob
-    @Column(name = "foto")
-    private byte[] foto;
+	@Lob
+	@Column(name = "foto")
+	private byte[] foto;
 
-    @Column(name = "foto_content_type")
-    private String fotoContentType;
+	@Column(name = "foto_content_type")
+	private String fotoContentType;
 
-    @Column(name = "situacao")
-    private Boolean situacao;
+	@Column(name = "situacao")
+	private Boolean situacao;
 
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
-    private Set<Endereco> enderecos = new HashSet<>();
+	@NotNull
+	@Max(value = 1)
+	@Column(name = "categoria", nullable = false)
+	private Integer categoria;
 
-    @OneToMany(mappedBy = "pessoa")
-    private Set<Contato> contatoes = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "pessoa_id")
+	private Set<Endereco> enderecos = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-    public Long getId() {
-        return id;
-    }
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Contato> contatoes = new HashSet<>();
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	// jhipster-needle-entity-add-field - JHipster will add fields here, do not
+	// remove
+	public Long getId() {
+		return id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Pessoa nome(String nome) {
-        this.nome = nome;
-        return this;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public Pessoa nome(String nome) {
+		this.nome = nome;
+		return this;
+	}
 
-    public Integer getTipo() {
-        return tipo;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public Pessoa tipo(Integer tipo) {
-        this.tipo = tipo;
-        return this;
-    }
+	public Integer getTipo() {
+		return tipo;
+	}
 
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
-    }
+	public Pessoa tipo(Integer tipo) {
+		this.tipo = tipo;
+		return this;
+	}
 
-    public String getCpfCnpj() {
-        return cpfCnpj;
-    }
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
+	}
 
-    public Pessoa cpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
-        return this;
-    }
+	public String getCpfCnpj() {
+		return cpfCnpj;
+	}
 
-    public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
-    }
+	public Pessoa cpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+		return this;
+	}
 
-    public String getRgInscEst() {
-        return rgInscEst;
-    }
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
 
-    public Pessoa rgInscEst(String rgInscEst) {
-        this.rgInscEst = rgInscEst;
-        return this;
-    }
+	public String getRgInscEst() {
+		return rgInscEst;
+	}
 
-    public void setRgInscEst(String rgInscEst) {
-        this.rgInscEst = rgInscEst;
-    }
+	public Pessoa rgInscEst(String rgInscEst) {
+		this.rgInscEst = rgInscEst;
+		return this;
+	}
 
-    public Instant getDataCadastro() {
-        return dataCadastro;
-    }
+	public void setRgInscEst(String rgInscEst) {
+		this.rgInscEst = rgInscEst;
+	}
 
-    public Pessoa dataCadastro(Instant dataCadastro) {
-        this.dataCadastro = dataCadastro;
-        return this;
-    }
+	public Instant getDataCadastro() {
+		return dataCadastro;
+	}
 
-    public void setDataCadastro(Instant dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
+	public Pessoa dataCadastro(Instant dataCadastro) {
+		this.dataCadastro = dataCadastro;
+		return this;
+	}
 
-    public Instant getDataNascimento() {
-        return dataNascimento;
-    }
+	public void setDataCadastro(Instant dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 
-    public Pessoa dataNascimento(Instant dataNascimento) {
-        this.dataNascimento = dataNascimento;
-        return this;
-    }
+	public Instant getDataNascimento() {
+		return dataNascimento;
+	}
 
-    public void setDataNascimento(Instant dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
+	public Pessoa dataNascimento(Instant dataNascimento) {
+		this.dataNascimento = dataNascimento;
+		return this;
+	}
 
-    public byte[] getFoto() {
-        return foto;
-    }
+	public void setDataNascimento(Instant dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 
-    public Pessoa foto(byte[] foto) {
-        this.foto = foto;
-        return this;
-    }
+	public byte[] getFoto() {
+		return foto;
+	}
 
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
+	public Pessoa foto(byte[] foto) {
+		this.foto = foto;
+		return this;
+	}
 
-    public String getFotoContentType() {
-        return fotoContentType;
-    }
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
 
-    public Pessoa fotoContentType(String fotoContentType) {
-        this.fotoContentType = fotoContentType;
-        return this;
-    }
+	public String getFotoContentType() {
+		return fotoContentType;
+	}
 
-    public void setFotoContentType(String fotoContentType) {
-        this.fotoContentType = fotoContentType;
-    }
+	public Pessoa fotoContentType(String fotoContentType) {
+		this.fotoContentType = fotoContentType;
+		return this;
+	}
 
-    public Boolean isSituacao() {
-        return situacao;
-    }
+	public void setFotoContentType(String fotoContentType) {
+		this.fotoContentType = fotoContentType;
+	}
 
-    public Pessoa situacao(Boolean situacao) {
-        this.situacao = situacao;
-        return this;
-    }
+	public Boolean isSituacao() {
+		return situacao;
+	}
 
-    public void setSituacao(Boolean situacao) {
-        this.situacao = situacao;
-    }
+	public Pessoa situacao(Boolean situacao) {
+		this.situacao = situacao;
+		return this;
+	}
 
-    public Set<Endereco> getEnderecos() {
-        return enderecos;
-    }
+	public void setSituacao(Boolean situacao) {
+		this.situacao = situacao;
+	}
 
-    public Pessoa enderecos(Set<Endereco> enderecos) {
-        this.enderecos = enderecos;
-        return this;
-    }
+	public Integer getCategoria() {
+		return categoria;
+	}
 
-    public Pessoa addEndereco(Endereco endereco) {
-        this.enderecos.add(endereco);
-        endereco.setPessoa(this);
-        return this;
-    }
+	public Pessoa categoria(Integer categoria) {
+		this.categoria = categoria;
+		return this;
+	}
 
-    public Pessoa removeEndereco(Endereco endereco) {
-        this.enderecos.remove(endereco);
-        endereco.setPessoa(null);
-        return this;
-    }
+	public void setCategoria(Integer categoria) {
+		this.categoria = categoria;
+	}
 
-    public void setEnderecos(Set<Endereco> enderecos) {
-        this.enderecos = enderecos;
-    }
+	public Set<Endereco> getEnderecos() {
+		return enderecos;
+	}
 
-    public Set<Contato> getContatoes() {
-        return contatoes;
-    }
+	public Pessoa enderecos(Set<Endereco> enderecos) {
+		this.enderecos = enderecos;
+		return this;
+	}
 
-    public Pessoa contatoes(Set<Contato> contatoes) {
-        this.contatoes = contatoes;
-        return this;
-    }
+	public void setEnderecos(Set<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
 
-    public Pessoa addContato(Contato contato) {
-        this.contatoes.add(contato);
-        contato.setPessoa(this);
-        return this;
-    }
+	public Set<Contato> getContatoes() {
+		return contatoes;
+	}
 
-    public Pessoa removeContato(Contato contato) {
-        this.contatoes.remove(contato);
-        contato.setPessoa(null);
-        return this;
-    }
+	public Pessoa contatoes(Set<Contato> contatoes) {
+		this.contatoes = contatoes;
+		return this;
+	}
 
-    public void setContatoes(Set<Contato> contatoes) {
-        this.contatoes = contatoes;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+	public Pessoa addContato(Contato contato) {
+		this.contatoes.add(contato);
+		contato.setPessoa(this);
+		return this;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Pessoa)) {
-            return false;
-        }
-        return id != null && id.equals(((Pessoa) o).id);
-    }
+	public Pessoa removeContato(Contato contato) {
+		this.contatoes.remove(contato);
+		contato.setPessoa(null);
+		return this;
+	}
 
-    @Override
-    public int hashCode() {
-        return 31;
-    }
+	public void setContatoes(Set<Contato> contatoes) {
+		this.contatoes = contatoes;
+	}
+	// jhipster-needle-entity-add-getters-setters - JHipster will add getters and
+	// setters here, do not remove
 
-    @Override
-    public String toString() {
-        return "Pessoa{" +
-            "id=" + getId() +
-            ", nome='" + getNome() + "'" +
-            ", tipo=" + getTipo() +
-            ", cpfCnpj='" + getCpfCnpj() + "'" +
-            ", rgInscEst='" + getRgInscEst() + "'" +
-            ", dataCadastro='" + getDataCadastro() + "'" +
-            ", dataNascimento='" + getDataNascimento() + "'" +
-            ", foto='" + getFoto() + "'" +
-            ", fotoContentType='" + getFotoContentType() + "'" +
-            ", situacao='" + isSituacao() + "'" +
-            "}";
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof Pessoa)) {
+			return false;
+		}
+		return id != null && id.equals(((Pessoa) o).id);
+	}
+
+	@Override
+	public int hashCode() {
+		return 31;
+	}
+
+	@Override
+	public String toString() {
+		return "Pessoa{" + "id=" + getId() + ", nome='" + getNome() + "'" + ", tipo=" + getTipo() + ", cpfCnpj='"
+				+ getCpfCnpj() + "'" + ", rgInscEst='" + getRgInscEst() + "'" + ", dataCadastro='" + getDataCadastro()
+				+ "'" + ", dataNascimento='" + getDataNascimento() + "'" + ", foto='" + getFoto() + "'"
+				+ ", fotoContentType='" + getFotoContentType() + "'" + ", situacao='" + isSituacao() + "'"
+				+ ", categoria=" + getCategoria() + "}";
+	}
 }

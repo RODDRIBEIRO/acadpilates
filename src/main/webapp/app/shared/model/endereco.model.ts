@@ -6,7 +6,6 @@ export interface IEndereco {
   complemento?: string;
   principal?: string;
   estadoId?: number;
-  pessoaId?: number;
 }
 
 export class Endereco implements IEndereco {
@@ -17,7 +16,6 @@ export class Endereco implements IEndereco {
     public bairro?: string,
     public complemento?: string,
     public principal?: string,
-    public estadoId?: number,
-    public pessoaId?: number
+    public estadoId?: number
   ) {}
 }

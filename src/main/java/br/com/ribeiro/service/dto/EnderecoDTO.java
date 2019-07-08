@@ -22,8 +22,6 @@ public class EnderecoDTO implements Serializable {
 
     private Long estadoId;
 
-    private Long pessoaId;
-
     public Long getId() {
         return id;
     }
@@ -80,14 +78,6 @@ public class EnderecoDTO implements Serializable {
         this.estadoId = estadoId;
     }
 
-    public Long getPessoaId() {
-        return pessoaId;
-    }
-
-    public void setPessoaId(Long pessoaId) {
-        this.pessoaId = pessoaId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -119,7 +109,6 @@ public class EnderecoDTO implements Serializable {
             ", complemento='" + getComplemento() + "'" +
             ", principal='" + getPrincipal() + "'" +
             ", estado=" + getEstadoId() +
-            ", pessoa=" + getPessoaId() +
             "}";
     }
 }

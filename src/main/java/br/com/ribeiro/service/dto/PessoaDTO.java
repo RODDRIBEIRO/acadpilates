@@ -1,5 +1,4 @@
 package br.com.ribeiro.service.dto;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -7,155 +6,171 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Lob;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the {@link br.com.ribeiro.domain.Pessoa} entity.
  */
 public class PessoaDTO implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private Long id;
 
-	private Long id;
+    private String nome;
 
-	private String nome;
+    private Integer tipo;
 
-	private Integer tipo;
+    private String cpfCnpj;
 
-	private String cpfCnpj;
+    private String rgInscEst;
 
-	private String rgInscEst;
+    private Instant dataCadastro;
 
-	private Instant dataCadastro;
+    private Instant dataNascimento;
 
-	private Instant dataNascimento;
+    @Lob
+    private byte[] foto;
 
-	@Lob
-	private byte[] foto;
+    private String fotoContentType;
+    private Boolean situacao;
 
-	private String fotoContentType;
-	private Boolean situacao;
-	
-	private List<EnderecoDTO> enderecos = new ArrayList<>();
-	
-	/*******************************************************/
-	
-	public Long getId() {
-		return id;
-	}
+    @NotNull
+    @Max(value = 1)
+    private Integer categoria;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private List<EnderecoDTO> enderecos = new ArrayList<>();
 
-	public String getNome() {
-		return nome;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Integer getTipo() {
-		return tipo;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public String getCpfCnpj() {
-		return cpfCnpj;
-	}
+    public Integer getTipo() {
+        return tipo;
+    }
 
-	public void setCpfCnpj(String cpfCnpj) {
-		this.cpfCnpj = cpfCnpj;
-	}
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
 
-	public String getRgInscEst() {
-		return rgInscEst;
-	}
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
 
-	public void setRgInscEst(String rgInscEst) {
-		this.rgInscEst = rgInscEst;
-	}
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
+    }
 
-	public Instant getDataCadastro() {
-		return dataCadastro;
-	}
+    public String getRgInscEst() {
+        return rgInscEst;
+    }
 
-	public void setDataCadastro(Instant dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
+    public void setRgInscEst(String rgInscEst) {
+        this.rgInscEst = rgInscEst;
+    }
 
-	public Instant getDataNascimento() {
-		return dataNascimento;
-	}
+    public Instant getDataCadastro() {
+        return dataCadastro;
+    }
 
-	public void setDataNascimento(Instant dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+    public void setDataCadastro(Instant dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 
-	public byte[] getFoto() {
-		return foto;
-	}
+    public Instant getDataNascimento() {
+        return dataNascimento;
+    }
 
-	public void setFoto(byte[] foto) {
-		this.foto = foto;
-	}
+    public void setDataNascimento(Instant dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
-	public String getFotoContentType() {
-		return fotoContentType;
-	}
+    public byte[] getFoto() {
+        return foto;
+    }
 
-	public void setFotoContentType(String fotoContentType) {
-		this.fotoContentType = fotoContentType;
-	}
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
 
-	public Boolean isSituacao() {
-		return situacao;
-	}
+    public String getFotoContentType() {
+        return fotoContentType;
+    }
 
-	public void setSituacao(Boolean situacao) {
-		this.situacao = situacao;
-	}
+    public void setFotoContentType(String fotoContentType) {
+        this.fotoContentType = fotoContentType;
+    }
 
-	public List<EnderecoDTO> getEnderecos() {
+    public Boolean isSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Boolean situacao) {
+        this.situacao = situacao;
+    }
+
+    public List<EnderecoDTO> getEnderecos() {
 		return enderecos;
 	}
 
 	public void setEnderecos(List<EnderecoDTO> enderecos) {
 		this.enderecos = enderecos;
 	}
+    public Integer getCategoria() {
+        return categoria;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
+    public void setCategoria(Integer categoria) {
+        this.categoria = categoria;
+    }
 
-		PessoaDTO pessoaDTO = (PessoaDTO) o;
-		if (pessoaDTO.getId() == null || getId() == null) {
-			return false;
-		}
-		return Objects.equals(getId(), pessoaDTO.getId());
-	}
+ 
 
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(getId());
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-	@Override
-	public String toString() {
-		return "PessoaDTO{" + "id=" + getId() + ", nome='" + getNome() + "'" + ", tipo=" + getTipo() + ", cpfCnpj='"
-				+ getCpfCnpj() + "'" + ", rgInscEst='" + getRgInscEst() + "'" + ", dataCadastro='" + getDataCadastro()
-				+ "'" + ", dataNascimento='" + getDataNascimento() + "'" + ", foto='" + getFoto() + "'" + ", situacao='"
-				+ isSituacao() + "'" + "}";
-	}
+        PessoaDTO pessoaDTO = (PessoaDTO) o;
+        if (pessoaDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), pessoaDTO.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "PessoaDTO{" +
+            "id=" + getId() +
+            ", nome='" + getNome() + "'" +
+            ", tipo=" + getTipo() +
+            ", cpfCnpj='" + getCpfCnpj() + "'" +
+            ", rgInscEst='" + getRgInscEst() + "'" +
+            ", dataCadastro='" + getDataCadastro() + "'" +
+            ", dataNascimento='" + getDataNascimento() + "'" +
+            ", foto='" + getFoto() + "'" +
+            ", situacao='" + isSituacao() + "'" +
+            ", categoria=" + getCategoria() +
+            "}";
+    }
 }

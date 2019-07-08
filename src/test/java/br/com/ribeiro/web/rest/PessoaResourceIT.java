@@ -65,6 +65,9 @@ public class PessoaResourceIT {
     private static final Boolean DEFAULT_SITUACAO = false;
     private static final Boolean UPDATED_SITUACAO = true;
 
+    private static final Integer DEFAULT_CATEGORIA = 1;
+    private static final Integer UPDATED_CATEGORIA = 0;
+
     @Autowired
     private PessoaRepository pessoaRepository;
 
@@ -121,7 +124,8 @@ public class PessoaResourceIT {
             .dataNascimento(DEFAULT_DATA_NASCIMENTO)
             .foto(DEFAULT_FOTO)
             .fotoContentType(DEFAULT_FOTO_CONTENT_TYPE)
-            .situacao(DEFAULT_SITUACAO);
+            .situacao(DEFAULT_SITUACAO)
+            .categoria(DEFAULT_CATEGORIA);
         return pessoa;
     }
     /**
@@ -140,7 +144,8 @@ public class PessoaResourceIT {
             .dataNascimento(UPDATED_DATA_NASCIMENTO)
             .foto(UPDATED_FOTO)
             .fotoContentType(UPDATED_FOTO_CONTENT_TYPE)
-            .situacao(UPDATED_SITUACAO);
+            .situacao(UPDATED_SITUACAO)
+            .categoria(UPDATED_CATEGORIA);
         return pessoa;
     }
 
@@ -174,6 +179,7 @@ public class PessoaResourceIT {
         assertThat(testPessoa.getFoto()).isEqualTo(DEFAULT_FOTO);
         assertThat(testPessoa.getFotoContentType()).isEqualTo(DEFAULT_FOTO_CONTENT_TYPE);
         assertThat(testPessoa.isSituacao()).isEqualTo(DEFAULT_SITUACAO);
+        assertThat(testPessoa.getCategoria()).isEqualTo(DEFAULT_CATEGORIA);
     }
 
     @Test
@@ -199,6 +205,25 @@ public class PessoaResourceIT {
 
     @Test
     @Transactional
+    public void checkCategoriaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = pessoaRepository.findAll().size();
+        // set the field null
+        pessoa.setCategoria(null);
+
+        // Create the Pessoa, which fails.
+        PessoaDTO pessoaDTO = pessoaMapper.toDto(pessoa);
+
+        restPessoaMockMvc.perform(post("/api/pessoas")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(pessoaDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Pessoa> pessoaList = pessoaRepository.findAll();
+        assertThat(pessoaList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllPessoas() throws Exception {
         // Initialize the database
         pessoaRepository.saveAndFlush(pessoa);
@@ -216,7 +241,8 @@ public class PessoaResourceIT {
             .andExpect(jsonPath("$.[*].dataNascimento").value(hasItem(DEFAULT_DATA_NASCIMENTO.toString())))
             .andExpect(jsonPath("$.[*].fotoContentType").value(hasItem(DEFAULT_FOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].foto").value(hasItem(Base64Utils.encodeToString(DEFAULT_FOTO))))
-            .andExpect(jsonPath("$.[*].situacao").value(hasItem(DEFAULT_SITUACAO.booleanValue())));
+            .andExpect(jsonPath("$.[*].situacao").value(hasItem(DEFAULT_SITUACAO.booleanValue())))
+            .andExpect(jsonPath("$.[*].categoria").value(hasItem(DEFAULT_CATEGORIA)));
     }
     
     @Test
@@ -238,7 +264,8 @@ public class PessoaResourceIT {
             .andExpect(jsonPath("$.dataNascimento").value(DEFAULT_DATA_NASCIMENTO.toString()))
             .andExpect(jsonPath("$.fotoContentType").value(DEFAULT_FOTO_CONTENT_TYPE))
             .andExpect(jsonPath("$.foto").value(Base64Utils.encodeToString(DEFAULT_FOTO)))
-            .andExpect(jsonPath("$.situacao").value(DEFAULT_SITUACAO.booleanValue()));
+            .andExpect(jsonPath("$.situacao").value(DEFAULT_SITUACAO.booleanValue()))
+            .andExpect(jsonPath("$.categoria").value(DEFAULT_CATEGORIA));
     }
 
     @Test
@@ -270,7 +297,8 @@ public class PessoaResourceIT {
             .dataNascimento(UPDATED_DATA_NASCIMENTO)
             .foto(UPDATED_FOTO)
             .fotoContentType(UPDATED_FOTO_CONTENT_TYPE)
-            .situacao(UPDATED_SITUACAO);
+            .situacao(UPDATED_SITUACAO)
+            .categoria(UPDATED_CATEGORIA);
         PessoaDTO pessoaDTO = pessoaMapper.toDto(updatedPessoa);
 
         restPessoaMockMvc.perform(put("/api/pessoas")
@@ -291,6 +319,7 @@ public class PessoaResourceIT {
         assertThat(testPessoa.getFoto()).isEqualTo(UPDATED_FOTO);
         assertThat(testPessoa.getFotoContentType()).isEqualTo(UPDATED_FOTO_CONTENT_TYPE);
         assertThat(testPessoa.isSituacao()).isEqualTo(UPDATED_SITUACAO);
+        assertThat(testPessoa.getCategoria()).isEqualTo(UPDATED_CATEGORIA);
     }
 
     @Test

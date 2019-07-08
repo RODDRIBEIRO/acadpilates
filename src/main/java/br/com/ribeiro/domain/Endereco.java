@@ -37,10 +37,6 @@ public class Endereco implements Serializable {
     @JsonIgnoreProperties("enderecos")
     private Estado estado;
 
-    @ManyToOne
-    @JsonIgnoreProperties("enderecos")
-    private Pessoa pessoa;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -126,19 +122,6 @@ public class Endereco implements Serializable {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public Endereco pessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-        return this;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -31,12 +31,6 @@
                         <a [routerLink]="['/estado', endereco.estadoId, 'view']">{{endereco.estadoId}}</a>
                     </div>
                 </dd>
-                <dt><span>Pessoa</span></dt>
-                <dd>
-                    <div *ngIf="endereco.pessoaId">
-                        <a [routerLink]="['/pessoa', endereco.pessoaId, 'view']">{{endereco.pessoaId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

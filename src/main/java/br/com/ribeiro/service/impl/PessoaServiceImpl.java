@@ -1,5 +1,6 @@
 package br.com.ribeiro.service.impl;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ribeiro.domain.Endereco;
 import br.com.ribeiro.domain.Pessoa;
+import br.com.ribeiro.repository.EnderecoRepository;
 import br.com.ribeiro.repository.PessoaRepository;
 import br.com.ribeiro.service.PessoaService;
 import br.com.ribeiro.service.dto.PessoaDTO;
@@ -31,13 +33,16 @@ public class PessoaServiceImpl implements PessoaService {
 
 	private final PessoaRepository pessoaRepository;
 
+	private final EnderecoRepository enderecoRepository;
+
 	private final PessoaMapper pessoaMapper;
 
 	private final EnderecoMapper enderecoMapper;
 
-	public PessoaServiceImpl(PessoaRepository pessoaRepository, PessoaMapper pessoaMapper,
-			EnderecoMapper enderecoMapper) {
+	public PessoaServiceImpl(PessoaRepository pessoaRepository, EnderecoRepository enderecoRepository,
+			PessoaMapper pessoaMapper, EnderecoMapper enderecoMapper) {
 		this.pessoaRepository = pessoaRepository;
+		this.enderecoRepository = enderecoRepository;
 		this.pessoaMapper = pessoaMapper;
 		this.enderecoMapper = enderecoMapper;
 	}
@@ -51,14 +56,13 @@ public class PessoaServiceImpl implements PessoaService {
 	@Override
 	public PessoaDTO save(PessoaDTO pessoaDTO) {
 		log.debug("Request to save Pessoa : {}", pessoaDTO);
-
 		Pessoa pessoa = pessoaMapper.toEntity(pessoaDTO);
 
 		List<Endereco> listaEnderecos = enderecoMapper.toEntity(pessoaDTO.getEnderecos());
-
 		Set<Endereco> enderecos = new HashSet<Endereco>(listaEnderecos);
-
 		pessoa.setEnderecos(enderecos);
+		pessoa.dataCadastro(Instant.now());
+		
 		pessoa = pessoaRepository.save(pessoa);
 		return pessoaMapper.toDto(pessoa);
 	}

@@ -20,10 +20,6 @@
                 <div class="form-row">
                     <div class="form-group col-sm-6 col-md-4">
                         <label class="form-control-label" for="field_situacao">Situacao</label>
-                        <!--
-                        <input type="checkbox" class="form-control" name="situacao" id="field_situacao"
-                        formControlName="situacao" />
-                        -->
                         <select class="form-control" id="field_situacao" name="situacao" formControlName="situacao">
                             <option value="true">ATIVO</option>
                             <option value="false">INATIVO</option>
@@ -31,12 +27,16 @@
                     </div>
                     <div class="form-group col-sm-6 col-md-4">
                         <label class="form-control-label" for="field_tipo">Tipo</label>
-                        <!--
-                        <input type="number" class="form-control" name="tipo" id="field_tipo" formControlName="tipo" />
-                        -->
                         <select class="form-control" id="field_tipo" name="tipo" formControlName="tipo">
                             <option value="0">FISICA</option>
                             <option value="1">JURIDICA</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6 col-md-4">
+                        <label class="form-control-label" for="field_categoria">Categoria</label>
+                        <select class="form-control" id="field_tipo" name="tipo" formControlName="categoria">
+                            <option value="0">CLIENTE</option>
+                            <option value="1">FUNCIONARIO</option>
                         </select>
                     </div>
                 </div>
@@ -90,10 +90,12 @@
                 <!--Enderecos-->
                 <div formArrayName="enderecos">
                     <div *ngFor="let group of enderecosArray.controls; let i = index;" [formGroupName]="i">
+
                         <div class="form-group">
                             <fa-icon [icon]="'plus'" (click)="addEnderecos()"></fa-icon>
                             <fa-icon [icon]="'plus'" (click)="removeEnderecos()"></fa-icon>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col-sm-12 col-md-6">
                                 <label class="form-control-label" for="field_logradouro">Logradouro</label>
@@ -116,6 +118,46 @@
                             <input class="form-control" type="text" name="complemento" id="field_complemento"
                                 formControlName="complemento" />
                         </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                                [callback]="transition.bind(this)">
+                                <th jhiSortBy="id"><span>ID</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="logradouro"><span>Logradouro</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="bairro"><span>Bairro</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="numero"><span>Numero</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th jhiSortBy="complemento"><span>Complemento</span>
+                                    <fa-icon [icon]="'sort'"></fa-icon>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <td>{{pessoa.}}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <div [hidden]="enderecos?.length === 0">
+                    <div class="row justify-content-center">
+                        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage">
+                        </jhi-item-count>
+                    </div>
+                    <div class="row justify-content-center">
+                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+                            [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)">
+                        </ngb-pagination>
                     </div>
                 </div>
                 <!--Enderecos-->
