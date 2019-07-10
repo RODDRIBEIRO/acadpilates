@@ -15,8 +15,12 @@ import { IEndereco } from 'app/shared/model/endereco.model';
 })
 export class PessoaUpdateComponent implements OnInit {
   isSaving: boolean;
+  isCadEndereco: boolean;
+  itemIndex: number; // Indice do item em edicao
+
   pessoa: IPessoa;
   endereco: IEndereco;
+
   foto?: any;
   fotoContentType?: string;
 
@@ -33,6 +37,7 @@ export class PessoaUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ pessoa }) => {
       this.pessoa = pessoa;
       this.endereco = {};
+      this.isCadEndereco = false;
       if (!this.pessoa.id) {
         this.pessoa.enderecos = [];
       }
@@ -84,7 +89,44 @@ export class PessoaUpdateComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  addItem() {
+  cadastrarEndereco() {
+    this.isCadEndereco = true;
+  }
+
+  cancelarEndereco() {
+    this.isCadEndereco = false;
+  }
+
+  addEndereco() {
     this.pessoa.enderecos.push(Object.assign({}, this.endereco)); // ADD
+    this.initAddEndereco();
+  }
+
+  isEnderecoInsert(): boolean {
+    return this.itemIndex === undefined;
+  }
+
+  isEnderecoUpdate(): boolean {
+    return this.itemIndex !== undefined;
+  }
+
+  initAddEndereco() {
+    this.itemIndex = undefined;
+    this.endereco = {};
+  }
+
+  initUpdateEndereco(endereco: IEndereco, index: number) {
+    this.endereco = Object.assign({}, endereco);
+    this.itemIndex = index;
+  }
+
+  updateEndereco() {
+    this.pessoa.enderecos[this.itemIndex] = this.endereco; // UPDATE
+    this.initAddEndereco();
+  }
+
+  removeEndereco(index: number) {
+    this.pessoa.enderecos.splice(index, 1); // REMOVE
+    this.initAddEndereco();
   }
 }
