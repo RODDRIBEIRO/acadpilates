@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
@@ -16,81 +15,24 @@ import { IEndereco } from 'app/shared/model/endereco.model';
 })
 export class PessoaUpdateComponent implements OnInit {
   isSaving: boolean;
-
-  enderecos: FormArray;
-
-  editForm = this.fb.group({
-    id: [],
-    nome: [],
-    tipo: [],
-    cpfCnpj: [],
-    rgInscEst: [],
-    dataCadastro: [],
-    dataNascimento: [],
-    foto: [],
-    fotoContentType: [],
-    situacao: [],
-    categoria: [],
-    enderecos: this.fb.array([this.addEnderecoGroup()])
-  });
+  pessoa: IPessoa;
+  endereco: IEndereco[];
+  foto?: any;
+  fotoContentType?: string;
 
   constructor(
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected pessoaService: PessoaService,
     protected elementRef: ElementRef,
-    protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    protected activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ pessoa }) => {
-      this.updateForm(pessoa);
+      this.pessoa = pessoa;
     });
-  }
-
-  updateForm(pessoa: IPessoa) {
-    this.editForm.patchValue({
-      id: pessoa.id,
-      nome: pessoa.nome,
-      tipo: pessoa.tipo,
-      cpfCnpj: pessoa.cpfCnpj,
-      rgInscEst: pessoa.rgInscEst,
-      dataCadastro: pessoa.dataCadastro != null ? pessoa.dataCadastro.format(DATE_TIME_FORMAT) : null,
-      dataNascimento: pessoa.dataNascimento != null ? pessoa.dataNascimento.format(DATE_TIME_FORMAT) : null,
-      foto: pessoa.foto,
-      fotoContentType: pessoa.fotoContentType,
-      situacao: pessoa.situacao,
-      categoria: pessoa.categoria,
-      enderecos: this.fb.array([this.addEnderecoGroup()])
-    });
-  }
-
-  addEnderecoGroup(): FormGroup {
-    return this.fb.group({
-      logradouro: [],
-      numero: [],
-      bairro: [],
-      complemento: [],
-      principal: []
-    });
-  }
-
-  addEnderecos() {
-    this.enderecosArray.push(this.addEnderecoGroup());
-  }
-
-  removeEnderecos(index) {
-    this.enderecosArray.removeAt(index);
-  }
-
-  get enderecosArray() {
-    return <FormArray>this.editForm.get('enderecos');
-  }
-
-  submitHandler() {
-    console.log(this.editForm.value);
   }
 
   byteSize(field) {
@@ -101,38 +43,12 @@ export class PessoaUpdateComponent implements OnInit {
     return this.dataUtils.openFile(contentType, field);
   }
 
-  setFileData(event, field: string, isImage) {
-    return new Promise((resolve, reject) => {
-      if (event && event.target && event.target.files && event.target.files[0]) {
-        const file = event.target.files[0];
-        if (isImage && !/^image\//.test(file.type)) {
-          reject(`File was expected to be an image but was found to be ${file.type}`);
-        } else {
-          const filedContentType: string = field + 'ContentType';
-          this.dataUtils.toBase64(file, base64Data => {
-            this.editForm.patchValue({
-              [field]: base64Data,
-              [filedContentType]: file.type
-            });
-          });
-        }
-      } else {
-        reject(`Base64 data was not set as file could not be extracted from passed parameter: ${event}`);
-      }
-    }).then(
-      () => console.log('blob added'), // sucess
-      this.onError
-    );
+  setFileData(event, entity, field, isImage) {
+    this.dataUtils.setFileData(event, entity, field, isImage);
   }
 
   clearInputImage(field: string, fieldContentType: string, idInput: string) {
-    this.editForm.patchValue({
-      [field]: null,
-      [fieldContentType]: null
-    });
-    if (this.elementRef && idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
-      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
-    }
+    this.dataUtils.clearInputImage(this.pessoa, this.elementRef, field, fieldContentType, idInput);
   }
 
   previousState() {
@@ -141,34 +57,11 @@ export class PessoaUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-    const pessoa = this.createFromForm();
-    if (pessoa.id !== undefined) {
-      this.subscribeToSaveResponse(this.pessoaService.update(pessoa));
+    if (this.pessoa.id !== undefined) {
+      this.subscribeToSaveResponse(this.pessoaService.update(this.pessoa));
     } else {
-      this.subscribeToSaveResponse(this.pessoaService.create(pessoa));
+      this.subscribeToSaveResponse(this.pessoaService.create(this.pessoa));
     }
-  }
-
-  private createFromForm(): IPessoa {
-    return {
-      ...new Pessoa(),
-      id: this.editForm.get(['id']).value,
-      nome: this.editForm.get(['nome']).value,
-      tipo: this.editForm.get(['tipo']).value,
-      cpfCnpj: this.editForm.get(['cpfCnpj']).value,
-      rgInscEst: this.editForm.get(['rgInscEst']).value,
-      dataCadastro:
-        this.editForm.get(['dataCadastro']).value != null ? moment(this.editForm.get(['dataCadastro']).value, DATE_TIME_FORMAT) : undefined,
-      dataNascimento:
-        this.editForm.get(['dataNascimento']).value != null
-          ? moment(this.editForm.get(['dataNascimento']).value, DATE_TIME_FORMAT)
-          : undefined,
-      fotoContentType: this.editForm.get(['fotoContentType']).value,
-      foto: this.editForm.get(['foto']).value,
-      situacao: this.editForm.get(['situacao']).value,
-      categoria: this.editForm.get(['categoria']).value,
-      enderecos: this.editForm.get(['enderecos']).value
-    };
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IPessoa>>) {
@@ -185,5 +78,9 @@ export class PessoaUpdateComponent implements OnInit {
   }
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  addItem() {
+    this.pessoa.enderecos.push(Object.assign({}, this.endereco)); // ADD
   }
 }
