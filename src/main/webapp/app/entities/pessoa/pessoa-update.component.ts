@@ -16,7 +16,7 @@ import { IEndereco } from 'app/shared/model/endereco.model';
 export class PessoaUpdateComponent implements OnInit {
   isSaving: boolean;
   pessoa: IPessoa;
-  endereco: IEndereco[];
+  endereco: IEndereco;
   foto?: any;
   fotoContentType?: string;
 
@@ -32,6 +32,10 @@ export class PessoaUpdateComponent implements OnInit {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ pessoa }) => {
       this.pessoa = pessoa;
+      this.endereco = {};
+      if (!this.pessoa.id) {
+        this.pessoa.enderecos = [];
+      }
     });
   }
 
