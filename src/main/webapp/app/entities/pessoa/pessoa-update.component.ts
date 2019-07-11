@@ -8,6 +8,7 @@ import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IPessoa, Pessoa } from 'app/shared/model/pessoa.model';
 import { PessoaService } from './pessoa.service';
 import { IEndereco } from 'app/shared/model/endereco.model';
+import { IContato } from 'app/shared/model/contato.model';
 
 @Component({
   selector: 'jhi-pessoa-update',
@@ -16,10 +17,12 @@ import { IEndereco } from 'app/shared/model/endereco.model';
 export class PessoaUpdateComponent implements OnInit {
   isSaving: boolean;
   isCadEndereco: boolean;
+  isCadContato: boolean;
   itemIndex: number; // Indice do item em edicao
 
   pessoa: IPessoa;
   endereco: IEndereco;
+  contato: IContato;
 
   foto?: any;
   fotoContentType?: string;
@@ -36,14 +39,21 @@ export class PessoaUpdateComponent implements OnInit {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ pessoa }) => {
       this.pessoa = pessoa;
-      this.endereco = {};
-      this.isCadEndereco = false;
+      this.init();
       if (!this.pessoa.id) {
         this.pessoa.enderecos = [];
       }
     });
   }
-
+  init() {
+    this.endereco = {};
+    this.contato = {};
+    this.pessoa.tipo = 0;
+    this.pessoa.categoria = 0;
+    this.pessoa.situacao = true;
+    this.isCadEndereco = false;
+    this.isCadContato = false;
+  }
   byteSize(field) {
     return this.dataUtils.byteSize(field);
   }
@@ -97,12 +107,29 @@ export class PessoaUpdateComponent implements OnInit {
     this.isCadEndereco = false;
   }
 
+  cadastrarContato() {
+    this.isCadContato = true;
+  }
+
+  cancelarContato() {
+    this.isCadContato = false;
+  }
+
   addEndereco() {
     this.pessoa.enderecos.push(Object.assign({}, this.endereco)); // ADD
     this.initAddEndereco();
   }
 
+  addContato() {
+    this.pessoa.contatos.push(Object.assign({}, this.contato)); // ADD
+    this.initAddContato();
+  }
+
   isEnderecoInsert(): boolean {
+    return this.itemIndex === undefined;
+  }
+
+  isContatoInsert(): boolean {
     return this.itemIndex === undefined;
   }
 
@@ -110,9 +137,18 @@ export class PessoaUpdateComponent implements OnInit {
     return this.itemIndex !== undefined;
   }
 
+  isContatoUpdate(): boolean {
+    return this.itemIndex !== undefined;
+  }
+
   initAddEndereco() {
     this.itemIndex = undefined;
     this.endereco = {};
+  }
+
+  initAddContato() {
+    this.itemIndex = undefined;
+    this.contato = {};
   }
 
   initUpdateEndereco(endereco: IEndereco, index: number) {
@@ -131,6 +167,10 @@ export class PessoaUpdateComponent implements OnInit {
   }
 
   changePessoaTipo(value: number) {
-    this.pessoa.tipo = value;
+    if (value) {
+      this.pessoa.tipo = value;
+    } else {
+      this.pessoa.tipo = undefined;
+    }
   }
 }

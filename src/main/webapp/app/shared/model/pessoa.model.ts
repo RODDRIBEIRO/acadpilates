@@ -16,7 +16,7 @@ export interface IPessoa {
   categoria?: number;
   sexo?: number;
   enderecos?: IEndereco[];
-  contatoes?: IContato[];
+  contatos?: IContato[];
 }
 
 export class Pessoa implements IPessoa {
@@ -34,7 +34,7 @@ export class Pessoa implements IPessoa {
     public categoria?: number,
     public sexo?: number,
     public enderecos?: IEndereco[],
-    public contatoes?: IContato[]
+    public contatos?: IContato[]
   ) {
     this.situacao = this.situacao || false;
   }

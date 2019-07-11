@@ -1,0 +1,183 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="rodrigo (generated)" id="1562852330266-1">
+        <createTable tableName="contato">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="contatoPK"/>
+            </column>
+            <column name="ddd" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="numero" type="VARCHAR(255)"/>
+            <column name="principal" type="BOOLEAN"/>
+            <column name="tipo" type="INT"/>
+            <column name="pessoa_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-2">
+        <createTable tableName="endereco">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="enderecoPK"/>
+            </column>
+            <column name="bairro" type="VARCHAR(255)"/>
+            <column name="complemento" type="VARCHAR(255)"/>
+            <column name="logradouro" type="VARCHAR(255)"/>
+            <column name="numero" type="VARCHAR(255)"/>
+            <column name="principal" type="VARCHAR(255)"/>
+            <column name="estado_id" type="BIGINT"/>
+            <column name="pessoa_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-3">
+        <createTable tableName="estado">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="estadoPK"/>
+            </column>
+            <column name="nome_estado" type="VARCHAR(255)"/>
+            <column name="pais_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-4">
+        <createTable tableName="jhi_authority">
+            <column name="name" type="VARCHAR(50)">
+                <constraints primaryKey="true" primaryKeyName="jhi_authorityPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-5">
+        <createTable tableName="jhi_persistent_audit_event">
+            <column autoIncrement="true" name="event_id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="jhi_persistent_audit_eventPK"/>
+            </column>
+            <column name="event_date" type="TIMESTAMP"/>
+            <column name="event_type" type="VARCHAR(255)"/>
+            <column name="principal" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-6">
+        <createTable tableName="jhi_persistent_audit_evt_data">
+            <column name="event_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="value" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-7">
+        <createTable tableName="jhi_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="jhi_userPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
+            <column name="activated" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activation_key" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(254)"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="image_url" type="VARCHAR(256)"/>
+            <column name="lang_key" type="VARCHAR(10)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_date" type="TIMESTAMP"/>
+            <column name="reset_key" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-8">
+        <createTable tableName="jhi_user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="authority_name" type="VARCHAR(50)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-9">
+        <createTable tableName="pais">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="paisPK"/>
+            </column>
+            <column name="nome_pais" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-10">
+        <createTable tableName="pessoa">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pessoaPK"/>
+            </column>
+            <column name="categoria" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cpf_cnpj" type="VARCHAR(255)"/>
+            <column name="data_cadastro" type="TIMESTAMP"/>
+            <column name="data_nascimento" type="TIMESTAMP"/>
+            <column name="foto" type="BLOB"/>
+            <column name="foto_content_type" type="VARCHAR(255)"/>
+            <column name="nome" type="VARCHAR(255)"/>
+            <column name="rg_insc_est" type="VARCHAR(255)"/>
+            <column name="sexo" type="INT"/>
+            <column name="situacao" type="BOOLEAN"/>
+            <column name="tipo" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-11">
+        <createTable tableName="pessoa_contatoes">
+            <column name="pessoa_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="contatoes_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-12">
+        <addUniqueConstraint columnNames="email" constraintName="UC_JHI_USEREMAIL_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-13">
+        <addUniqueConstraint columnNames="login" constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-14">
+        <addUniqueConstraint columnNames="contatoes_id" constraintName="UK_ht28roienbgcyhk7reg6su3iw" tableName="pessoa_contatoes"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-15">
+        <addForeignKeyConstraint baseColumnNames="contatoes_id" baseTableName="pessoa_contatoes" constraintName="FK1b7rtdfej7jmbgm8gfsn51bl" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="contato" validate="true"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-16">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="jhi_user_authority" constraintName="FK290okww5jujghp4el5i7mgwu0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-17">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="jhi_persistent_audit_evt_data" constraintName="FK2ehnyx2si4tjd2nt4q7y40v8m" deferrable="false" initiallyDeferred="false" referencedColumnNames="event_id" referencedTableName="jhi_persistent_audit_event" validate="true"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-18">
+        <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="jhi_user_authority" constraintName="FK4psxl0jtx6nr7rhqbynr6itoc" deferrable="false" initiallyDeferred="false" referencedColumnNames="name" referencedTableName="jhi_authority" validate="true"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-19">
+        <addForeignKeyConstraint baseColumnNames="pessoa_id" baseTableName="pessoa_contatoes" constraintName="FKcva75ypin5ovd93tr6wfwewo9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="pessoa" validate="true"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-20">
+        <addForeignKeyConstraint baseColumnNames="estado_id" baseTableName="endereco" constraintName="FKkkjjxdwdqd6orj4wyixekho8b" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="estado" validate="true"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-21">
+        <addForeignKeyConstraint baseColumnNames="pais_id" baseTableName="estado" constraintName="FKlsmaqvrvjo414pa0u6kiusg5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="pais" validate="true"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-22">
+        <addForeignKeyConstraint baseColumnNames="pessoa_id" baseTableName="endereco" constraintName="FKn1l2g0b74rqd9ywu29sva9sy9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="pessoa" validate="true"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1562852330266-23">
+        <addForeignKeyConstraint baseColumnNames="pessoa_id" baseTableName="contato" constraintName="FKqcaicb387g3yd3xfy44qravfh" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="pessoa" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

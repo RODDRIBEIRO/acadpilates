@@ -33,10 +33,6 @@ public class Contato implements Serializable {
     @Column(name = "principal")
     private Boolean principal;
 
-    @ManyToOne
-    @JsonIgnoreProperties("contatoes")
-    private Pessoa pessoa;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -109,19 +105,6 @@ public class Contato implements Serializable {
 
     public void setPrincipal(Boolean principal) {
         this.principal = principal;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public Contato pessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-        return this;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
