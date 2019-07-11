@@ -27,9 +27,6 @@ public class Contato implements Serializable {
     @Column(name = "ddd")
     private String ddd;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "principal")
     private Boolean principal;
 
@@ -81,19 +78,6 @@ public class Contato implements Serializable {
         this.ddd = ddd;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public Contato email(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Boolean isPrincipal() {
         return principal;
     }
@@ -131,7 +115,6 @@ public class Contato implements Serializable {
             ", tipo=" + getTipo() +
             ", numero='" + getNumero() + "'" +
             ", ddd='" + getDdd() + "'" +
-            ", email='" + getEmail() + "'" +
             ", principal='" + isPrincipal() + "'" +
             "}";
     }

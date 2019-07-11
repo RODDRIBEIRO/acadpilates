@@ -39,7 +39,7 @@ export const contatoRoute: Routes = [
     data: {
       authorities: ['ROLE_USER'],
       defaultSort: 'id,asc',
-      pageTitle: 'Contatoes'
+      pageTitle: 'Contatos'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -51,7 +51,7 @@ export const contatoRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'Contatoes'
+      pageTitle: 'Contatos'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -63,7 +63,7 @@ export const contatoRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'Contatoes'
+      pageTitle: 'Contatos'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -75,7 +75,7 @@ export const contatoRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'Contatoes'
+      pageTitle: 'Contatos'
     },
     canActivate: [UserRouteAccessService]
   }
@@ -90,7 +90,7 @@ export const contatoPopupRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'Contatoes'
+      pageTitle: 'Contatos'
     },
     canActivate: [UserRouteAccessService],
     outlet: 'popup'

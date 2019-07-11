@@ -135,11 +135,11 @@
         </createTable>
     </changeSet>
     <changeSet author="rodrigo (generated)" id="1562852330266-11">
-        <createTable tableName="pessoa_contatoes">
+        <createTable tableName="pessoa_contatos">
             <column name="pessoa_id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="contatoes_id" type="BIGINT">
+            <column name="contatos_id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
@@ -151,10 +151,10 @@
         <addUniqueConstraint columnNames="login" constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
     </changeSet>
     <changeSet author="rodrigo (generated)" id="1562852330266-14">
-        <addUniqueConstraint columnNames="contatoes_id" constraintName="UK_ht28roienbgcyhk7reg6su3iw" tableName="pessoa_contatoes"/>
+        <addUniqueConstraint columnNames="contatos_id" constraintName="UK_ht28roienbgcyhk7reg6su3iw" tableName="pessoa_contatos"/>
     </changeSet>
     <changeSet author="rodrigo (generated)" id="1562852330266-15">
-        <addForeignKeyConstraint baseColumnNames="contatoes_id" baseTableName="pessoa_contatoes" constraintName="FK1b7rtdfej7jmbgm8gfsn51bl" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="contato" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="contatos_id" baseTableName="pessoa_contatos" constraintName="FK1b7rtdfej7jmbgm8gfsn51bl" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="contato" validate="true"/>
     </changeSet>
     <changeSet author="rodrigo (generated)" id="1562852330266-16">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="jhi_user_authority" constraintName="FK290okww5jujghp4el5i7mgwu0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
@@ -166,7 +166,7 @@
         <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="jhi_user_authority" constraintName="FK4psxl0jtx6nr7rhqbynr6itoc" deferrable="false" initiallyDeferred="false" referencedColumnNames="name" referencedTableName="jhi_authority" validate="true"/>
     </changeSet>
     <changeSet author="rodrigo (generated)" id="1562852330266-19">
-        <addForeignKeyConstraint baseColumnNames="pessoa_id" baseTableName="pessoa_contatoes" constraintName="FKcva75ypin5ovd93tr6wfwewo9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="pessoa" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="pessoa_id" baseTableName="pessoa_contatos" constraintName="FKcva75ypin5ovd93tr6wfwewo9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="pessoa" validate="true"/>
     </changeSet>
     <changeSet author="rodrigo (generated)" id="1562852330266-20">
         <addForeignKeyConstraint baseColumnNames="estado_id" baseTableName="endereco" constraintName="FKkkjjxdwdqd6orj4wyixekho8b" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="estado" validate="true"/>

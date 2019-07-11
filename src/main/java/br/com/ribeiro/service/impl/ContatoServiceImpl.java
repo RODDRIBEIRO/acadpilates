@@ -48,7 +48,7 @@ public class ContatoServiceImpl implements ContatoService {
     }
 
     /**
-     * Get all the contatoes.
+     * Get all the contatos.
      *
      * @param pageable the pagination information.
      * @return the list of entities.
@@ -56,7 +56,7 @@ public class ContatoServiceImpl implements ContatoService {
     @Override
     @Transactional(readOnly = true)
     public Page<ContatoDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all Contatoes");
+        log.debug("Request to get all Contatos");
         return contatoRepository.findAll(pageable)
             .map(contatoMapper::toDto);
     }

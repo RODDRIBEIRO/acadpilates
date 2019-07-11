@@ -202,28 +202,25 @@
                     <fieldset class="border p-2">
                         <legend class="w-auto">Contato</legend>
                         <div class="form-row">
-                            <div class="form-group col-sm-12 col-md-6">
+                            <div class="form-group col-sm-5">
                                 <label class="form-control-label" for="field_logradouro">Tipo</label>
-                                <input class="form-control" type="text" name="logradouro" id="field_logradouro"
-                                    [(ngModel)]="contato.tipo" />
+                                <select class="form-control" id="field_tipo" name="tipo" [(ngModel)]="contato.tipo">
+                                    <option value="0">CELULAR</option>
+                                    <option value="1">RESIDENCIAL</option>
+                                    <option value="2">COMERCIAL</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6 col-md-6">
+                                <label class="form-control-label" for="field_numero">Número</label>
+                                <input class="form-control" type="text" name="numero" id="field_numero"
+                                    [(ngModel)]="contato.numero" />
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label" for="field_complemento">Principal</label>
-                                <input class="form-control" type="text" name="complemento" id="field_complemento"
+                                <label class="form-control-label" for="field_principal">Principal</label>
+                                <input type="checkbox" class="form-control" name="principal" id="field_principal"
                                     [(ngModel)]="contato.principal" />
                             </div>
                         </div>
-                        <div class="form-group col-sm-6 col-md-2">
-                            <label class="form-control-label" for="field_numero">Número</label>
-                            <input class="form-control" type="text" name="numero" id="field_numero"
-                                [(ngModel)]="contato.numero" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" for="field_complemento">Email</label>
-                            <input class="form-control" type="text" name="complemento" id="field_complemento"
-                                [(ngModel)]="contato.email" />
-                        </div>
-
                         <div class="form-group">
                             <div class="form-row">
                                 <button type="button" id="add-contato" class="btn btn-success" (click)="addContato()"
@@ -249,11 +246,15 @@
                         <thead>
                             <tr>
                                 <th>Nº</th>
+                                <th>Tipo</th>
+                                <th>Número</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of pessoa.contatos; let idx = index">
                                 <td>{{idx + 1}}</td>
+                                <td>{{item.tipo}}</td>
+                                <td>{{item.numero}}</td>
                                 <td class="text-right">
                                     <div class="btn-group flex-btn-group-container">
                                         <button type="button" class="btn btn-primary btn-sm"

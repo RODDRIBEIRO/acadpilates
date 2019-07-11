@@ -52,6 +52,9 @@ public class Pessoa implements Serializable {
 	@Column(name = "sexo")
 	private Integer sexo;
 
+	@Column(name = "email")
+	private String email;
+	
 	@NotNull
 	@Max(value = 1)
 	@Column(name = "categoria", nullable = false)
@@ -62,7 +65,8 @@ public class Pessoa implements Serializable {
 	private Set<Endereco> enderecos = new HashSet<>();
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Contato> contatoes = new HashSet<>();
+	@JoinColumn(name = "pessoa_id")
+	private Set<Contato> contatos = new HashSet<>();
 
 	// jhipster-needle-entity-add-field - JHipster will add fields here, do not
 	// remove
@@ -217,17 +221,17 @@ public class Pessoa implements Serializable {
 		this.enderecos = enderecos;
 	}
 
-	public Set<Contato> getContatoes() {
-		return contatoes;
+	public Set<Contato> getContatos() {
+		return contatos;
 	}
 
-	public Pessoa contatoes(Set<Contato> contatoes) {
-		this.contatoes = contatoes;
+	public Pessoa contatos(Set<Contato> contatos) {
+		this.contatos = contatos;
 		return this;
 	}
 
-	public void setContatoes(Set<Contato> contatoes) {
-		this.contatoes = contatoes;
+	public void setContatos(Set<Contato> contatos) {
+		this.contatos = contatos;
 	}
 
 	public Integer getSexo() {
@@ -239,6 +243,14 @@ public class Pessoa implements Serializable {
 	}
 	// jhipster-needle-entity-add-getters-setters - JHipster will add getters and
 	// setters here, do not remove
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -253,7 +265,7 @@ public class Pessoa implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return 31;	
+		return 31;
 	}
 
 	@Override

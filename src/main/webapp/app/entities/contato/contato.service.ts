@@ -11,7 +11,7 @@ type EntityArrayResponseType = HttpResponse<IContato[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ContatoService {
-  public resourceUrl = SERVER_API_URL + 'api/contatoes';
+  public resourceUrl = SERVER_API_URL + 'api/contatos';
 
   constructor(protected http: HttpClient) {}
 

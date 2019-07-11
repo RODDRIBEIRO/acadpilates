@@ -15,6 +15,7 @@ export interface IPessoa {
   situacao?: boolean;
   categoria?: number;
   sexo?: number;
+  email?: string;
   enderecos?: IEndereco[];
   contatos?: IContato[];
 }
@@ -33,6 +34,7 @@ export class Pessoa implements IPessoa {
     public situacao?: boolean,
     public categoria?: number,
     public sexo?: number,
+    public email?: string,
     public enderecos?: IEndereco[],
     public contatos?: IContato[]
   ) {

@@ -13,12 +13,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.ribeiro.domain.Contato;
 import br.com.ribeiro.domain.Endereco;
 import br.com.ribeiro.domain.Pessoa;
 import br.com.ribeiro.repository.EnderecoRepository;
 import br.com.ribeiro.repository.PessoaRepository;
 import br.com.ribeiro.service.PessoaService;
 import br.com.ribeiro.service.dto.PessoaDTO;
+import br.com.ribeiro.service.mapper.ContatoMapper;
 import br.com.ribeiro.service.mapper.EnderecoMapper;
 import br.com.ribeiro.service.mapper.PessoaMapper;
 
@@ -39,12 +41,15 @@ public class PessoaServiceImpl implements PessoaService {
 
 	private final EnderecoMapper enderecoMapper;
 
+	private final ContatoMapper contatoMapper;
+
 	public PessoaServiceImpl(PessoaRepository pessoaRepository, EnderecoRepository enderecoRepository,
-			PessoaMapper pessoaMapper, EnderecoMapper enderecoMapper) {
+			PessoaMapper pessoaMapper, EnderecoMapper enderecoMapper, ContatoMapper contatoMapper) {
 		this.pessoaRepository = pessoaRepository;
 		this.enderecoRepository = enderecoRepository;
 		this.pessoaMapper = pessoaMapper;
 		this.enderecoMapper = enderecoMapper;
+		this.contatoMapper = contatoMapper;
 	}
 
 	/**
@@ -60,9 +65,14 @@ public class PessoaServiceImpl implements PessoaService {
 
 		List<Endereco> listaEnderecos = enderecoMapper.toEntity(pessoaDTO.getEnderecos());
 		Set<Endereco> enderecos = new HashSet<Endereco>(listaEnderecos);
+
+		List<Contato> listaContatos = contatoMapper.toEntity(pessoaDTO.getContatos());
+		Set<Contato> contatos = new HashSet<Contato>(listaContatos);
+
 		pessoa.setEnderecos(enderecos);
+		pessoa.setContatos(contatos);
 		pessoa.dataCadastro(Instant.now());
-		
+
 		pessoa = pessoaRepository.save(pessoa);
 		return pessoaMapper.toDto(pessoa);
 	}

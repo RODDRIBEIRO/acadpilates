@@ -21,7 +21,7 @@ public interface ContatoService {
     ContatoDTO save(ContatoDTO contatoDTO);
 
     /**
-     * Get all the contatoes.
+     * Get all the contatos.
      *
      * @param pageable the pagination information.
      * @return the list of entities.

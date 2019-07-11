@@ -3,7 +3,6 @@ export interface IContato {
   tipo?: number;
   numero?: string;
   ddd?: string;
-  email?: string;
   principal?: boolean;
   pessoaId?: number;
 }
@@ -14,7 +13,6 @@ export class Contato implements IContato {
     public tipo?: number,
     public numero?: string,
     public ddd?: string,
-    public email?: string,
     public principal?: boolean,
     public pessoaId?: number
   ) {

@@ -24,7 +24,6 @@ export class ContatoUpdateComponent implements OnInit {
     tipo: [],
     numero: [],
     ddd: [],
-    email: [],
     principal: [],
     pessoaId: []
   });
@@ -57,7 +56,6 @@ export class ContatoUpdateComponent implements OnInit {
       tipo: contato.tipo,
       numero: contato.numero,
       ddd: contato.ddd,
-      email: contato.email,
       principal: contato.principal,
       pessoaId: contato.pessoaId
     });
@@ -84,7 +82,6 @@ export class ContatoUpdateComponent implements OnInit {
       tipo: this.editForm.get(['tipo']).value,
       numero: this.editForm.get(['numero']).value,
       ddd: this.editForm.get(['ddd']).value,
-      email: this.editForm.get(['email']).value,
       principal: this.editForm.get(['principal']).value,
       pessoaId: this.editForm.get(['pessoaId']).value
     };

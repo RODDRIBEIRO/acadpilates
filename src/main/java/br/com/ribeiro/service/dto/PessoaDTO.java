@@ -29,7 +29,9 @@ public class PessoaDTO implements Serializable {
 
 	private Instant dataNascimento;
 
-	private Integer	 sexo;
+	private Integer sexo;
+
+	private String email;
 
 	@Lob
 	private byte[] foto;
@@ -42,6 +44,8 @@ public class PessoaDTO implements Serializable {
 	private Integer categoria;
 
 	private List<EnderecoDTO> enderecos = new ArrayList<>();
+
+	private List<ContatoDTO> contatos = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -147,6 +151,22 @@ public class PessoaDTO implements Serializable {
 		this.sexo = sexo;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<ContatoDTO> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(List<ContatoDTO> contatos) {
+		this.contatos = contatos;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -173,6 +193,7 @@ public class PessoaDTO implements Serializable {
 		return "PessoaDTO{" + "id=" + getId() + ", nome='" + getNome() + "'" + ", tipo=" + getTipo() + ", cpfCnpj='"
 				+ getCpfCnpj() + "'" + ", rgInscEst='" + getRgInscEst() + "'" + ", dataCadastro='" + getDataCadastro()
 				+ "'" + ", dataNascimento='" + getDataNascimento() + "'" + ", foto='" + getFoto() + "'" + ", situacao='"
-				+ isSituacao() + "'" + ", categoria=" + getCategoria() + ", sexo='" + getSexo() + "}";
+				+ isSituacao() + "'" + ", categoria=" + getCategoria() + ", sexo='" + getSexo() + ", email="
+				+ getEmail() + "}";
 	}
 }

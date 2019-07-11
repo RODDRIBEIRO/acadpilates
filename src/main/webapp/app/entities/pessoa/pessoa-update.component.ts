@@ -42,6 +42,7 @@ export class PessoaUpdateComponent implements OnInit {
       this.init();
       if (!this.pessoa.id) {
         this.pessoa.enderecos = [];
+        this.pessoa.contatos = [];
       }
     });
   }
@@ -156,14 +157,29 @@ export class PessoaUpdateComponent implements OnInit {
     this.itemIndex = index;
   }
 
+  initUpdateContato(contato: IContato, index: number) {
+    this.contato = Object.assign({}, contato);
+    this.itemIndex = index;
+  }
+
   updateEndereco() {
     this.pessoa.enderecos[this.itemIndex] = this.endereco; // UPDATE
     this.initAddEndereco();
   }
 
+  updateContato() {
+    this.pessoa.contatos[this.itemIndex] = this.contato; // UPDATE
+    this.initAddContato();
+  }
+
   removeEndereco(index: number) {
     this.pessoa.enderecos.splice(index, 1); // REMOVE
     this.initAddEndereco();
+  }
+
+  removeContato(index: number) {
+    this.pessoa.contatos.splice(index, 1); // REMOVE
+    this.initAddContato();
   }
 
   changePessoaTipo(value: number) {

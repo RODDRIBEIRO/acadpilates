@@ -15,8 +15,6 @@ public class ContatoDTO implements Serializable {
 
     private String ddd;
 
-    private String email;
-
     private Boolean principal;
 
 
@@ -52,14 +50,6 @@ public class ContatoDTO implements Serializable {
 
     public void setDdd(String ddd) {
         this.ddd = ddd;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Boolean isPrincipal() {
@@ -106,7 +96,6 @@ public class ContatoDTO implements Serializable {
             ", tipo=" + getTipo() +
             ", numero='" + getNumero() + "'" +
             ", ddd='" + getDdd() + "'" +
-            ", email='" + getEmail() + "'" +
             ", principal='" + isPrincipal() + "'" +
             ", pessoa=" + getPessoaId() +
             "}";

@@ -17,7 +17,7 @@ import { ContatoService } from './contato.service';
 })
 export class ContatoComponent implements OnInit, OnDestroy {
   currentAccount: any;
-  contatoes: IContato[];
+  contatos: IContato[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -56,7 +56,7 @@ export class ContatoComponent implements OnInit, OnDestroy {
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<IContato[]>) => this.paginateContatoes(res.body, res.headers),
+        (res: HttpResponse<IContato[]>) => this.paginateContatos(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -96,7 +96,7 @@ export class ContatoComponent implements OnInit, OnDestroy {
     this.accountService.identity().then(account => {
       this.currentAccount = account;
     });
-    this.registerChangeInContatoes();
+    this.registerChangeInContatos();
   }
 
   ngOnDestroy() {
@@ -107,7 +107,7 @@ export class ContatoComponent implements OnInit, OnDestroy {
     return item.id;
   }
 
-  registerChangeInContatoes() {
+  registerChangeInContatos() {
     this.eventSubscriber = this.eventManager.subscribe('contatoListModification', response => this.loadAll());
   }
 
@@ -119,10 +119,10 @@ export class ContatoComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateContatoes(data: IContato[], headers: HttpHeaders) {
+  protected paginateContatos(data: IContato[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.contatoes = data;
+    this.contatos = data;
   }
 
   protected onError(errorMessage: string) {
