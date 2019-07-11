@@ -129,4 +129,8 @@ export class PessoaUpdateComponent implements OnInit {
     this.pessoa.enderecos.splice(index, 1); // REMOVE
     this.initAddEndereco();
   }
+
+  changePessoaTipo(value: number) {
+    this.pessoa.tipo = value;
+  }
 }

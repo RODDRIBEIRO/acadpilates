@@ -49,6 +49,9 @@ public class Pessoa implements Serializable {
 	@Column(name = "situacao")
 	private Boolean situacao;
 
+	@Column(name = "sexo")
+	private Integer sexo;
+
 	@NotNull
 	@Max(value = 1)
 	@Column(name = "categoria", nullable = false)
@@ -58,7 +61,7 @@ public class Pessoa implements Serializable {
 	@JoinColumn(name = "pessoa_id")
 	private Set<Endereco> enderecos = new HashSet<>();
 
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Contato> contatoes = new HashSet<>();
 
 	// jhipster-needle-entity-add-field - JHipster will add fields here, do not
@@ -223,20 +226,16 @@ public class Pessoa implements Serializable {
 		return this;
 	}
 
-	public Pessoa addContato(Contato contato) {
-		this.contatoes.add(contato);
-		contato.setPessoa(this);
-		return this;
-	}
-
-	public Pessoa removeContato(Contato contato) {
-		this.contatoes.remove(contato);
-		contato.setPessoa(null);
-		return this;
-	}
-
 	public void setContatoes(Set<Contato> contatoes) {
 		this.contatoes = contatoes;
+	}
+
+	public Integer getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Integer sexo) {
+		this.sexo = sexo;
 	}
 	// jhipster-needle-entity-add-getters-setters - JHipster will add getters and
 	// setters here, do not remove
@@ -254,7 +253,7 @@ public class Pessoa implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return 31;
+		return 31;	
 	}
 
 	@Override

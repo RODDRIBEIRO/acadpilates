@@ -14,7 +14,6 @@ public interface PessoaMapper extends EntityMapper<PessoaDTO, Pessoa> {
 
     @Mapping(target = "enderecos", ignore = true)
     @Mapping(target = "contatoes", ignore = true)
-    @Mapping(target = "removeContato", ignore = true)
     Pessoa toEntity(PessoaDTO pessoaDTO);
 
     default Pessoa fromId(Long id) {
