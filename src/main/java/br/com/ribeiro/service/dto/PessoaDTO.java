@@ -13,7 +13,12 @@ import javax.validation.constraints.NotNull;
 /**
  * A DTO for the {@link br.com.ribeiro.domain.Pessoa} entity.
  */
-public class PessoaDTO implements Serializable {
+public class PessoaDTO extends AbstractDTO implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6109678514936262326L;
 
 	private Long id;
 

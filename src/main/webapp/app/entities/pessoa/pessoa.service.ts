@@ -15,6 +15,7 @@ type EntityArrayResponseType = HttpResponse<IPessoa[]>;
 @Injectable({ providedIn: 'root' })
 export class PessoaService {
   public resourceUrl = SERVER_API_URL + 'api/pessoas';
+  public resourceSearchUrl = SERVER_API_URL + 'api/_search/pessoas';
 
   constructor(protected http: HttpClient) {}
 
@@ -73,5 +74,12 @@ export class PessoaService {
       });
     }
     return res;
+  }
+  // Criado o serviço de busca do Backend
+  search(req?: any): Observable<EntityArrayResponseType> {
+    return this.http.get<IPessoa[]>(this.resourceSearchUrl, {
+      params: createRequestOption(req),
+      observe: 'response'
+    });
   }
 }

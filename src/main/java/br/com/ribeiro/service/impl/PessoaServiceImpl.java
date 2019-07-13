@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.ribeiro.domain.Contato;
 import br.com.ribeiro.domain.Endereco;
 import br.com.ribeiro.domain.Pessoa;
+import br.com.ribeiro.domain.QPessoa;
 import br.com.ribeiro.repository.EnderecoRepository;
 import br.com.ribeiro.repository.PessoaRepository;
 import br.com.ribeiro.service.PessoaService;
@@ -29,13 +31,15 @@ import br.com.ribeiro.service.mapper.PessoaMapper;
  */
 @Service
 @Transactional
-public class PessoaServiceImpl implements PessoaService {
+public class PessoaServiceImpl extends AbstractService implements PessoaService {
 
 	private final Logger log = LoggerFactory.getLogger(PessoaServiceImpl.class);
 
 	private final PessoaRepository pessoaRepository;
 
 	private final EnderecoRepository enderecoRepository;
+
+	private static final QPessoa qPessoa = QPessoa.pessoa;
 
 	private final PessoaMapper pessoaMapper;
 
@@ -112,5 +116,21 @@ public class PessoaServiceImpl implements PessoaService {
 	public void delete(Long id) {
 		log.debug("Request to delete Pessoa : {}", id);
 		pessoaRepository.deleteById(id);
+	}
+
+	/**
+	 * Search corresponding to the query.
+	 *
+	 * @param searchDTO the query of the search
+	 * @param query     the query of the search
+	 * @param pageable  the pagination information
+	 * @return the list of entities
+	 */
+	@Transactional(readOnly = true)
+	public Page<PessoaDTO> search(PessoaDTO query, Pageable pageable) {
+		log.debug("Request to search for a page of Produto Legado for query {}", query);
+		Pessoa source = this.pessoaMapper.toEntity(query);
+		Example<Pessoa> example = Example.of(source, getDefaultMatcher());
+		return pessoaRepository.findAll(example, pageable).map(this.pessoaMapper::toDto);
 	}
 }

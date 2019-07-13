@@ -5,11 +5,12 @@ import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
-import { IPessoa } from 'app/shared/model/pessoa.model';
+import { IPessoa, Pessoa } from 'app/shared/model/pessoa.model';
 import { AccountService } from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
+import { ITEMS_PER_PAGE, castToObject, castToQuery } from 'app/shared';
 import { PessoaService } from './pessoa.service';
+import { COMBO_PAGE_SIZE } from 'app/app.constants';
 
 @Component({
   selector: 'jhi-pessoa',
@@ -29,6 +30,8 @@ export class PessoaComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  currentSearch: IPessoa;
+  queryCount: any;
 
   constructor(
     protected pessoaService: PessoaService,
@@ -47,9 +50,24 @@ export class PessoaComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+    this.currentSearch = this.activatedRoute.snapshot ? castToObject(this.activatedRoute.snapshot.params) : '';
   }
 
   loadAll() {
+    if (this.currentSearch) {
+      this.pessoaService
+        .search({
+          page: this.page - 1,
+          query: this.currentSearch,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        })
+        .subscribe(
+          (res: HttpResponse<IPessoa[]>) => this.paginatePessoas(res.body, res.headers),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+      return;
+    }
     this.pessoaService
       .query({
         page: this.page - 1,
@@ -74,6 +92,7 @@ export class PessoaComponent implements OnInit, OnDestroy {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
+        search: this.currentSearch,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }
     });
@@ -82,12 +101,30 @@ export class PessoaComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
+    this.currentSearch = new Pessoa();
     this.router.navigate([
       '/pessoa',
       {
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }
+    ]);
+    this.loadAll();
+  }
+
+  search(query) {
+    if (!query) {
+      return this.clear();
+    }
+    this.page = 0;
+    this.currentSearch = query;
+    this.router.navigate([
+      '/pessoa',
+      castToQuery({
+        search: this.currentSearch,
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      })
     ]);
     this.loadAll();
   }
@@ -127,14 +164,22 @@ export class PessoaComponent implements OnInit, OnDestroy {
     }
     return result;
   }
-
-  protected paginatePessoas(data: IPessoa[], headers: HttpHeaders) {
-    this.links = this.parseLinks.parse(headers.get('link'));
-    this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.pessoas = data;
-  }
-
+  /*
+    protected paginatePessoas(data: IPessoa[], headers: HttpHeaders) {
+      this.links = this.parseLinks.parse(headers.get('link'));
+      this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+      this.pessoas = data;
+    }
+  */
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  private paginatePessoas(data: IPessoa[], headers: HttpHeaders) {
+    this.links = this.parseLinks.parse(headers.get('link'));
+    this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+    this.queryCount = this.totalItems;
+    this.pessoas = data;
+    console.log(this.pessoas);
   }
 }

@@ -43,4 +43,14 @@ public interface PessoaService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+	/**
+	 * Search
+	 * 
+	 * @param searchDTO search
+	 * @param pageable  pagination
+	 * @return list of PessoaDTO
+	 */
+	Page<PessoaDTO> search(PessoaDTO dto, Pageable pageable);
+
 }
