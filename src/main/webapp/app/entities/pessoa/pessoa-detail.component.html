@@ -11,7 +11,8 @@
                 </dd>
                 <dt><span>Tipo</span></dt>
                 <dd>
-                    <span>{{pessoa.tipo}}</span>
+                    <span *ngIf="pessoa.tipo==0">FÍSICA</span>
+                    <span *ngIf="pessoa.tipo==1">JURÍDICA</span>
                 </dd>
                 <dt><span>Cpf Cnpj</span></dt>
                 <dd>
@@ -27,13 +28,14 @@
                 </dd>
                 <dt><span>Data Nascimento</span></dt>
                 <dd>
-                    <span>{{pessoa.dataNascimento}}</span>
+                    <span>{{ pessoa.dataNascimento | date:shortDate }}</span>
                 </dd>
                 <dt><span>Foto</span></dt>
                 <dd>
                     <div *ngIf="pessoa.foto">
                         <a (click)="openFile(pessoa.fotoContentType, pessoa.foto)">
-                            <img [src]="'data:' + pessoa.fotoContentType + ';base64,' + pessoa.foto" style="max-width: 100%;" alt="pessoa image"/>
+                            <img [src]="'data:' + pessoa.fotoContentType + ';base64,' + pessoa.foto"
+                                style="max-width: 100%;" alt="pessoa image" />
                         </a>
                         {{pessoa.fotoContentType}}, {{byteSize(pessoa.foto)}}
                     </div>
@@ -48,15 +50,11 @@
                 </dd>
             </dl>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
+            <button type="submit" (click)="previousState()" class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
             </button>
 
-            <button type="button"
-                    [routerLink]="['/pessoa', pessoa.id, 'edit']"
-                    class="btn btn-primary">
+            <button type="button" [routerLink]="['/pessoa', pessoa.id, 'edit']" class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>
         </div>

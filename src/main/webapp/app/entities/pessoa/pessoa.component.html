@@ -75,10 +75,19 @@
                 <tr *ngFor="let pessoa of pessoas ;trackBy: trackId">
                     <td><a [routerLink]="['/pessoa', pessoa.id, 'view' ]">{{pessoa.id}}</a></td>
                     <td>{{pessoa.nome}}</td>
-                    <td>{{pessoa.tipo}}</td>
+                    <td>
+                        <span *ngIf="pessoa.tipo==0">FÍSICA</span>
+                        <span *ngIf="pessoa.tipo==1">JURÍDICA</span>
+                    </td>
                     <td>{{pessoa.cpfCnpj}}</td>
-                    <td>{{pessoa.situacao}}</td>
-                    <td>{{pessoa.categoria}}</td>
+                    <td>
+                        <span *ngIf="pessoa.situacao==true">Ativo</span>
+                        <span *ngIf="pessoa.situacao==false">Inativo</span>
+                    </td>
+                    <td>
+                        <span *ngIf="pessoa.categoria==0">Cliente</span>
+                        <span *ngIf="pessoa.categoria==1">Funcionário</span>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit" [routerLink]="['/pessoa', pessoa.id, 'view' ]"

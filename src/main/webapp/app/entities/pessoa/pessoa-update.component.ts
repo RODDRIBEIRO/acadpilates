@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { momentTz } from 'app/shared';
+import * as moment from 'moment';
 import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { IContato } from 'app/shared/model/contato.model';
 import { IEndereco } from 'app/shared/model/endereco.model';
@@ -25,6 +26,7 @@ export class PessoaUpdateComponent implements OnInit {
   contato: IContato;
 
   dataNascimento: string;
+  dataCadastro: string;
 
   foto?: any;
   fotoContentType?: string;
@@ -38,15 +40,13 @@ export class PessoaUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.pessoa = new Pessoa();
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ pessoa }) => {
       this.pessoa = pessoa;
+      this.dataNascimento = this.pessoa.dataNascimento ? this.pessoa.dataNascimento.format(DATE_FORMAT) : undefined;
+      this.dataCadastro = this.pessoa.dataCadastro ? this.pessoa.dataCadastro.format(DATE_TIME_FORMAT) : undefined;
       if (this.pessoa.id) {
-        this.dataNascimento = this.pessoa.dataNascimento != null ? momentTz(this.pessoa.dataNascimento).format(DATE_FORMAT) : null;
-        console.log(this.dataNascimento);
       } else {
-        console.log(this.dataNascimento);
         this.init();
       }
     });
@@ -85,7 +85,7 @@ export class PessoaUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     console.log(this.dataNascimento);
-    this.pessoa.dataNascimento = this.dataNascimento != null ? momentTz(this.dataNascimento) : null;
+    this.pessoa.dataNascimento = moment(this.dataNascimento, DATE_FORMAT);
     if (this.pessoa.id !== undefined) {
       this.subscribeToSaveResponse(this.pessoaService.update(this.pessoa));
     } else {

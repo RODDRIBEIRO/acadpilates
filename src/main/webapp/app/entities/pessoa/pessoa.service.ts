@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
@@ -58,18 +58,16 @@ export class PessoaService {
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
-    if (res.body) {
-      res.body.dataNascimento = res.body.dataNascimento != null ? moment(res.body.dataNascimento) : null;
-    }
+    res.body.dataNascimento = res.body.dataNascimento != null ? moment(res.body.dataNascimento, DATE_FORMAT) : null;
+    res.body.dataCadastro = res.body.dataCadastro != null ? moment(res.body.dataCadastro, DATE_TIME_FORMAT) : null;
     return res;
   }
 
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-    if (res.body) {
-      res.body.forEach((pessoa: IPessoa) => {
-        pessoa.dataNascimento = pessoa.dataNascimento != null ? moment(pessoa.dataNascimento) : null;
-      });
-    }
+    res.body.forEach((pessoa: IPessoa) => {
+      pessoa.dataNascimento = pessoa.dataNascimento != null ? moment(pessoa.dataNascimento) : null;
+    });
+
     return res;
   }
   // Criado o serviço de busca do Backend

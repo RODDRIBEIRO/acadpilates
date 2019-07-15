@@ -76,6 +76,7 @@ public class PessoaServiceImpl extends AbstractService implements PessoaService 
 		pessoa.setEnderecos(enderecos);
 		pessoa.setContatos(contatos);
 		pessoa.dataCadastro(Instant.now());
+		pessoa.dataNascimento(pessoaDTO.getDataNascimento());
 
 		pessoa = pessoaRepository.save(pessoa);
 		return pessoaMapper.toDto(pessoa);
