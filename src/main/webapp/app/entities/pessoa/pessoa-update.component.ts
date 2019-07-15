@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { momentTz } from 'app/shared';
 import * as moment from 'moment';
 import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { IContato } from 'app/shared/model/contato.model';
+import { IContato, Contato } from 'app/shared/model/contato.model';
 import { IEndereco, Endereco } from 'app/shared/model/endereco.model';
 import { IPessoa, Pessoa } from 'app/shared/model/pessoa.model';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
@@ -41,15 +41,12 @@ export class PessoaUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    this.pessoa = new Pessoa();
     this.activatedRoute.data.subscribe(({ pessoa }) => {
       this.pessoa = pessoa;
-      this.dataNascimento = this.pessoa.dataNascimento ? this.pessoa.dataNascimento.format(DATE_FORMAT) : undefined;
-      this.dataCadastro = this.pessoa.dataCadastro ? this.pessoa.dataCadastro.format(DATE_TIME_FORMAT) : undefined;
-      this.isCadEndereco = false;
-      this.isCadContato = false;
+      this.init();
       if (!this.pessoa.id) {
-        this.init();
+        this.pessoa.enderecos = [];
+        this.pessoa.contatos = [];
       }
     });
   }
@@ -59,6 +56,10 @@ export class PessoaUpdateComponent implements OnInit {
     this.pessoa.tipo = 0;
     this.pessoa.categoria = 0;
     this.pessoa.situacao = true;
+    this.dataNascimento = this.pessoa.dataNascimento ? this.pessoa.dataNascimento.format(DATE_FORMAT) : undefined;
+    this.dataCadastro = this.pessoa.dataCadastro ? this.pessoa.dataCadastro.format(DATE_TIME_FORMAT) : undefined;
+    this.isCadEndereco = false;
+    this.isCadContato = false;
   }
   byteSize(field) {
     return this.dataUtils.byteSize(field);
@@ -105,46 +106,52 @@ export class PessoaUpdateComponent implements OnInit {
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
-
+  enderecoCadButton() {
+    this.isCadEndereco = true;
+  }
+  contatoCadButton() {
+    this.isCadContato = true;
+  }
   addEndereco() {
-    if (!this.itemIndex) {
-      this.endereco = new Endereco();
+    if (this.itemIndex === undefined) {
       this.pessoa.enderecos.push(Object.assign({}, this.endereco)); // ADD
     } else {
       this.pessoa.enderecos[this.itemIndex] = this.endereco; // UPDATE
     }
-    this.itemIndex = undefined;
+    this.initAddEndereco();
     this.isCadEndereco = false;
   }
 
   addContato() {
-    if (!this.itemIndex) {
+    if (this.itemIndex === undefined) {
       this.pessoa.contatos.push(Object.assign({}, this.contato)); // ADD
     } else {
-      this.pessoa.enderecos[this.itemIndex] = this.endereco; // UPDATE
+      this.pessoa.contatos[this.itemIndex] = this.contato; // UPDATE
     }
-    this.isCadEndereco = false;
+    this.initAddContato();
+    this.isCadContato = false;
+  }
+
+  initAddEndereco() {
     this.itemIndex = undefined;
+    this.endereco = new Endereco();
+  }
+
+  initAddContato() {
+    this.itemIndex = undefined;
+    this.contato = {};
   }
 
   initUpdateEndereco(endereco: IEndereco, index: number) {
+    this.isCadEndereco = true;
     this.endereco = Object.assign({}, endereco);
     this.itemIndex = index;
   }
 
   initUpdateContato(contato: IContato, index: number) {
+    this.isCadContato = true;
     this.contato = Object.assign({}, contato);
     this.itemIndex = index;
-  }
-
-  updateEndereco() {
-    this.pessoa.enderecos[this.itemIndex] = this.endereco; // UPDATE
-    this.itemIndex = undefined;
-  }
-
-  updateContato() {
-    this.pessoa.contatos[this.itemIndex] = this.contato; // UPDATE
-    this.itemIndex = undefined;
   }
 
   removeEndereco(index: number) {
