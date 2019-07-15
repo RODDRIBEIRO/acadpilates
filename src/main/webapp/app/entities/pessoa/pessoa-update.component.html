@@ -103,15 +103,10 @@
                     </div>
                 </div>
                 <!--Enderecos-->
-                <button type="button" id="cad-cancelar" class="btn btn-success" (click)="cadastrarEndereco()"
+                <button type="button" id="cad-cancelar" class="btn btn-success" (click)="addEndereco()"
                     *ngIf="!isCadEndereco">
                     <fa-icon icon="plus"></fa-icon>&nbsp;<span>Cadastrar endereco</span>
                 </button>
-                <button id="cancel-endereco" type="button" class="btn btn-secondary" (click)="cancelarEndereco()"
-                    *ngIf="isCadEndereco">
-                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Ocultar</span>
-                </button>
-
                 <div class="form-group" *ngIf="isCadEndereco">
                     <fieldset class="border p-2">
                         <legend class="w-auto">Endereço</legend>
@@ -139,15 +134,13 @@
                         </div>
                         <div class="form-group">
                             <div class="form-row">
-                                <button type="button" id="add-endereco" class="btn btn-success" (click)="addEndereco()"
-                                    *ngIf="isEnderecoInsert()">
+                                <button type="button" id="add-endereco" class="btn btn-success" (click)="addEndereco()">
                                     <fa-icon icon="plus"></fa-icon>&nbsp;<span>Salvar endereco</span>
                                 </button>
-                                <button id="cancel-endereco" type="button" *ngIf="isEnderecoUpdate()"
-                                    class="btn btn-secondary" (click)="initAddEndereco()">
+                                <button id="cancel-endereco" type="button" class="btn btn-secondary" (click)="initAddEndereco()">
                                     <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
                                 </button>
-                                <button id="update-endereco" *ngIf="isEnderecoUpdate()" type="button"
+                                <button id="update-endereco" type="button"
                                     class="btn btn-success" (click)="updateEndereco()">
                                     <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Alterar
                                         Endereco</span>
@@ -169,7 +162,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of pessoa.enderecos; let idx = index">
-                                <td>{{idx + 1}}</td>
+                                <td>{{idx}}</td>
                                 <td>{{item.logradouro}}</td>
                                 <td>{{item.bairro}}</td>
                                 <td>{{item.numero}}</td>
@@ -196,15 +189,10 @@
                 </div>
                 <!--Enderecos-->
                 <!--Contatos-->
-                <button type="button" id="cad-cancelar" class="btn btn-success" (click)="cadastrarContato()"
+                <button type="button" id="cad-cancelar" class="btn btn-success" (click)="renderizarEndereco()"
                     *ngIf="!isCadContato">
                     <fa-icon icon="plus"></fa-icon>&nbsp;<span>Cadastrar contato</span>
                 </button>
-                <button id="cancel-contato" type="button" class="btn btn-secondary" (click)="cancelarContato()"
-                    *ngIf="isCadContato">
-                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Ocultar</span>
-                </button>
-
                 <div class="form-group" *ngIf="isCadContato">
                     <fieldset class="border p-2">
                         <legend class="w-auto">Contato</legend>
