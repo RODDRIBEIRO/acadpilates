@@ -52,7 +52,6 @@ export class PessoaService {
 
   protected convertDateFromClient(pessoa: IPessoa): IPessoa {
     const copy: IPessoa = Object.assign({}, pessoa, {
-      dataCadastro: pessoa.dataCadastro != null && pessoa.dataCadastro.isValid() ? pessoa.dataCadastro.toJSON() : null,
       dataNascimento: pessoa.dataNascimento != null && pessoa.dataNascimento.isValid() ? pessoa.dataNascimento.toJSON() : null
     });
     return copy;
@@ -60,7 +59,6 @@ export class PessoaService {
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.dataCadastro = res.body.dataCadastro != null ? moment(res.body.dataCadastro) : null;
       res.body.dataNascimento = res.body.dataNascimento != null ? moment(res.body.dataNascimento) : null;
     }
     return res;
@@ -69,7 +67,6 @@ export class PessoaService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((pessoa: IPessoa) => {
-        pessoa.dataCadastro = pessoa.dataCadastro != null ? moment(pessoa.dataCadastro) : null;
         pessoa.dataNascimento = pessoa.dataNascimento != null ? moment(pessoa.dataNascimento) : null;
       });
     }

@@ -1,10 +1,16 @@
 import { HttpParams } from '@angular/common/http';
 import { Params } from '@angular/router';
+import * as mtz from 'moment-timezone';
 
 const KEYWORDS = ['page', 'sort', 'query', 'search'];
+const TIMEZONE = 'America/Belem';
 
 function isNumeric(n: any): boolean {
   return !(isNaN(Number(n)) || isNaN(parseFloat(n)));
+}
+
+export function momentTz(date: any) {
+  return mtz.tz(date, TIMEZONE);
 }
 
 export const createRequestOption = (req?: any): HttpParams => {

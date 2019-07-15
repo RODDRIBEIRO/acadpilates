@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AcadpilatesSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective } from './';
+import { DateParserFormatter } from './util/date-parser-formatter';
 
 @NgModule({
   imports: [AcadpilatesSharedCommonModule],

@@ -14,7 +14,7 @@
                         <label class="form-control-label" for="field_dataCadastro">Data Cadastro</label>
                         <div class="d-flex">
                             <input id="field_dataCadastro" type="date" class="form-control" name="dataCadastro"
-                                [(ngModel)]="pessoa.dataCadastro" placeholder="DD-MM-YYYY" readonly />
+                                [(ngModel)]="pessoa.dataCadastro" readonly />
                         </div>
                     </div>
                 </div>
@@ -44,8 +44,10 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm-8">
-                        <label class="form-control-label" for="field_nome" *ngIf="pessoa.tipo==0">Nome</label>
-                        <label class="form-control-label" for="field_nome" *ngIf="pessoa.tipo==1">Razão Social</label>
+                        <label class="form-control-label" for="field_nome">
+                            <span *ngIf="pessoa.tipo==0">Nome</span>
+                            <span *ngIf="pessoa.tipo==1">Razão Social</span>
+                        </label>
                         <input type="text" class="form-control" name="nome" id="field_nome" [(ngModel)]="pessoa.nome" />
                     </div>
                     <div class="form-group col-sm-4 col-md-4" *ngIf="pessoa.tipo==0">
@@ -58,15 +60,20 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm-12 col-md-4">
-                        <label class="form-control-label" for="field_cpfCnpj" *ngIf="pessoa.tipo==0">Cpf</label>
-                        <label class="form-control-label" for="field_cpfCnpj" *ngIf="pessoa.tipo==1">Cnpj</label>
-                        <input type="text" class="form-control" name="cpfCnpj" id="field_cpfCnpj"
-                            [(ngModel)]="pessoa.cpfCnpj" />
+                        <label class="form-control-label" for="field_cpfCnpj">
+                            <span *ngIf="pessoa.tipo==0">Cpf</span>
+                            <span *ngIf="pessoa.tipo==1">Cnpj</span>
+                        </label>
+                        <input type="text" class="form-control" name="Cpf" id="cpf" [(ngModel)]="pessoa.cpfCnpj"
+                            *ngIf="pessoa.tipo==0" placeholder="000.000.000-00" />
+                        <input type="text" class="form-control" name="Cnpj" id="cnpj" [(ngModel)]="pessoa.cpfCnpj"
+                            *ngIf="pessoa.tipo==1" placeholder="00.000.000/0000-00" />
                     </div>
                     <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_rgInscEst" *ngIf="pessoa.tipo==0">Rg</label>
-                        <label class="form-control-label" for="field_rgInscEst" *ngIf="pessoa.tipo==1">Inscrição
-                            Estadual</label>
+                        <label class="form-control-label" for="field_rgInscEst">
+                            <span *ngIf="pessoa.tipo==0">Rg</span>
+                            <span *ngIf="pessoa.tipo==1">Inscrição Estadual</span>
+                        </label>
                         <input type="text" class="form-control" name="rgInscEst" id="field_rgInscEst"
                             [(ngModel)]="pessoa.rgInscEst" />
                     </div>
@@ -74,7 +81,7 @@
                         <label class="form-control-label" for="field_dataNascimento">Data Nascimento</label>
                         <div class="d-flex">
                             <input id="field_dataNascimento" type="date" class="form-control" name="dataNascimento"
-                                [(ngModel)]="pessoa.dataNascimento" placeholder="DD-MM-YYYY" />
+                                [(ngModel)]="pessoa.dataNascimento" />
                         </div>
                     </div>
                 </div>

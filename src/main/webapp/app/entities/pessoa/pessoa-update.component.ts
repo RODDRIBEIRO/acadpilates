@@ -1,14 +1,14 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { IPessoa, Pessoa } from 'app/shared/model/pessoa.model';
-import { PessoaService } from './pessoa.service';
-import { IEndereco } from 'app/shared/model/endereco.model';
+import { momentTz } from 'app/shared';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { IContato } from 'app/shared/model/contato.model';
+import { IEndereco } from 'app/shared/model/endereco.model';
+import { IPessoa, Pessoa } from 'app/shared/model/pessoa.model';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { Observable } from 'rxjs';
+import { PessoaService } from './pessoa.service';
 
 @Component({
   selector: 'jhi-pessoa-update',
@@ -24,6 +24,8 @@ export class PessoaUpdateComponent implements OnInit {
   endereco: IEndereco;
   contato: IContato;
 
+  dataNascimento: string;
+
   foto?: any;
   fotoContentType?: string;
 
@@ -36,17 +38,22 @@ export class PessoaUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.pessoa = new Pessoa();
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ pessoa }) => {
       this.pessoa = pessoa;
-      this.init();
-      if (!this.pessoa.id) {
-        this.pessoa.enderecos = [];
-        this.pessoa.contatos = [];
+      if (this.pessoa.id) {
+        this.dataNascimento = this.pessoa.dataNascimento != null ? momentTz(this.pessoa.dataNascimento).format(DATE_FORMAT) : null;
+        console.log(this.dataNascimento);
+      } else {
+        console.log(this.dataNascimento);
+        this.init();
       }
     });
   }
   init() {
+    this.pessoa.enderecos = [];
+    this.pessoa.contatos = [];
     this.endereco = {};
     this.contato = {};
     this.pessoa.tipo = 0;
@@ -77,6 +84,8 @@ export class PessoaUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
+    console.log(this.dataNascimento);
+    this.pessoa.dataNascimento = this.dataNascimento != null ? momentTz(this.dataNascimento) : null;
     if (this.pessoa.id !== undefined) {
       this.subscribeToSaveResponse(this.pessoaService.update(this.pessoa));
     } else {
