@@ -113,7 +113,7 @@
                     </div>
                 </div>
                 <!--Enderecos-->
-                <button type="button" id="cad-cancelar" class="btn btn-success" (click)="addEndereco()"
+                <button type="button" id="cad-cancelar" class="btn btn-success" (click)="enderecoCadButton()"
                     *ngIf="!isCadEndereco">
                     <fa-icon icon="plus"></fa-icon>&nbsp;<span>Cadastrar endereco</span>
                 </button>
@@ -185,7 +185,6 @@
                                             <span class="d-none d-xl-inline"
                                                 jhiTranslate="entity.action.edit">Editar</span>
                                         </button>
-
                                         <button type="button" class="btn btn-danger btn-sm"
                                             (click)="removeEndereco(idx)">
                                             <fa-icon icon="times"></fa-icon>
@@ -200,7 +199,7 @@
                 </div>
                 <!--Enderecos-->
                 <!--Contatos-->
-                <button type="button" id="cad-cancelar" class="btn btn-success" (click)="renderizarEndereco()"
+                <button type="button" id="cad-cancelar" class="btn btn-success" (click)="contatoCadButton()"
                     *ngIf="!isCadContato">
                     <fa-icon icon="plus"></fa-icon>&nbsp;<span>Cadastrar contato</span>
                 </button>
@@ -229,18 +228,12 @@
                         </div>
                         <div class="form-group">
                             <div class="form-row">
-                                <button type="button" id="add-contato" class="btn btn-success" (click)="addContato()"
-                                    *ngIf="isContatoInsert()">
-                                    <fa-icon icon="plus"></fa-icon>&nbsp;<span>Salvar contato</span>
+                                <button type="button" id="add-contato" class="btn btn-success" (click)="addContato()">
+                                    <fa-icon icon="plus"></fa-icon>&nbsp;<span>Salvar Contato</span>
                                 </button>
-                                <button id="cancel-contato" type="button" *ngIf="isContatoUpdate()"
-                                    class="btn btn-secondary" (click)="initAddContato()">
+                                <button id="cancel-contato" type="button" class="btn btn-secondary"
+                                    (click)="initAddContato()">
                                     <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
-                                </button>
-                                <button id="update-contato" *ngIf="isContatoUpdate()" type="button"
-                                    class="btn btn-success" (click)="updateContato()">
-                                    <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Alterar
-                                        Contato</span>
                                 </button>
                             </div>
                         </div>

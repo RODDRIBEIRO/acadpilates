@@ -14,6 +14,11 @@
                     <span *ngIf="pessoa.tipo==0">FÍSICA</span>
                     <span *ngIf="pessoa.tipo==1">JURÍDICA</span>
                 </dd>
+                <dt><span>Categoria</span></dt>
+                <dd>
+                    <span *ngIf="pessoa.categoria==0">CLIENTE</span>
+                    <span *ngIf="pessoa.categoria==1">FUNCIONÁRIO</span>
+                </dd>
                 <dt><span>Cpf Cnpj</span></dt>
                 <dd>
                     <span>{{pessoa.cpfCnpj}}</span>
@@ -24,7 +29,7 @@
                 </dd>
                 <dt><span>Data Cadastro</span></dt>
                 <dd>
-                    <span>{{pessoa.dataCadastro}}</span>
+                    <span>{{pessoa.dataCadastro | date:shortDate }}</span>
                 </dd>
                 <dt><span>Data Nascimento</span></dt>
                 <dd>
@@ -43,10 +48,6 @@
                 <dt><span>Situacao</span></dt>
                 <dd>
                     <span>{{pessoa.situacao}}</span>
-                </dd>
-                <dt><span>Categoria</span></dt>
-                <dd>
-                    <span>{{pessoa.categoria}}</span>
                 </dd>
             </dl>
 
