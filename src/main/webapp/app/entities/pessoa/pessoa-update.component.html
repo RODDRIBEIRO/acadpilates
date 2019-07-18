@@ -5,101 +5,111 @@
             <h2 id="jhi-pessoa-heading" *ngIf="pessoa.id">Editar Pessoa</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-row">
-                    <div class="form-group col-sm-6 col-md-4" *ngIf="pessoa.id">
-                        <label for="id">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" [(ngModel)]="pessoa.id" readonly />
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            <fa-icon [icon]="'search'"></fa-icon> Pesquisar Pessoa
+                        </strong>
                     </div>
-                    <div class="form-group col-sm-6 col-md-4" *ngIf="pessoa.id">
-                        <label class="form-control-label" for="field_dataCadastro">Data Cadastro</label>
-                        <div class="d-flex">
-                            <input id="field_dataCadastro" type="datetime-local" class="form-control"
-                                name="dataCadastro" [(ngModel)]="dataCadastro" readonly />
+                    <div class="card-body form-row">
+                        <div class="form-group col-sm-6 col-md-4" *ngIf="pessoa.id">
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="pessoa.id"
+                                readonly />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4" *ngIf="pessoa.id">
+                            <label class="form-control-label" for="field_dataCadastro">Data Cadastro</label>
+                            <div class="d-flex">
+                                <input id="field_dataCadastro" type="datetime-local" class="form-control"
+                                    name="dataCadastro" [(ngModel)]="dataCadastro" readonly />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_situacao">Situacao</label>
-                        <select class="form-control" id="field_situacao" name="situacao" [(ngModel)]="pessoa.situacao">
-                            <option value="true">ATIVO</option>
-                            <option value="false">INATIVO</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_tipo">Tipo</label>
-                        <select class="form-control" id="field_tipo" name="tipo"
-                            (ngModelChange)="changePessoaTipo($event)" [(ngModel)]="pessoa.tipo">
-                            <option value="0">FISICA</option>
-                            <option value="1">JURIDICA</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_categoria">Categoria</label>
-                        <select class="form-control" id="field_tipo" name="tipo" [(ngModel)]="pessoa.categoria">
-                            <option value="0">CLIENTE</option>
-                            <option value="1">FUNCIONARIO</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-sm-8">
-                        <label class="form-control-label" for="field_nome">
-                            <span *ngIf="pessoa.tipo==0">Nome</span>
-                            <span *ngIf="pessoa.tipo==1">Razão Social</span>
-                        </label>
-                        <input type="text" class="form-control" name="nome" id="field_nome" [(ngModel)]="pessoa.nome" />
-                    </div>
-                    <div class="form-group col-sm-4 col-md-4" *ngIf="pessoa.tipo==0">
-                        <label class="form-control-label" for="field_sexo">Sexo</label>
-                        <select class="form-control" id="field_sexo" name="sexo" [(ngModel)]="pessoa.sexo">
-                            <option value="0">MASCULINO</option>
-                            <option value="1">FEMININO</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-sm-12 col-md-4">
-                        <label class="form-control-label" for="field_cpfCnpj">
-                            <span *ngIf="pessoa.tipo==0">Cpf</span>
-                            <span *ngIf="pessoa.tipo==1">Cnpj</span>
-                        </label>
-                        <input type="text" class="form-control" name="Cpf" id="cpf" [(ngModel)]="pessoa.cpfCnpj"
-                            *ngIf="pessoa.tipo==0" placeholder="000.000.000-00" />
-                        <input type="text" class="form-control" name="Cnpj" id="cnpj" [(ngModel)]="pessoa.cpfCnpj"
-                            *ngIf="pessoa.tipo==1" placeholder="00.000.000/0000-00" />
-                    </div>
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_rgInscEst">
-                            <span *ngIf="pessoa.tipo==0">Rg</span>
-                            <span *ngIf="pessoa.tipo==1">Inscrição Estadual</span>
-                        </label>
-                        <input type="text" class="form-control" name="rgInscEst" id="field_rgInscEst"
-                            [(ngModel)]="pessoa.rgInscEst" />
-                    </div>
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_dataNascimento">Data Nascimento</label>
-                        <div class="d-flex">
-                            <input id="field_dataNascimento" type="date" class="form-control" name="dataNascimento"
-                                [(ngModel)]="dataNascimento" />
+                    <div class="form-row">
+                        <div class="form-group col-sm-6 col-md-4">
+                            <label class="form-control-label" for="field_situacao">Situacao</label>
+                            <select class="form-control" id="field_situacao" name="situacao"
+                                [(ngModel)]="pessoa.situacao">
+                                <option value="true">ATIVO</option>
+                                <option value="false">INATIVO</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4">
+                            <label class="form-control-label" for="field_tipo">Tipo</label>
+                            <select class="form-control" id="field_tipo" name="tipo"
+                                (ngModelChange)="changePessoaTipo($event)" [(ngModel)]="pessoa.tipo">
+                                <option value="0">FISICA</option>
+                                <option value="1">JURIDICA</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4">
+                            <label class="form-control-label" for="field_categoria">Categoria</label>
+                            <select class="form-control" id="field_tipo" name="tipo" [(ngModel)]="pessoa.categoria">
+                                <option value="0">CLIENTE</option>
+                                <option value="1">FUNCIONARIO</option>
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_foto">Foto</label>
-                    <div>
-                        <img [src]="'data:' + pessoa.fotoContentType + ';base64,' + pessoa.foto"
-                            style="max-height: 100px;" *ngIf="pessoa.foto" alt="cliente image" />
-                        <div *ngIf="pessoa.foto" class="form-text text-danger clearfix">
-                            <span class="pull-left">{{pessoa.fotoContentType}},
-                                {{byteSize(pessoa.foto)}}</span>
-                            <button type="button" (click)="clearInputImage('foto', 'fotoContentType', 'fileImage')"
-                                class="btn btn-secondary btn-xs pull-right">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                            </button>
+                    <div class="form-row">
+                        <div class="form-group col-sm-8">
+                            <label class="form-control-label" for="field_nome">
+                                <span *ngIf="pessoa.tipo==0">Nome</span>
+                                <span *ngIf="pessoa.tipo==1">Razão Social</span>
+                            </label>
+                            <input type="text" class="form-control" name="nome" id="field_nome"
+                                [(ngModel)]="pessoa.nome" />
                         </div>
-                        <input type="file" id="file_foto" (change)="setFileData($event, pessoa, 'foto', true)"
-                            accept="image/*" />
+                        <div class="form-group col-sm-4 col-md-4" *ngIf="pessoa.tipo==0">
+                            <label class="form-control-label" for="field_sexo">Sexo</label>
+                            <select class="form-control" id="field_sexo" name="sexo" [(ngModel)]="pessoa.sexo">
+                                <option value="0">MASCULINO</option>
+                                <option value="1">FEMININO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 col-md-4">
+                            <label class="form-control-label" for="field_cpfCnpj">
+                                <span *ngIf="pessoa.tipo==0">Cpf</span>
+                                <span *ngIf="pessoa.tipo==1">Cnpj</span>
+                            </label>
+                            <input type="text" class="form-control" name="Cpf" id="cpf" [(ngModel)]="pessoa.cpfCnpj"
+                                *ngIf="pessoa.tipo==0" placeholder="000.000.000-00" />
+                            <input type="text" class="form-control" name="Cnpj" id="cnpj" [(ngModel)]="pessoa.cpfCnpj"
+                                *ngIf="pessoa.tipo==1" placeholder="00.000.000/0000-00" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4">
+                            <label class="form-control-label" for="field_rgInscEst">
+                                <span *ngIf="pessoa.tipo==0">Rg</span>
+                                <span *ngIf="pessoa.tipo==1">Inscrição Estadual</span>
+                            </label>
+                            <input type="text" class="form-control" name="rgInscEst" id="field_rgInscEst"
+                                [(ngModel)]="pessoa.rgInscEst" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4">
+                            <label class="form-control-label" for="field_dataNascimento">Data Nascimento</label>
+                            <div class="d-flex">
+                                <input id="field_dataNascimento" type="date" class="form-control" name="dataNascimento"
+                                    [(ngModel)]="dataNascimento" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_foto">Foto</label>
+                        <div>
+                            <img [src]="'data:' + pessoa.fotoContentType + ';base64,' + pessoa.foto"
+                                style="max-height: 100px;" *ngIf="pessoa.foto" alt="cliente image" />
+                            <div *ngIf="pessoa.foto" class="form-text text-danger clearfix">
+                                <span class="pull-left">{{pessoa.fotoContentType}},
+                                    {{byteSize(pessoa.foto)}}</span>
+                                <button type="button" (click)="clearInputImage('foto', 'fotoContentType', 'fileImage')"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                </button>
+                            </div>
+                            <input type="file" id="file_foto" (change)="setFileData($event, pessoa, 'foto', true)"
+                                accept="image/*" />
+                        </div>
                     </div>
                 </div>
                 <!--Enderecos-->
@@ -140,6 +150,11 @@
                                 <button id="cancel-endereco" type="button" class="btn btn-secondary"
                                     (click)="initAddEndereco()">
                                     <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+                                </button>
+                                <button id="update-endereco" type="button" class="btn btn-success"
+                                    (click)="updateEndereco()">
+                                    <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Alterar
+                                        Endereco</span>
                                 </button>
                             </div>
                         </div>
