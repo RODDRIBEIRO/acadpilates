@@ -24,7 +24,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="tipo" type="integer">
+            <column name="tipo" type="boolean">
                 <constraints nullable="false" />
             </column>
 
@@ -36,6 +36,9 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="saldo" type="double">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
 
@@ -61,10 +64,11 @@
                   tableName="conta">
             <column name="id" type="numeric"/>
             <column name="descricao" type="string"/>
-            <column name="situacao" type="numeric"/>
+            <column name="situacao" type="boolean"/>
             <column name="tipo" type="numeric"/>
             <column name="numero_conta" type="string"/>
             <column name="agencia" type="string"/>
+            <column name="saldo" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>
