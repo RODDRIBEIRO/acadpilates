@@ -47,15 +47,15 @@ export class PessoaUpdateComponent implements OnInit {
       if (!this.pessoa.id) {
         this.pessoa.enderecos = [];
         this.pessoa.contatos = [];
+        this.pessoa.tipo = 0;
+        this.pessoa.categoria = 0;
+        this.pessoa.situacao = true;
       }
     });
   }
   init() {
     this.endereco = {};
     this.contato = {};
-    this.pessoa.tipo = 0;
-    this.pessoa.categoria = 0;
-    this.pessoa.situacao = true;
     this.dataNascimento = this.pessoa.dataNascimento ? this.pessoa.dataNascimento.format(DATE_FORMAT) : undefined;
     this.dataCadastro = this.pessoa.dataCadastro ? this.pessoa.dataCadastro.format(DATE_TIME_FORMAT) : undefined;
     this.isCadEndereco = false;
@@ -132,9 +132,19 @@ export class PessoaUpdateComponent implements OnInit {
     this.isCadContato = false;
   }
 
+  cancelarBtnEndereco() {
+    this.initAddEndereco();
+    this.isCadEndereco = false;
+  }
+
+  cancelarBtnContato() {
+    this.initAddContato();
+    this.isCadContato = false;
+  }
+
   initAddEndereco() {
     this.itemIndex = undefined;
-    this.endereco = new Endereco();
+    this.endereco = {};
   }
 
   initAddContato() {

@@ -23,6 +23,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'estado',
         loadChildren: './estado/estado.module#AcadpilatesEstadoModule'
+      },
+      {
+        path: 'conta',
+        loadChildren: './conta/conta.module#AcadpilatesContaModule'
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

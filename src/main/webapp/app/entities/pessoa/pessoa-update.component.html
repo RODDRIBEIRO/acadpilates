@@ -5,273 +5,302 @@
             <h2 id="jhi-pessoa-heading" *ngIf="pessoa.id">Editar Pessoa</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-row">
-                    <div class="form-group col-sm-6 col-md-4" *ngIf="pessoa.id">
-                        <label for="id">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" [(ngModel)]="pessoa.id" readonly />
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            <fa-icon [icon]="'search'"></fa-icon> Dados Principais
+                        </strong>
                     </div>
-                    <div class="form-group col-sm-6 col-md-4" *ngIf="pessoa.id">
-                        <label class="form-control-label" for="field_dataCadastro">Data Cadastro</label>
-                        <div class="d-flex">
-                            <input id="field_dataCadastro" type="datetime-local" class="form-control"
-                                name="dataCadastro" [(ngModel)]="dataCadastro" readonly />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_situacao">Situacao</label>
-                        <select class="form-control" id="field_situacao" name="situacao" [(ngModel)]="pessoa.situacao">
-                            <option value="true">ATIVO</option>
-                            <option value="false">INATIVO</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_tipo">Tipo</label>
-                        <select class="form-control" id="field_tipo" name="tipo"
-                            (ngModelChange)="changePessoaTipo($event)" [(ngModel)]="pessoa.tipo">
-                            <option value="0">FISICA</option>
-                            <option value="1">JURIDICA</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_categoria">Categoria</label>
-                        <select class="form-control" id="field_tipo" name="tipo" [(ngModel)]="pessoa.categoria">
-                            <option value="0">CLIENTE</option>
-                            <option value="1">FUNCIONARIO</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-sm-8">
-                        <label class="form-control-label" for="field_nome">
-                            <span *ngIf="pessoa.tipo==0">Nome</span>
-                            <span *ngIf="pessoa.tipo==1">Razão Social</span>
-                        </label>
-                        <input type="text" class="form-control" name="nome" id="field_nome" [(ngModel)]="pessoa.nome" />
-                    </div>
-                    <div class="form-group col-sm-4 col-md-4" *ngIf="pessoa.tipo==0">
-                        <label class="form-control-label" for="field_sexo">Sexo</label>
-                        <select class="form-control" id="field_sexo" name="sexo" [(ngModel)]="pessoa.sexo">
-                            <option value="0">MASCULINO</option>
-                            <option value="1">FEMININO</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-sm-12 col-md-4">
-                        <label class="form-control-label" for="field_cpfCnpj">
-                            <span *ngIf="pessoa.tipo==0">Cpf</span>
-                            <span *ngIf="pessoa.tipo==1">Cnpj</span>
-                        </label>
-                        <input type="text" class="form-control" name="Cpf" id="cpf" [(ngModel)]="pessoa.cpfCnpj"
-                            *ngIf="pessoa.tipo==0" placeholder="000.000.000-00" />
-                        <input type="text" class="form-control" name="Cnpj" id="cnpj" [(ngModel)]="pessoa.cpfCnpj"
-                            *ngIf="pessoa.tipo==1" placeholder="00.000.000/0000-00" />
-                    </div>
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_rgInscEst">
-                            <span *ngIf="pessoa.tipo==0">Rg</span>
-                            <span *ngIf="pessoa.tipo==1">Inscrição Estadual</span>
-                        </label>
-                        <input type="text" class="form-control" name="rgInscEst" id="field_rgInscEst"
-                            [(ngModel)]="pessoa.rgInscEst" />
-                    </div>
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label class="form-control-label" for="field_dataNascimento">Data Nascimento</label>
-                        <div class="d-flex">
-                            <input id="field_dataNascimento" type="date" class="form-control" name="dataNascimento"
-                                [(ngModel)]="dataNascimento" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_foto">Foto</label>
-                    <div>
-                        <img [src]="'data:' + pessoa.fotoContentType + ';base64,' + pessoa.foto"
-                            style="max-height: 100px;" *ngIf="pessoa.foto" alt="cliente image" />
-                        <div *ngIf="pessoa.foto" class="form-text text-danger clearfix">
-                            <span class="pull-left">{{pessoa.fotoContentType}},
-                                {{byteSize(pessoa.foto)}}</span>
-                            <button type="button" (click)="clearInputImage('foto', 'fotoContentType', 'fileImage')"
-                                class="btn btn-secondary btn-xs pull-right">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                            </button>
-                        </div>
-                        <input type="file" id="file_foto" (change)="setFileData($event, pessoa, 'foto', true)"
-                            accept="image/*" />
-                    </div>
-                </div>
-                <!--Enderecos-->
-                <button type="button" id="cad-cancelar" class="btn btn-success" (click)="enderecoCadButton()"
-                    *ngIf="!isCadEndereco">
-                    <fa-icon icon="plus"></fa-icon>&nbsp;<span>Cadastrar endereco</span>
-                </button>
-                <div class="form-group" *ngIf="isCadEndereco">
-                    <fieldset class="border p-2">
-                        <legend class="w-auto">Endereço</legend>
+                    <div class="form-group card-body ">
                         <div class="form-row">
-                            <div class="form-group col-sm-12 col-md-6">
-                                <label class="form-control-label" for="field_logradouro">Logradouro</label>
-                                <input class="form-control" type="text" name="logradouro" id="field_logradouro"
-                                    [(ngModel)]="endereco.logradouro" />
+                            <div class="form-group col-sm-6 col-md-4" *ngIf="pessoa.id">
+                                <label for="id">ID</label>
+                                <input type="text" class="form-control" id="id" name="id" [(ngModel)]="pessoa.id"
+                                    readonly />
                             </div>
+                            <div class="form-group col-sm-6 col-md-4" *ngIf="pessoa.id">
+                                <label class="form-control-label" for="field_dataCadastro">Data Cadastro</label>
+                                <div class="d-flex">
+                                    <input id="field_dataCadastro" type="datetime-local" class="form-control"
+                                        name="dataCadastro" [(ngModel)]="dataCadastro" readonly />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-sm-6 col-md-4">
-                                <label class="form-control-label" for="field_bairro">Bairro</label>
-                                <input class="form-control" type="text" name="bairro" id="field_bairro"
-                                    [(ngModel)]="endereco.bairro" />
-                            </div>
-                            <div class="form-group col-sm-6 col-md-2">
-                                <label class="form-control-label" for="field_numero">Número</label>
-                                <input class="form-control" type="text" name="numero" id="field_numero"
-                                    [(ngModel)]="endereco.numero" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" for="field_complemento">Complemento</label>
-                            <input class="form-control" type="text" name="complemento" id="field_complemento"
-                                [(ngModel)]="endereco.complemento" />
-                        </div>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <button type="button" id="add-endereco" class="btn btn-success" (click)="addEndereco()">
-                                    <fa-icon icon="plus"></fa-icon>&nbsp;<span>Salvar endereco</span>
-                                </button>
-                                <button id="cancel-endereco" type="button" class="btn btn-secondary"
-                                    (click)="initAddEndereco()">
-                                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
-                                </button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-
-                <div class="card-body table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Nº</th>
-                                <th>Logradouro</th>
-                                <th>Bairro</th>
-                                <th>Número</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of pessoa.enderecos; let idx = index">
-                                <td>{{idx}}</td>
-                                <td>{{item.logradouro}}</td>
-                                <td>{{item.bairro}}</td>
-                                <td>{{item.numero}}</td>
-                                <td class="text-right">
-                                    <div class="btn-group flex-btn-group-container">
-                                        <button type="button" class="btn btn-primary btn-sm"
-                                            (click)="initUpdateEndereco(item, idx)">
-                                            <fa-icon icon="pencil-alt"></fa-icon>
-                                            <span class="d-none d-xl-inline"
-                                                jhiTranslate="entity.action.edit">Editar</span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            (click)="removeEndereco(idx)">
-                                            <fa-icon icon="times"></fa-icon>
-                                            <span class="d-none d-xl-inline">Remover</span>
-                                        </button>
-                                    </div>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!--Enderecos-->
-                <!--Contatos-->
-                <button type="button" id="cad-cancelar" class="btn btn-success" (click)="contatoCadButton()"
-                    *ngIf="!isCadContato">
-                    <fa-icon icon="plus"></fa-icon>&nbsp;<span>Cadastrar contato</span>
-                </button>
-                <div class="form-group" *ngIf="isCadContato">
-                    <fieldset class="border p-2">
-                        <legend class="w-auto">Contato</legend>
-                        <div class="form-row">
-                            <div class="form-group col-sm-5">
-                                <label class="form-control-label" for="field_logradouro">Tipo</label>
-                                <select class="form-control" id="field_tipo" name="tipo" [(ngModel)]="contato.tipo">
-                                    <option value="0">CELULAR</option>
-                                    <option value="1">RESIDENCIAL</option>
-                                    <option value="2">COMERCIAL</option>
+                                <label class="form-control-label" for="field_situacao">Situacao</label>
+                                <select class="form-control" id="field_situacao" name="situacao"
+                                    [(ngModel)]="pessoa.situacao">
+                                    <option value="true">ATIVO</option>
+                                    <option value="false">INATIVO</option>
                                 </select>
                             </div>
-                            <div class="form-group col-sm-6 col-md-6">
-                                <label class="form-control-label" for="field_numero">Número</label>
-                                <input class="form-control" type="text" name="numero" id="field_numero"
-                                    [(ngModel)]="contato.numero" />
+                            <div class="form-group col-sm-6 col-md-4">
+                                <label class="form-control-label" for="field_tipo">Tipo</label>
+                                <select class="form-control" id="field_tipo" name="tipo"
+                                    (ngModelChange)="changePessoaTipo($event)" [(ngModel)]="pessoa.tipo">
+                                    <option value="0">FISICA</option>
+                                    <option value="1">JURIDICA</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label class="form-control-label" for="field_principal">Principal</label>
-                                <input type="checkbox" class="form-control" name="principal" id="field_principal"
-                                    [(ngModel)]="contato.principal" />
+                            <div class="form-group col-sm-6 col-md-4">
+                                <label class="form-control-label" for="field_categoria">Categoria</label>
+                                <select class="form-control" id="field_tipo" name="tipo" [(ngModel)]="pessoa.categoria">
+                                    <option value="0">CLIENTE</option>
+                                    <option value="1">FUNCIONARIO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-8">
+                                <label class="form-control-label" for="field_nome">
+                                    <span *ngIf="pessoa.tipo==0">Nome</span>
+                                    <span *ngIf="pessoa.tipo==1">Razão Social</span>
+                                </label>
+                                <input type="text" class="form-control" name="nome" id="field_nome"
+                                    [(ngModel)]="pessoa.nome" />
+                            </div>
+                            <div class="form-group col-sm-4 col-md-4" *ngIf="pessoa.tipo==0">
+                                <label class="form-control-label" for="field_sexo">Sexo</label>
+                                <select class="form-control" id="field_sexo" name="sexo" [(ngModel)]="pessoa.sexo">
+                                    <option value="0">MASCULINO</option>
+                                    <option value="1">FEMININO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 col-md-4">
+                                <label class="form-control-label" for="field_cpfCnpj">
+                                    <span *ngIf="pessoa.tipo==0">Cpf</span>
+                                    <span *ngIf="pessoa.tipo==1">Cnpj</span>
+                                </label>
+                                <input type="text" class="form-control" name="Cpf" id="cpf" [(ngModel)]="pessoa.cpfCnpj"
+                                    *ngIf="pessoa.tipo==0" placeholder="000.000.000-00" />
+                                <input type="text" class="form-control" name="Cnpj" id="cnpj"
+                                    [(ngModel)]="pessoa.cpfCnpj" *ngIf="pessoa.tipo==1"
+                                    placeholder="00.000.000/0000-00" />
+                            </div>
+                            <div class="form-group col-sm-6 col-md-4">
+                                <label class="form-control-label" for="field_rgInscEst">
+                                    <span *ngIf="pessoa.tipo==0">Rg</span>
+                                    <span *ngIf="pessoa.tipo==1">Inscrição Estadual</span>
+                                </label>
+                                <input type="text" class="form-control" name="rgInscEst" id="field_rgInscEst"
+                                    [(ngModel)]="pessoa.rgInscEst" />
+                            </div>
+                            <div class="form-group col-sm-6 col-md-4">
+                                <label class="form-control-label" for="field_dataNascimento">Data Nascimento</label>
+                                <div class="d-flex">
+                                    <input id="field_dataNascimento" type="date" class="form-control"
+                                        name="dataNascimento" [(ngModel)]="dataNascimento" />
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="form-row">
-                                <button type="button" id="add-contato" class="btn btn-success" (click)="addContato()">
-                                    <fa-icon icon="plus"></fa-icon>&nbsp;<span>Salvar Contato</span>
-                                </button>
-                                <button id="cancel-contato" type="button" class="btn btn-secondary"
-                                    (click)="initAddContato()">
-                                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
-                                </button>
+                            <label class="form-control-label" for="field_foto">Foto</label>
+                            <div>
+                                <img [src]="'data:' + pessoa.fotoContentType + ';base64,' + pessoa.foto"
+                                    style="max-height: 100px;" *ngIf="pessoa.foto" alt="cliente image" />
+                                <div *ngIf="pessoa.foto" class="form-text text-danger clearfix">
+                                    <span class="pull-left">{{pessoa.fotoContentType}},
+                                        {{byteSize(pessoa.foto)}}</span>
+                                    <button type="button"
+                                        (click)="clearInputImage('foto', 'fotoContentType', 'fileImage')"
+                                        class="btn btn-secondary btn-xs pull-right">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                    </button>
+                                </div>
+                                <input type="file" id="file_foto" (change)="setFileData($event, pessoa, 'foto', true)"
+                                    accept="image/*" />
                             </div>
                         </div>
-                    </fieldset>
+                    </div>
                 </div>
+                </br>
+                <!--Enderecos-->
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            <fa-icon icon="address-book"></fa-icon> Endereços
+                        </strong>
+                    </div>
+                    <div class="card-body">
+                        <button type="button" id="cad-cancelar" class="btn btn-success" (click)="enderecoCadButton()"
+                            *ngIf="!isCadEndereco">
+                            <fa-icon icon="plus"></fa-icon>&nbsp;<span>Novo</span>
+                        </button>
+                        <div class="form-group" *ngIf="isCadEndereco">
+                            <div class="form-row">
+                                <div class="form-group col-sm-12 col-md-6">
+                                    <label class="form-control-label" for="field_logradouro">Logradouro</label>
+                                    <input class="form-control" type="text" name="logradouro" id="field_logradouro"
+                                        [(ngModel)]="endereco.logradouro" />
+                                </div>
+                                <div class="form-group col-sm-6 col-md-4">
+                                    <label class="form-control-label" for="field_bairro">Bairro</label>
+                                    <input class="form-control" type="text" name="bairro" id="field_bairro"
+                                        [(ngModel)]="endereco.bairro" />
+                                </div>
+                                <div class="form-group col-sm-6 col-md-2">
+                                    <label class="form-control-label" for="field_numero">Número</label>
+                                    <input class="form-control" type="text" name="numero" id="field_numero"
+                                        [(ngModel)]="endereco.numero" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="field_complemento">Complemento</label>
+                                <input class="form-control" type="text" name="complemento" id="field_complemento"
+                                    [(ngModel)]="endereco.complemento" />
+                            </div>
+                            <div class="form-group">
+                                <div class="form-row">
+                                    <button type="button" id="add-endereco" class="btn btn-success"
+                                        (click)="addEndereco()">
+                                        <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar endereco</span>
+                                    </button>
+                                    <button id="cancel-endereco" type="button" class="btn btn-secondary"
+                                        (click)="cancelarBtnEndereco()">
+                                        <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nº</th>
+                                        <th>Logradouro</th>
+                                        <th>Bairro</th>
+                                        <th>Número</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of pessoa.enderecos; let idx = index">
+                                        <td>{{idx}}</td>
+                                        <td>{{item.logradouro}}</td>
+                                        <td>{{item.bairro}}</td>
+                                        <td>{{item.numero}}</td>
+                                        <td class="text-right">
+                                            <div class="btn-group flex-btn-group-container">
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    (click)="initUpdateEndereco(item, idx)">
+                                                    <fa-icon icon="pencil-alt"></fa-icon>
+                                                    <span class="d-none d-xl-inline"
+                                                        jhiTranslate="entity.action.edit">Editar</span>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                    (click)="removeEndereco(idx)">
+                                                    <fa-icon icon="times"></fa-icon>
+                                                    <span class="d-none d-xl-inline">Remover</span>
+                                                </button>
+                                            </div>
+                                        </td>
 
-                <div class="card-body table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Nº</th>
-                                <th>Tipo</th>
-                                <th>Número</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of pessoa.contatos; let idx = index">
-                                <td>{{idx + 1}}</td>
-                                <td>{{item.tipo}}</td>
-                                <td>{{item.numero}}</td>
-                                <td class="text-right">
-                                    <div class="btn-group flex-btn-group-container">
-                                        <button type="button" class="btn btn-primary btn-sm"
-                                            (click)="initUpdateContato(item, idx)">
-                                            <fa-icon icon="pencil-alt"></fa-icon>
-                                            <span class="d-none d-xl-inline"
-                                                jhiTranslate="entity.action.edit">Editar</span>
-                                        </button>
-
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                            (click)="removeContato(idx)">
-                                            <fa-icon icon="times"></fa-icon>
-                                            <span class="d-none d-xl-inline">Remover</span>
-                                        </button>
-                                    </div>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+                </br>
+                <!--Enderecos-->
                 <!--Contatos-->
-            </div>
-            <div>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
-                    class="btn btn-success" title="Salvar Alterações">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
-                </button>
-                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()"
-                    title="Cancelar Alterações">
-                    <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
-                </button>
-            </div>
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            <fa-icon icon="phone"></fa-icon> Contatos
+                        </strong>
+                    </div>
+                    <div class="card-body">
+                        <button type="button" id="cad-cancelar" class="btn btn-success" (click)="contatoCadButton()"
+                            *ngIf="!isCadContato">
+                            <fa-icon icon="plus"></fa-icon>&nbsp;<span>Novo</span>
+                        </button>
+                        <div class="form-group" *ngIf="isCadContato">
+                            <div class="form-row">
+                                <div class="form-group col-sm-5">
+                                    <label class="form-control-label" for="field_logradouro">Tipo</label>
+                                    <select class="form-control" id="field_tipo" name="tipo" [(ngModel)]="contato.tipo">
+                                        <option value="0">CELULAR</option>
+                                        <option value="1">RESIDENCIAL</option>
+                                        <option value="2">COMERCIAL</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6 col-md-6">
+                                    <label class="form-control-label" for="field_numero">Número</label>
+                                    <input class="form-control" type="text" name="numero" id="field_numero"
+                                        [(ngModel)]="contato.numero" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_principal">Principal</label>
+                                    <input type="checkbox" class="form-control" name="principal" id="field_principal"
+                                        [(ngModel)]="contato.principal" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-row">
+                                    <button type="button" id="add-contato" class="btn btn-success"
+                                        (click)="addContato()">
+                                        <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar Contato</span>
+                                    </button>
+                                    <button id="cancel-contato" type="button" class="btn btn-secondary"
+                                        (click)="cancelarBtnContato()">
+                                        <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nº</th>
+                                        <th>Tipo</th>
+                                        <th>Número</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of pessoa.contatos; let idx = index">
+                                        <td>{{idx + 1}}</td>
+                                        <td>{{item.tipo}}</td>
+                                        <td>{{item.numero}}</td>
+                                        <td class="text-right">
+                                            <div class="btn-group flex-btn-group-container">
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    (click)="initUpdateContato(item, idx)">
+                                                    <fa-icon icon="pencil-alt"></fa-icon>
+                                                    <span class="d-none d-xl-inline"
+                                                        jhiTranslate="entity.action.edit">Editar</span>
+                                                </button>
+
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                    (click)="removeContato(idx)">
+                                                    <fa-icon icon="times"></fa-icon>
+                                                    <span class="d-none d-xl-inline">Remover</span>
+                                                </button>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </br>
+                <!--Contatos-->
+                <div>
+                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                        class="btn btn-success" title="Salvar Alterações">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+                    </button>
+                    <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()"
+                        title="Cancelar Alterações">
+                        <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span
+                            jhiTranslate="entity.action.cancel">Cancelar</span>
+                    </button>
+                </div>
         </form>
     </div>
 </div>
