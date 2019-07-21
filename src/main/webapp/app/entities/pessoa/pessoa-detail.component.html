@@ -19,19 +19,25 @@
                     <span *ngIf="pessoa.categoria==0">CLIENTE</span>
                     <span *ngIf="pessoa.categoria==1">FUNCIONÁRIO</span>
                 </dd>
-                <dt><span>Cpf Cnpj</span></dt>
+                <dt>
+                    <span *ngIf="pessoa.tipo==0">CPF</span>
+                    <span *ngIf="pessoa.tipo==1">CNPJ</span>
+                </dt>
                 <dd>
                     <span>{{pessoa.cpfCnpj}}</span>
                 </dd>
-                <dt><span>Rg Insc Est</span></dt>
+                <dt>
+                    <span *ngIf="pessoa.tipo==0">RG</span>
+                    <span *ngIf="pessoa.tipo==1">Inscrição Estadual</span>
+                </dt>
                 <dd>
                     <span>{{pessoa.rgInscEst}}</span>
                 </dd>
-                <dt><span>Data Cadastro</span></dt>
+                <dt><span>Data de Cadastro</span></dt>
                 <dd>
                     <span>{{pessoa.dataCadastro | date:shortDate }}</span>
                 </dd>
-                <dt><span>Data Nascimento</span></dt>
+                <dt><span>Data de Nascimento</span></dt>
                 <dd>
                     <span>{{ pessoa.dataNascimento | date:shortDate }}</span>
                 </dd>
@@ -42,12 +48,13 @@
                             <img [src]="'data:' + pessoa.fotoContentType + ';base64,' + pessoa.foto"
                                 style="max-width: 100%;" alt="pessoa image" />
                         </a>
-                        {{pessoa.fotoContentType}}, {{byteSize(pessoa.foto)}}
+                        <!--{{pessoa.fotoContentType}}, {{byteSize(pessoa.foto)}}-->
                     </div>
                 </dd>
-                <dt><span>Situacao</span></dt>
+                <dt><span>Situação</span></dt>
                 <dd>
-                    <span>{{pessoa.situacao}}</span>
+                    <span *ngIf="pessoa.situacao==true">Ativo</span>
+                    <span *ngIf="pessoa.situacao==false">Inativo</span>
                 </dd>
             </dl>
 

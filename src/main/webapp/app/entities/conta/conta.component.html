@@ -3,19 +3,19 @@
     <div class="card">
         <div class="card-header">
             <strong>
-                <fa-icon [icon]="'search'"></fa-icon> Pesquisar Pessoa
+                <fa-icon [icon]="'search'"></fa-icon> Pesquisar Conta
             </strong>
         </div>
         <div class="card-body">
             <div class="form-row">
                 <div class="form-group col-md-1">
-                    <label class="form-control-label" for="currentSearch-nome">
-                        <span class="hidden-sm-down">Nome</span>
+                    <label class="form-control-label" for="currentSearch-descricao">
+                        <span class="hidden-sm-down">Descricao</span>
                     </label>
                 </div>
                 <div class="form-group col-md-8">
-                    <input class="form-control" [(ngModel)]="currentSearch.nome" id="currentSearch-nome"
-                        name="currentSearch-nome" type="text" Placeholder="Pesquisar por Nome" />
+                    <input class="form-control" [(ngModel)]="currentSearch.descricao" id="currentSearch-descricao"
+                        name="currentSearch-descricao" type="text" Placeholder="Pesquisar por descricao" />
                 </div>
             </div>
             <div class="form-row">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <button id="btnGerar" class="btn btn-success jh-create-entity create-box mb-1"
-                        [routerLink]="['/pessoa/new']" title="Criar Nova Pessoa">
+                        [routerLink]="['/conta/new']" title="Criar Nova Conta">
                         <fa-icon [icon]="'plus'" class="direita10"></fa-icon>
                         <span class="hidden-sm-down">Novo</span>
                     </button>
@@ -43,26 +43,26 @@
         </div>
     </div>
     <br />
-    <div class="alert alert-warning" *ngIf="pessoas?.length === 0">
-        <span>Nenhuma Pessoa encontrada</span>
+    <div class="alert alert-warning" *ngIf="contas?.length === 0">
+        <span>Nenhuma Conta encontrada</span>
     </div>
-    <div class="table-responsive" *ngIf="pessoas?.length > 0">
+    <div class="table-responsive" *ngIf="contas?.length > 0">
         <table class="table table-striped">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                     <th jhiSortBy="id"><span>ID</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="nome"><span>Nome</span>
+                    <th jhiSortBy="descricao"><span>Descricao</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
                     <th jhiSortBy="tipo"><span>Tipo</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="cpfCnpj"><span>Cpf Cnpj</span>
+                    <th jhiSortBy="numeroConta"><span>Nº da Conta</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="categoria"><span>Categoria</span>
+                    <th jhiSortBy="agencia"><span>Agencia</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
                     <th jhiSortBy="situacao"><span>Situacao</span>
@@ -72,36 +72,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let pessoa of pessoas ;trackBy: trackId">
-                    <td><a [routerLink]="['/pessoa', pessoa.id, 'view' ]">{{pessoa.id}}</a></td>
-                    <td>{{pessoa.nome}}</td>
+                <tr *ngFor="let conta of contas ;trackBy: trackId">
+                    <td><a [routerLink]="['/conta', conta.id, 'view' ]">{{conta.id}}</a></td>
+                    <td>{{conta.descricao}}</td>
                     <td>
-                        <span *ngIf="pessoa.tipo==0">FÍSICA</span>
-                        <span *ngIf="pessoa.tipo==1">JURÍDICA</span>
+                        <span *ngIf="conta.tipo==0">Corrente</span>
+                        <span *ngIf="conta.tipo==1">Poupança</span>
                     </td>
-                    <td>{{pessoa.cpfCnpj}}</td>
+                    <td>{{conta.numeroConta}}</td>
+                    <td>{{conta.agencia}}</td>
                     <td>
-                        <span *ngIf="pessoa.categoria==0">Cliente</span>
-                        <span *ngIf="pessoa.categoria==1">Funcionário</span>
-                    </td>
-                    <td>
-                        <span *ngIf="pessoa.situacao==true">Ativo</span>
-                        <span *ngIf="pessoa.situacao==false">Inativo</span>
+                        <span *ngIf="conta.situacao==true">Ativo</span>
+                        <span *ngIf="conta.situacao==false">Inativo</span>
                     </td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <button type="submit" [routerLink]="['/pessoa', pessoa.id, 'view' ]"
+                            <button type="submit" [routerLink]="['/conta', conta.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                                 <fa-icon [icon]="'eye'"></fa-icon>
                                 <span class="d-none d-md-inline">Visualizar</span>
                             </button>
-                            <button type="submit" [routerLink]="['/pessoa', pessoa.id, 'edit']"
+                            <button type="submit" [routerLink]="['/conta', conta.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                                 <fa-icon [icon]="'pencil-alt'"></fa-icon>
                                 <span class="d-none d-md-inline">Editar</span>
                             </button>
                             <button type="submit"
-                                [routerLink]="['/', 'pessoa', { outlets: { popup: pessoa.id + '/delete'} }]"
+                                [routerLink]="['/', 'conta', { outlets: { popup: conta.id + '/delete'} }]"
                                 replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
                                 <fa-icon [icon]="'times'"></fa-icon>
                                 <span class="d-none d-md-inline">Excluir</span>
@@ -112,7 +109,7 @@
             </tbody>
         </table>
     </div>
-    <div [hidden]="pessoas?.length === 0">
+    <div [hidden]="contas?.length === 0">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage">
             </jhi-item-count>

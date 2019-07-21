@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-conta-heading" *ngIf="!conta.id">Cadastrar Conta de Movimento</h2>
+            <h2 id="jhi-conta-heading" *ngIf="conta.id">Editar Conta de Movimento</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group card">
+                    <div class="card-header">
+                        <strong>
+                            <fa-icon [icon]="'search'"></fa-icon> Dados da Conta
+                        </strong>
+                    </div>
+                    <div class="form-group card-body ">
+                        <div class="form-group" *ngIf="conta.id">
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control col-md-4" id="id" name="id" [(ngModel)]="conta.id"
+                                readonly />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6 col-md-4">
+                                <label class="form-control-label" for="field_situacao">Situacao</label>
+                                <select class="form-control" id="field_situacao" name="situacao"
+                                    [(ngModel)]="conta.situacao">
+                                    <option value="true">ATIVO</option>
+                                    <option value="false">INATIVO</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6 col-md-4">
+                                <label class="form-control-label" for="field_tipo">Tipo</label>
+                                <select class="form-control" id="field_tipo" name="tipo" [(ngModel)]="conta.tipo">
+                                    <option value="0">CORRENTE</option>
+                                    <option value="1">POUPANÇA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_descricao">Descricao</label>
+                            <input type="text" class="form-control col-md-8" name="descricao" id="field_descricao"
+                                [(ngModel)]="conta.descricao" />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6 col-md-4">
+                                <label class="form-control-label" for="field_numeroConta">Numero Conta</label>
+                                <input type="text" class="form-control" name="numeroConta"
+                                    id="field_numeroConta" [(ngModel)]="conta.numeroConta" />
+                            </div>
+                            <div class="form-group col-sm-6 col-md-4">
+                                <label class="form-control-label" for="field_agencia">Agencia</label>
+                                <input type="text" class="form-control" name="agencia"
+                                    id="field_agencia" [(ngModel)]="conta.agencia" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                        class="btn btn-success">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Salvar</span>
+                    </button>
+                    <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancelar</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

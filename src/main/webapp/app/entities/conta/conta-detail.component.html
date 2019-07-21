@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="conta">
+            <h2><span>Conta</span> {{conta.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Descrição</span></dt>
+                <dd>
+                    <span>{{conta.descricao}}</span>
+                </dd>
+                <dt><span>Tipo</span></dt>
+                <dd>
+                    <span *ngIf="conta.tipo==0">Corrente</span>
+                    <span *ngIf="conta.tipo==1">Poupança</span>
+                </dd>
+                <dt><span>Nº da Conta</span></dt>
+                <dd>
+                    <span>{{conta.numeroConta}}</span>
+                </dd>
+                <dt><span>Agência</span></dt>
+                <dd>
+                    <span>{{conta.agencia}}</span>
+                </dd>
+                <dt><span>Situação</span></dt>
+                <dd>
+                    <span *ngIf="conta.situacao==true">Ativo</span>
+                    <span *ngIf="conta.situacao==false">Inativo</span>
+                </dd>
+            </dl>
+
+            <button type="submit" (click)="previousState()" class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button" [routerLink]="['/conta', conta.id, 'edit']" class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
