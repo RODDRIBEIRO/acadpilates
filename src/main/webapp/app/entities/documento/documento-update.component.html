@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-documento-heading" *ngIf="!documento.id">Cadastrar Documento</h2>
+            <h2 id="jhi-documento-heading" *ngIf="documento.id">Editar Documento</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group card">
+                    <div class="card-header">
+                        <strong>
+                            <fa-icon [icon]="'address-card'"></fa-icon> Dados do Documento
+                        </strong>
+                    </div>
+                    <div class="form-group card-body">
+                        <div class="form-group col-md-2" *ngIf="documento.id">
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="documento.id"
+                                readonly />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="form-control-label" for="field_descricao">Descricao</label>
+                            <input type="text" class="form-control" name="descricao" id="field_descricao"
+                                [(ngModel)]="documento.descricao" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="form-control-label" for="field_situacao">Situacao</label>
+                            <select class="form-control" id="field_situacao" name="situacao"
+                                [(ngModel)]="documento.situacao">
+                                <option value="true">ATIVO</option>
+                                <option value="false">INATIVO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                    class="btn btn-success">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Salvar</span>
+                </button>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancelar</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

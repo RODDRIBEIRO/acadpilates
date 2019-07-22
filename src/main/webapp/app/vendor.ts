@@ -41,6 +41,7 @@ import {
   faTasks,
   faHome,
   faAddressBook,
+  faAddressCard,
   faPhone
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -80,6 +81,7 @@ library.add(faSearch);
 library.add(faTrashAlt);
 library.add(faAsterisk);
 library.add(faAddressBook);
+library.add(faAddressCard);
 library.add(faPhone);
 
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here
