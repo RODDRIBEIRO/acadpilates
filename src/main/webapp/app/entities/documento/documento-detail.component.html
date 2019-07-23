@@ -1,0 +1,28 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="documento">
+            <h2><span>Documento</span> {{documento.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Descrição</span></dt>
+                <dd>
+                    <span>{{documento.descricao}}</span>
+                </dd>
+                <dt><span>Situação</span></dt>
+                <dd>
+                    <span *ngIf="documento.situacao==true">Ativo</span>
+                    <span *ngIf="documento.situacao==false">Inativo</span>
+                </dd>
+            </dl>
+
+            <button type="submit" (click)="previousState()" class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span>Voltar</span>
+            </button>
+
+            <button type="button" [routerLink]="['/documento', documento.id, 'edit']" class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span>Editar</span>
+            </button>
+        </div>
+    </div>
+</div>

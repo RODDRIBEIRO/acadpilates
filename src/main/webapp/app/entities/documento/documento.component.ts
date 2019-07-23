@@ -1,20 +1,24 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccountService } from 'app/core';
-import { castToObject, castToQuery, ITEMS_PER_PAGE } from 'app/shared';
-import { Conta, IConta } from 'app/shared/model/conta.model';
-import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
-import { ContaService } from './conta.service';
+import { filter, map } from 'rxjs/operators';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+
+import { IDocumento, Documento } from 'app/shared/model/documento.model';
+import { AccountService } from 'app/core';
+
+import { ITEMS_PER_PAGE, castToObject, castToQuery } from 'app/shared';
+import { DocumentoService } from './documento.service';
+import { IPessoa } from 'app/shared/model/pessoa.model';
 
 @Component({
-  selector: 'jhi-conta',
-  templateUrl: './conta.component.html'
+  selector: 'jhi-documento',
+  templateUrl: './documento.component.html'
 })
-export class ContaComponent implements OnInit, OnDestroy {
+export class DocumentoComponent implements OnInit, OnDestroy {
   currentAccount: any;
-  contas: IConta[];
+  documentos: IDocumento[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -26,11 +30,11 @@ export class ContaComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
-  currentSearch: IConta;
+  currentSearch: IDocumento;
   queryCount: any;
 
   constructor(
-    protected contaService: ContaService,
+    protected documentoService: DocumentoService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
     protected accountService: AccountService,
@@ -50,7 +54,7 @@ export class ContaComponent implements OnInit, OnDestroy {
 
   loadAll() {
     if (this.currentSearch) {
-      this.contaService
+      this.documentoService
         .search({
           page: this.page - 1,
           query: this.currentSearch,
@@ -58,19 +62,19 @@ export class ContaComponent implements OnInit, OnDestroy {
           sort: this.sort()
         })
         .subscribe(
-          (res: HttpResponse<IConta[]>) => this.paginateContas(res.body, res.headers),
+          (res: HttpResponse<IDocumento[]>) => this.paginateDocumentos(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
       return;
     }
-    this.contaService
+    this.documentoService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<IConta[]>) => this.paginateContas(res.body, res.headers),
+        (res: HttpResponse<IPessoa[]>) => this.paginateDocumentos(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -83,7 +87,7 @@ export class ContaComponent implements OnInit, OnDestroy {
   }
 
   transition() {
-    this.router.navigate(['/conta'], {
+    this.router.navigate(['/documento'], {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
@@ -95,9 +99,9 @@ export class ContaComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
-    this.currentSearch = new Conta();
+    this.currentSearch = new Documento();
     this.router.navigate([
-      '/conta',
+      '/documento',
       {
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -113,7 +117,7 @@ export class ContaComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.currentSearch = query;
     this.router.navigate([
-      '/conta',
+      '/documento',
       castToQuery({
         search: this.currentSearch,
         page: this.page,
@@ -128,19 +132,19 @@ export class ContaComponent implements OnInit, OnDestroy {
     this.accountService.identity().then(account => {
       this.currentAccount = account;
     });
-    this.registerChangeInContas();
+    this.registerChangeInDocumentos();
   }
 
   ngOnDestroy() {
     this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: IConta) {
+  trackId(index: number, item: IDocumento) {
     return item.id;
   }
 
-  registerChangeInContas() {
-    this.eventSubscriber = this.eventManager.subscribe('contaListModification', response => this.loadAll());
+  registerChangeInDocumentos() {
+    this.eventSubscriber = this.eventManager.subscribe('documentoListModification', response => this.loadAll());
   }
 
   sort() {
@@ -151,10 +155,10 @@ export class ContaComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateContas(data: IConta[], headers: HttpHeaders) {
+  protected paginateDocumentos(data: IDocumento[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.contas = data;
+    this.documentos = data;
   }
 
   protected onError(errorMessage: string) {

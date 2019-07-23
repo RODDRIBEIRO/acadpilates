@@ -1,20 +1,23 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccountService } from 'app/core';
-import { castToObject, castToQuery, ITEMS_PER_PAGE } from 'app/shared';
-import { Conta, IConta } from 'app/shared/model/conta.model';
-import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
-import { ContaService } from './conta.service';
+import { filter, map } from 'rxjs/operators';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+
+import { ICentroCusto, CentroCusto } from 'app/shared/model/centro-custo.model';
+import { AccountService } from 'app/core';
+
+import { castToObject, castToQuery, ITEMS_PER_PAGE } from 'app/shared';
+import { CentroCustoService } from './centro-custo.service';
 
 @Component({
-  selector: 'jhi-conta',
-  templateUrl: './conta.component.html'
+  selector: 'jhi-centro-custo',
+  templateUrl: './centro-custo.component.html'
 })
-export class ContaComponent implements OnInit, OnDestroy {
+export class CentroCustoComponent implements OnInit, OnDestroy {
   currentAccount: any;
-  contas: IConta[];
+  centroCustos: ICentroCusto[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -26,11 +29,11 @@ export class ContaComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
-  currentSearch: IConta;
+  currentSearch: ICentroCusto;
   queryCount: any;
 
   constructor(
-    protected contaService: ContaService,
+    protected centroCustoService: CentroCustoService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
     protected accountService: AccountService,
@@ -50,7 +53,7 @@ export class ContaComponent implements OnInit, OnDestroy {
 
   loadAll() {
     if (this.currentSearch) {
-      this.contaService
+      this.centroCustoService
         .search({
           page: this.page - 1,
           query: this.currentSearch,
@@ -58,19 +61,19 @@ export class ContaComponent implements OnInit, OnDestroy {
           sort: this.sort()
         })
         .subscribe(
-          (res: HttpResponse<IConta[]>) => this.paginateContas(res.body, res.headers),
+          (res: HttpResponse<ICentroCusto[]>) => this.paginateCentroCustos(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
       return;
     }
-    this.contaService
+    this.centroCustoService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<IConta[]>) => this.paginateContas(res.body, res.headers),
+        (res: HttpResponse<ICentroCusto[]>) => this.paginateCentroCustos(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -83,7 +86,7 @@ export class ContaComponent implements OnInit, OnDestroy {
   }
 
   transition() {
-    this.router.navigate(['/conta'], {
+    this.router.navigate(['/centro-custo'], {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
@@ -95,9 +98,9 @@ export class ContaComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
-    this.currentSearch = new Conta();
+    this.currentSearch = new CentroCusto();
     this.router.navigate([
-      '/conta',
+      '/centro-custo',
       {
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -113,7 +116,7 @@ export class ContaComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.currentSearch = query;
     this.router.navigate([
-      '/conta',
+      '/centro-custo',
       castToQuery({
         search: this.currentSearch,
         page: this.page,
@@ -128,19 +131,19 @@ export class ContaComponent implements OnInit, OnDestroy {
     this.accountService.identity().then(account => {
       this.currentAccount = account;
     });
-    this.registerChangeInContas();
+    this.registerChangeInCentroCustos();
   }
 
   ngOnDestroy() {
     this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: IConta) {
+  trackId(index: number, item: ICentroCusto) {
     return item.id;
   }
 
-  registerChangeInContas() {
-    this.eventSubscriber = this.eventManager.subscribe('contaListModification', response => this.loadAll());
+  registerChangeInCentroCustos() {
+    this.eventSubscriber = this.eventManager.subscribe('centroCustoListModification', response => this.loadAll());
   }
 
   sort() {
@@ -151,10 +154,10 @@ export class ContaComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateContas(data: IConta[], headers: HttpHeaders) {
+  protected paginateCentroCustos(data: ICentroCusto[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.contas = data;
+    this.centroCustos = data;
   }
 
   protected onError(errorMessage: string) {

@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-header">
                         <strong>
-                            <fa-icon [icon]="'search'"></fa-icon> Dados Principais
+                            <fa-icon [icon]="'address-card'"></fa-icon> Dados Principais
                         </strong>
                     </div>
                     <div class="form-group card-body ">
@@ -125,7 +125,7 @@
                         </strong>
                     </div>
                     <div class="card-body">
-                        <button type="button" id="cad-cancelar" class="btn btn-success" (click)="enderecoCadButton()"
+                        <button type="button" id="cad-cancelar" class="btn btn-primary" (click)="enderecoCadButton()"
                             *ngIf="!isCadEndereco">
                             <fa-icon icon="plus"></fa-icon>&nbsp;<span>Novo</span>
                         </button>
@@ -154,7 +154,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="form-row">
-                                    <button type="button" id="add-endereco" class="btn btn-success"
+                                    <button type="button" id="add-endereco" class="btn btn-primary"
                                         (click)="addEndereco()">
                                         <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar endereco</span>
                                     </button>
@@ -177,7 +177,7 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of pessoa.enderecos; let idx = index">
-                                        <td>{{idx}}</td>
+                                        <td>{{idx + 1}}</td>
                                         <td>{{item.logradouro}}</td>
                                         <td>{{item.bairro}}</td>
                                         <td>{{item.numero}}</td>
@@ -213,7 +213,7 @@
                         </strong>
                     </div>
                     <div class="card-body">
-                        <button type="button" id="cad-cancelar" class="btn btn-success" (click)="contatoCadButton()"
+                        <button type="button" id="cad-cancelar" class="btn btn-primary" (click)="contatoCadButton()"
                             *ngIf="!isCadContato">
                             <fa-icon icon="plus"></fa-icon>&nbsp;<span>Novo</span>
                         </button>
@@ -240,7 +240,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="form-row">
-                                    <button type="button" id="add-contato" class="btn btn-success"
+                                    <button type="button" id="add-contato" class="btn btn-primary"
                                         (click)="addContato()">
                                         <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar Contato</span>
                                     </button>
@@ -291,14 +291,12 @@
                 </br>
                 <!--Contatos-->
                 <div>
-                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
-                        class="btn btn-success" title="Salvar Alterações">
-                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+                    <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                        class="btn btn-primary">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Salvar</span>
                     </button>
-                    <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()"
-                        title="Cancelar Alterações">
-                        <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span
-                            jhiTranslate="entity.action.cancel">Cancelar</span>
+                    <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancelar</span>
                     </button>
                 </div>
         </form>

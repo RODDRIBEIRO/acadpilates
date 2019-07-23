@@ -1,5 +1,7 @@
 package br.com.ribeiro.service.impl;
 
+import static br.com.ribeiro.service.util.NullUtil.isNotEmpty;
+
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
@@ -8,17 +10,17 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+
 import br.com.ribeiro.domain.Contato;
 import br.com.ribeiro.domain.Endereco;
 import br.com.ribeiro.domain.Pessoa;
 import br.com.ribeiro.domain.QPessoa;
-import br.com.ribeiro.repository.EnderecoRepository;
 import br.com.ribeiro.repository.PessoaRepository;
 import br.com.ribeiro.service.PessoaService;
 import br.com.ribeiro.service.dto.PessoaDTO;
@@ -37,8 +39,6 @@ public class PessoaServiceImpl extends AbstractService implements PessoaService 
 
 	private final PessoaRepository pessoaRepository;
 
-	private final EnderecoRepository enderecoRepository;
-
 	private static final QPessoa qPessoa = QPessoa.pessoa;
 
 	private final PessoaMapper pessoaMapper;
@@ -47,10 +47,9 @@ public class PessoaServiceImpl extends AbstractService implements PessoaService 
 
 	private final ContatoMapper contatoMapper;
 
-	public PessoaServiceImpl(PessoaRepository pessoaRepository, EnderecoRepository enderecoRepository,
-			PessoaMapper pessoaMapper, EnderecoMapper enderecoMapper, ContatoMapper contatoMapper) {
+	public PessoaServiceImpl(PessoaRepository pessoaRepository, PessoaMapper pessoaMapper,
+			EnderecoMapper enderecoMapper, ContatoMapper contatoMapper) {
 		this.pessoaRepository = pessoaRepository;
-		this.enderecoRepository = enderecoRepository;
 		this.pessoaMapper = pessoaMapper;
 		this.enderecoMapper = enderecoMapper;
 		this.contatoMapper = contatoMapper;
@@ -122,16 +121,19 @@ public class PessoaServiceImpl extends AbstractService implements PessoaService 
 	/**
 	 * Search corresponding to the query.
 	 *
-	 * @param searchDTO the query of the search
+	 * @param PessoaDTO the query of the search
 	 * @param query     the query of the search
 	 * @param pageable  the pagination information
 	 * @return the list of entities
 	 */
+	@Override
 	@Transactional(readOnly = true)
 	public Page<PessoaDTO> search(PessoaDTO query, Pageable pageable) {
-		log.debug("Request to search for a page of Produto Legado for query {}", query);
-		Pessoa source = this.pessoaMapper.toEntity(query);
-		Example<Pessoa> example = Example.of(source, getDefaultMatcher());
-		return pessoaRepository.findAll(example, pageable).map(this.pessoaMapper::toDto);
+		log.debug("Request to search for a page of PessoaDTO for query {}", query);
+		BooleanExpression predicate = qPessoa.id.isNotNull();
+		if (isNotEmpty(query.getNome())) {
+			predicate = predicate.and(qPessoa.nome.containsIgnoreCase(query.getNome()));
+		}
+		return pessoaRepository.findAll(predicate, pageable).map(pessoaMapper::toDto);
 	}
 }

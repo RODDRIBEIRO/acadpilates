@@ -8,7 +8,7 @@
                 <div class="form-group card">
                     <div class="card-header">
                         <strong>
-                            <fa-icon [icon]="'search'"></fa-icon> Dados da Conta
+                            <fa-icon [icon]="'address-card'"></fa-icon> Dados da Conta
                         </strong>
                     </div>
                     <div class="form-group card-body ">
@@ -42,13 +42,13 @@
                         <div class="form-row">
                             <div class="form-group col-sm-6 col-md-4">
                                 <label class="form-control-label" for="field_numeroConta">Numero Conta</label>
-                                <input type="text" class="form-control" name="numeroConta"
-                                    id="field_numeroConta" [(ngModel)]="conta.numeroConta" />
+                                <input type="text" class="form-control" name="numeroConta" id="field_numeroConta"
+                                    [(ngModel)]="conta.numeroConta" />
                             </div>
                             <div class="form-group col-sm-6 col-md-4">
                                 <label class="form-control-label" for="field_agencia">Agencia</label>
-                                <input type="text" class="form-control" name="agencia"
-                                    id="field_agencia" [(ngModel)]="conta.agencia" />
+                                <input type="text" class="form-control" name="agencia" id="field_agencia"
+                                    [(ngModel)]="conta.agencia" />
                             </div>
                         </div>
 
@@ -56,7 +56,7 @@
                 </div>
                 <div>
                     <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
-                        class="btn btn-success">
+                        class="btn btn-primary">
                         <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Salvar</span>
                     </button>
                     <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">

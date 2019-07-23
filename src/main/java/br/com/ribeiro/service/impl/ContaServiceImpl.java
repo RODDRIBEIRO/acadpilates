@@ -1,14 +1,17 @@
 package br.com.ribeiro.service.impl;
 
+import static br.com.ribeiro.service.util.NullUtil.isNotEmpty;
+
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.querydsl.core.types.dsl.BooleanExpression;
 
 import br.com.ribeiro.domain.Conta;
 import br.com.ribeiro.domain.QConta;
@@ -96,11 +99,14 @@ public class ContaServiceImpl extends AbstractService implements ContaService {
 	 * @param pageable the pagination information
 	 * @return the list of entities
 	 */
+	@Override
 	@Transactional(readOnly = true)
 	public Page<ContaDTO> search(ContaDTO query, Pageable pageable) {
-		log.debug("Request to search for a page of Conta Legado for query {}", query);
-		Conta source = this.contaMapper.toEntity(query);
-		Example<Conta> example = Example.of(source, getDefaultMatcher());
-		return contaRepository.findAll(example, pageable).map(this.contaMapper::toDto);
+		log.debug("Request to search for a page of ContaDTO for query {}", query);
+		BooleanExpression predicate = qConta.id.isNotNull();
+		if (isNotEmpty(query.getDescricao())) {
+			predicate = predicate.and(qConta.descricao.containsIgnoreCase(query.getDescricao()));
+		}
+		return contaRepository.findAll(predicate, pageable).map(contaMapper::toDto);
 	}
 }
