@@ -10,30 +10,30 @@
             <div class="form-row">
                 <div class="form-group col-md-1">
                     <label class="form-control-label" for="currentSearch-descricao">
-                        <span class="hidden-sm-down">Descricao</span>
+                        <span class="hidden-sm-down">Descrição</span>
                     </label>
                 </div>
                 <div class="form-group col-md-8">
                     <input class="form-control" [(ngModel)]="currentSearch.descricao" id="currentSearch-descricao"
-                        name="currentSearch-descricao" type="text" Placeholder="Pesquisar por descricao" />
+                        name="currentSearch-descricao" type="text" Placeholder="Pesquisar por descrição" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group offset-md-1">
-                    <button class="btn btn-primary mb-1" (click)="search(currentSearch)">
+                    <button class="btn btn-info mb-1" (click)="search(currentSearch)">
                         <fa-icon [icon]="'search'" class="direita10"></fa-icon>
                         <span class="hidden-sm-down">Pesquisar</span>
                     </button>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-default mb-1" (click)="clear()" *ngIf="currentSearch"
+                    <button class="btn btn-secondary mb-1" (click)="clear()" *ngIf="currentSearch"
                         title="Limpar Tela de Busca">
                         <fa-icon [icon]="'trash-alt'" class="direita10"></fa-icon>
                         <span class="hidden-sm-down">Limpar Busca</span>
                     </button>
                 </div>
                 <div class="form-group">
-                    <button id="btnGerar" class="btn btn-success jh-create-entity create-box mb-1"
+                    <button id="btnGerar" class="btn btn-primary jh-create-entity create-box mb-1"
                         [routerLink]="['/conta/new']" title="Criar Nova Conta">
                         <fa-icon [icon]="'plus'" class="direita10"></fa-icon>
                         <span class="hidden-sm-down">Novo</span>
@@ -44,7 +44,7 @@
     </div>
     <br />
     <div class="alert alert-warning" *ngIf="contas?.length === 0">
-        <span>Nenhuma Conta encontrada</span>
+        <span>Nenhuma Conta encontrada!</span>
     </div>
     <div class="table-responsive" *ngIf="contas?.length > 0">
         <table class="table table-striped">
@@ -53,7 +53,7 @@
                     <th jhiSortBy="id"><span>ID</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="descricao"><span>Descricao</span>
+                    <th jhiSortBy="descricao"><span>Descrição</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
                     <th jhiSortBy="tipo"><span>Tipo</span>
@@ -62,10 +62,10 @@
                     <th jhiSortBy="numeroConta"><span>Nº da Conta</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="agencia"><span>Agencia</span>
+                    <th jhiSortBy="agencia"><span>Agência</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="situacao"><span>Situacao</span>
+                    <th jhiSortBy="situacao"><span>Situação</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
                     <th></th>
