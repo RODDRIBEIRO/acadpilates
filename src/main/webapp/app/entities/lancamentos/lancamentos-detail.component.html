@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="lancamentos">
+            <h2><span>Lancamentos</span> {{lancamentos.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Descricao</span></dt>
+                <dd>
+                    <span>{{lancamentos.descricao}}</span>
+                </dd>
+                <dt><span>Data Competencia</span></dt>
+                <dd>
+                    <span>{{lancamentos.dataCompetencia}}</span>
+                </dd>
+                <dt><span>Data Vencimento</span></dt>
+                <dd>
+                    <span>{{lancamentos.dataVencimento}}</span>
+                </dd>
+                <dt><span>Valor</span></dt>
+                <dd>
+                    <span>{{lancamentos.valor}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{lancamentos.status}}</span>
+                </dd>
+                <dt><span>Tipo</span></dt>
+                <dd>
+                    <span>{{lancamentos.tipo}}</span>
+                </dd>
+                <dt><span>Observacao</span></dt>
+                <dd>
+                    <span>{{lancamentos.observacao}}</span>
+                </dd>
+                <dt><span>Pessoa</span></dt>
+                <dd>
+                    <div *ngIf="lancamentos.pessoaId">
+                        <a [routerLink]="['/pessoa', lancamentos.pessoaId, 'view']">{{lancamentos.pessoaNome}}</a>
+                    </div>
+                </dd>
+                <dt><span>Conta</span></dt>
+                <dd>
+                    <div *ngIf="lancamentos.contaId">
+                        <a [routerLink]="['/conta', lancamentos.contaId, 'view']">{{lancamentos.contaDescricao}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/lancamentos', lancamentos.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

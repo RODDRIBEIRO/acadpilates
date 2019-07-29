@@ -1,0 +1,58 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "pessoa",
+            "otherEntityName": "pessoa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nome",
+            "otherEntityRelationshipName": "lancamentos"
+        },
+        {
+            "relationshipName": "conta",
+            "otherEntityName": "conta",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "descricao",
+            "otherEntityRelationshipName": "lancamentos"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "descricao",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dataCompetencia",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "dataVencimento",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "valor",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "tipo",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "observacao",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20190725160700",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "lancamentos",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

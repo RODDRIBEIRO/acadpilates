@@ -35,6 +35,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'centro-custo',
         loadChildren: './centro-custo/centro-custo.module#AcadpilatesCentroCustoModule'
+      },
+      {
+        path: 'lancamentos',
+        loadChildren: './lancamentos/lancamentos.module#AcadpilatesLancamentosModule'
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

@@ -1,0 +1,124 @@
+<div>
+    <jhi-alert></jhi-alert>
+    <div class="card">
+        <div class="card-header">
+            <strong>
+                <fa-icon [icon]="'search'"></fa-icon> Pesquisar Lancamentos
+            </strong>
+        </div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-1">
+                    <label class="form-control-label" for="currentSearch-descricao">
+                        <span class="hidden-sm-down">Descrição</span>
+                    </label>
+                </div>
+                <div class="form-group col-md-8">
+                    <input class="form-control" [(ngModel)]="currentSearch.descricao" id="currentSearch-descricao"
+                        name="currentSearch-descricao" type="text" Placeholder="Pesquisar por descrição" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group offset-md-1">
+                    <button class="btn btn-info mb-1" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'" class="direita10"></fa-icon>
+                        <span class="hidden-sm-down">Pesquisar</span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-secondary mb-1" (click)="clear()" *ngIf="currentSearch"
+                        title="Limpar Tela de Busca">
+                        <fa-icon [icon]="'trash-alt'" class="direita10"></fa-icon>
+                        <span class="hidden-sm-down">Limpar Busca</span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <button id="btnGerar" class="btn btn-primary jh-create-entity create-box mb-1"
+                        [routerLink]="['/lancamentos/new']" title="Criar Nova Lancamentos">
+                        <fa-icon [icon]="'plus'" class="direita10"></fa-icon>
+                        <span class="hidden-sm-down">Novo</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="alert alert-warning" *ngIf="lancamentos?.length === 0">
+        <span>Nenhum Lancamento encontrado!</span>
+    </div>
+    <div class="table-responsive" *ngIf="lancamentos?.length > 0">
+        <table class="table table-striped">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="id"><span>ID</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="dataCompetencia"><span>Data Competência</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="dataConciliacao"><span>Data Conciliação</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="valor"><span>Valor</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="tipo"><span>Tipo</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th jhiSortBy="historico"><span>Histórico</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lancamentos of lancamentos ;trackBy: trackId">
+                    <td><a [routerLink]="['/lancamentos', lancamentos.id, 'view' ]">{{lancamentos.id}}</a></td>
+                    <td>{{lancamentos.dataCompetencia | date:'short'}}</td>
+                    <td>{{lancamentos.dataConciliacao | date:'short'}}</td>
+                    <td>{{lancamentos.valor}}</td>
+                    <td>{{lancamentos.tipo}}</td>
+                    <td>{{lancamentos.historico}}</td>
+                    <!--
+                        <td>
+                            <div *ngIf="lancamentos.pessoaId">
+                                <a
+                                [routerLink]="['../pessoa', lancamentos.pessoaId , 'view' ]">{{lancamentos.pessoaNome}}</a>
+                            </div>
+                        </td>
+                    -->
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit" [routerLink]="['/lancamentos', lancamentos.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline">Visualizar</span>
+                            </button>
+                            <button type="submit" [routerLink]="['/lancamentos', lancamentos.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">Editar</span>
+                            </button>
+                            <button type="submit"
+                                [routerLink]="['/', 'lancamentos', { outlets: { popup: lancamentos.id + '/delete'} }]"
+                                replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline">Excluir</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="lancamentos?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage">
+            </jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
