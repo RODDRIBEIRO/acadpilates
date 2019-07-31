@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 import { PlanoContaService } from './plano-conta.service';
 
 @Component({
-  selector: 'jhi-planoConta-update',
-  templateUrl: './planoConta-update.component.html'
+  selector: 'jhi-plano-conta-update',
+  templateUrl: './plano-conta-update.component.html'
 })
 export class PlanoContaUpdateComponent implements OnInit {
   isSaving: boolean;
