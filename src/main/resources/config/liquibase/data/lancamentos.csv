@@ -1,11 +1,6 @@
-id;descricao;data_competencia;data_vencimento;valor;status;tipo;observacao
-1;mobile Fish;2019-07-24T21:27:41;2019-07-25T01:48:22;59685;15601;44583;Small
-2;FTP Savings Account;2019-07-24T23:10:49;2019-07-25T00:33:10;2058;5641;96990;parsing red Chips
-3;Money Market Account;2019-07-25T01:29:40;2019-07-25T03:34:48;706;43194;2306;Namibia
-4;Steel zero administration;2019-07-25T07:22:53;2019-07-25T10:35:15;45606;9060;78517;grey Cambridgeshire
-5;Canyon HDD;2019-07-24T23:50:48;2019-07-25T12:04:53;45049;6505;1326;Usability South Dakota envisioneer
-6;Intelligent;2019-07-24T23:45:09;2019-07-25T10:23:22;44015;68326;12203;Buckinghamshire Games
-7;incentivize Tuna copy;2019-07-25T05:58:13;2019-07-25T03:41:33;20794;54671;56770;Industrial
-8;connect Markets Chief;2019-07-25T01:49:28;2019-07-24T22:43:10;92187;32654;8849;sky blue Tasty Plastic Pizza
-9;compress South Georgia and the South Sandwich Islands;2019-07-25T02:05:31;2019-07-25T07:36:43;96525;28093;60703;bifurcated scalable
-10;Small;2019-07-24T16:29:20;2019-07-25T06:00:45;77224;39488;19871;Books
+id;data_competencia;data_conciliacao;valor;tipo;historico;pessoa_id;conta_id;documento_id;centro_custo_id
+1;2019-07-24T21:27:41;2019-07-25T01:48:22;200;1;Small;1;1;1;1
+2;2019-07-24T23:10:49;2019-07-25T00:33:10;2000;1;parsing red Chips;2;1;1;1
+3;2019-07-25T01:29:40;2019-07-25T03:34:48;706;1;Namibia;3;1;2;1
+4;2019-07-25T07:22:53;2019-07-25T10:35:15;200;0;grey Cambridgeshire;4;1;2;1
+5;2019-07-24T23:50:48;2019-07-25T12:04:53;500;0;Usability South Dakota envisioneer;5;1;2;1

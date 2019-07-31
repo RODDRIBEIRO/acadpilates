@@ -7,6 +7,8 @@ import java.util.Objects;
  */
 public class ContatoDTO implements Serializable {
 
+    private static final long serialVersionUID = -7129649398182609362L;
+
     private Long id;
 
     private Integer tipo;

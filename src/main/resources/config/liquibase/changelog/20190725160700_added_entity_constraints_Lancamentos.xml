@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    <!--
-        Added the constraints for entity Lancamentos.
-    -->
-    <changeSet id="20190725160700-2" author="jhipster">
-        
-        <addForeignKeyConstraint baseColumnNames="pessoa_id"
-                                 baseTableName="lancamentos"
-                                 constraintName="fk_lancamentos_pessoa_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="pessoa"/>
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+	<!-- Added the constraints for entity Lancamentos. -->
+	<changeSet id="20190725160700-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="conta_id"
-                                 baseTableName="lancamentos"
-                                 constraintName="fk_lancamentos_conta_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="conta"/>
+		<addForeignKeyConstraint
+			baseColumnNames="pessoa_id" baseTableName="lancamentos"
+			constraintName="fk_lancamentos_pessoa_id" referencedColumnNames="id"
+			referencedTableName="pessoa" />
 
-    </changeSet>
+		<addForeignKeyConstraint
+			baseColumnNames="conta_id" baseTableName="lancamentos"
+			constraintName="fk_lancamentos_conta_id" referencedColumnNames="id"
+			referencedTableName="conta" />
+
+		<addForeignKeyConstraint
+			baseColumnNames="documento_id" baseTableName="lancamentos"
+			constraintName="fk_lancamentos_documento_id"
+			referencedColumnNames="id" referencedTableName="documento" />
+
+		<addForeignKeyConstraint
+			baseColumnNames="centro_custo_id" baseTableName="lancamentos"
+			constraintName="fk_lancamentos_centro_custo_id"
+			referencedColumnNames="id" referencedTableName="centro_custo" />
+	</changeSet>
 </databaseChangeLog>

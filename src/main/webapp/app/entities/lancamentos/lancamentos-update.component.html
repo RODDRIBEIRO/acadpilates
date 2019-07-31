@@ -16,74 +16,86 @@
                     <div class="form-group card-body ">
                         <div class="form-group" *ngIf="lancamentos.id">
                             <label for="id">ID</label>
-                            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="lancamentos.id"
-                                readonly />
+                            <input type="text" class="form-control col-md-6 col-lg-4" id="id" name="id"
+                                [(ngModel)]="lancamentos.id" readonly />
                         </div>
-                        <div class="form-group">
-                            <label class="form-control-label" for="field_dataCompetencia">Data Competência</label>
-                            <div class="d-flex">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-lg-4">
+                                <label class="form-control-label" for="field_dataCompetencia">Data Competência</label>
                                 <input id="field_dataCompetencia" type="date" class="form-control"
-                                    name="dataCompetencia" [(ngModel)]="lancamentos.dataCompetencia"
-                                    placeholder="DD-MM-YYYY" />
+                                    name="dataCompetencia" [(ngModel)]="lancamentos.dataCompetencia" />
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" for="field_dataConciliacao">Data Conciliação</label>
-                            <div class="d-flex">
+                            <div class="form-group col-md-6 col-lg-4">
+                                <label class="form-control-label" for="field_dataConciliacao">Data Conciliação</label>
                                 <input id="field_dataConciliacao" type="date" class="form-control"
-                                    name="dataConciliacao" [(ngModel)]="lancamentos.dataConciliacao"
-                                    placeholder="DD-MM-YYYY" />
+                                    name="dataConciliacao" [(ngModel)]="lancamentos.dataConciliacao" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-control-label" for="field_valor">Valor</label>
-                            <input type="number" class="form-control" name="valor" id="field_valor"
-                                [(ngModel)]="lancamentos.valor" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" for="field_tipo">Tipo</label>
-                            <input type="number" class="form-control" name="tipo" id="field_tipo"
-                                [(ngModel)]="lancamentos.tipo" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" for="field_historico">Histórico</label>
-                            <input type="text" class="form-control" name="historico" id="field_historico"
-                                [(ngModel)]="lancamentos.historico" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" for="field_numeroDocumento">Nº Documento</label>
-                            <input type="text" class="form-control" name="numeroDocumento" id="field_numeroDocumento"
-                                [(ngModel)]="lancamentos.numeroDocumento" />
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" for="field_pessoa">Pessoa</label>
-                            <select class="form-control" id="field_pessoa" name="pessoa"
-                                [(ngModel)]="lancamentos.pessoaId">
-                                <option [ngValue]="null"></option>
-                                <option [ngValue]="pessoaOption.id"
-                                    *ngFor="let pessoaOption of pessoas; trackBy: trackPessoaById">{{pessoaOption.nome}}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" for="field_conta">Conta</label>
-                            <select class="form-control" id="field_conta" name="conta"
+                            <label class="form-control-label" for="field_conta">Conta de Movimento</label>
+                            <select class="form-control col-md-6 col-lg-4" id="field_conta" name="conta"
                                 [(ngModel)]="lancamentos.contaId">
                                 <option [ngValue]="null"></option>
-                                <option [ngValue]="option.id"
-                                    *ngFor="let contaOption of contas; trackBy: trackContaById">
+                                <option [ngValue]="contaOption.id"
+                                    *ngFor="let contaOption of contas; trackBy: trackById">
                                     {{contaOption.descricao}}</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-control-label" for="field_documento">Documento</label>
-                            <select class="form-control" id="field_documento" name="documento"
-                                [(ngModel)]="lancamentos.documentoId">
-                                <option [ngValue]="null"></option>
-                                <option [ngValue]="documentoOption.id"
-                                    *ngFor="let documentoOption of documentos; trackBy: trackDocumentoById">
-                                    {{documentoOption.descricao}}</option>
+                            <label class="form-control-label" for="field_tipo">Tipo de Lançamento</label>
+                            <select class="form-control col-md-6 col-lg-4" id="field_tipo" name="tipo"
+                                [(ngModel)]="lancamentos.tipo">
+                                <option value="0">ENTRADA</option>
+                                <option value="1">SAIDA</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_centroCusto">Centro de Custo</label>
+                            <select class="form-control col-md-6 col-lg-4" id="field_centroCusto" name="centroCusto"
+                                [(ngModel)]="lancamentos.centroCustoId">
+                                <option [ngValue]="null"></option>
+                                <option [ngValue]="centroCustoOption.id"
+                                    *ngFor="let centroCustoOption of centroCustos; trackBy: trackById">
+                                    {{pessoaOption.centroCusto}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-lg-4">
+                                <label class="form-control-label" for="field_documento">Documento</label>
+                                <select class="form-control" id="field_documento" name="documento"
+                                    [(ngModel)]="lancamentos.documentoId">
+                                    <option [ngValue]="null"></option>
+                                    <option [ngValue]="documentoOption.id"
+                                        *ngFor="let documentoOption of documentos; trackBy: trackById">
+                                        {{documentoOption.descricao}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 col-lg-4">
+                                <label class="form-control-label" for="field_numeroDocumento">Nº do Documento</label>
+                                <input type="text" class="form-control" name="numeroDocumento"
+                                    id="field_numeroDocumento" [(ngModel)]="lancamentos.numeroDocumento" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_pessoa">Pessoa</label>
+                            <select class="form-control col-md-6 col-lg-4" id="field_pessoa" name="pessoa"
+                                [(ngModel)]="lancamentos.pessoaId">
+                                <option [ngValue]="null"></option>
+                                <option [ngValue]="pessoaOption.id"
+                                    *ngFor="let pessoaOption of pessoas; trackBy: trackById">{{pessoaOption.nome}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_valor">Valor</label>
+                            <input type="number" class="form-control col-md-6 col-lg-4" name="valor" id="field_valor"
+                                [(ngModel)]="lancamentos.valor" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_historico">Histórico</label>
+                            <textarea class="form-control col-lg-8" id="field_historico" rows="3"
+                                [(ngModel)]="lancamentos.historico"> </textarea>
                         </div>
                     </div>
                 </div>

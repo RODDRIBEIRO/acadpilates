@@ -7,6 +7,8 @@ import java.util.Objects;
  */
 public class EnderecoDTO implements Serializable {
 
+    private static final long serialVersionUID = 239383710820770145L;
+
     private Long id;
 
     private String logradouro;

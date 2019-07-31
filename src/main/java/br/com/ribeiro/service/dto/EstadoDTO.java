@@ -7,6 +7,8 @@ import java.util.Objects;
  */
 public class EstadoDTO implements Serializable {
 
+    private static final long serialVersionUID = -5815894971846577172L;
+
     private Long id;
 
     private String nomeEstado;
