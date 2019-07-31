@@ -23,6 +23,7 @@
     <include file="config/liquibase/changelog/20190721225002_added_entity_Documento.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190723173241_added_entity_CentroCusto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190725160700_added_entity_Lancamentos.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190731034921_added_entity_PlanoConta.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190627133341_added_entity_constraints_Contato.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190627133344_added_entity_constraints_Estado.xml" relativeToChangelogFile="false"/>

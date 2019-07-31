@@ -39,6 +39,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'lancamentos',
         loadChildren: './lancamentos/lancamentos.module#AcadpilatesLancamentosModule'
+      },
+      {
+        path: 'plano-conta',
+        loadChildren: './plano-conta/plano-conta.module#AcadpilatesPlanoContaModule'
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])
