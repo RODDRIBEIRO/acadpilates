@@ -37,8 +37,8 @@ import { RouterModule } from '@angular/router';
         loadChildren: './centro-custo/centro-custo.module#AcadpilatesCentroCustoModule'
       },
       {
-        path: 'lancamentos',
-        loadChildren: './lancamentos/lancamentos.module#AcadpilatesLancamentosModule'
+        path: 'lancamento',
+        loadChildren: './lancamento/lancamento.module#AcadpilatesLancamentoModule'
       },
       {
         path: 'plano-conta',

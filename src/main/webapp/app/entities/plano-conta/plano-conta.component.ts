@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { PlanoContaService } from './plano-conta.service';
 
 @Component({
-  selector: 'jhi-planoConta',
+  selector: 'jhi-plano-conta',
   templateUrl: './plano-conta.component.html'
 })
 export class PlanoContaComponent implements OnInit, OnDestroy {

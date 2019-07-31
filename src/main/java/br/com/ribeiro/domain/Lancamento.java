@@ -14,11 +14,11 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * A Lancamentos.
+ * A Lancamento.
  */
 @Entity
-@Table(name = "lancamentos")
-public class Lancamentos implements Serializable {
+@Table(name = "lancamento")
+public class Lancamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -45,19 +45,19 @@ public class Lancamentos implements Serializable {
 	private String numeroDocumento;
 
 	@ManyToOne
-	@JsonIgnoreProperties("lancamentos")
+	@JsonIgnoreProperties("lancamento")
 	private Pessoa pessoa;
 
 	@ManyToOne
-	@JsonIgnoreProperties("lancamentos")
+	@JsonIgnoreProperties("lancamento")
 	private Conta conta;
 
 	@ManyToOne
-	@JsonIgnoreProperties("lancamentos")
+	@JsonIgnoreProperties("lancamento")
 	private CentroCusto centroCusto;
 
 	@ManyToOne
-	@JsonIgnoreProperties("lancamentos")
+	@JsonIgnoreProperties("lancamento")
 	private Documento documento;
 
 	// jhipster-needle-entity-add-field - JHipster will add fields here, do not
@@ -74,7 +74,7 @@ public class Lancamentos implements Serializable {
 		return dataCompetencia;
 	}
 
-	public Lancamentos dataCompetencia(Instant dataCompetencia) {
+	public Lancamento dataCompetencia(Instant dataCompetencia) {
 		this.dataCompetencia = dataCompetencia;
 		return this;
 	}
@@ -87,7 +87,7 @@ public class Lancamentos implements Serializable {
 		return valor;
 	}
 
-	public Lancamentos valor(Double valor) {
+	public Lancamento valor(Double valor) {
 		this.valor = valor;
 		return this;
 	}
@@ -100,7 +100,7 @@ public class Lancamentos implements Serializable {
 		return tipo;
 	}
 
-	public Lancamentos tipo(Integer tipo) {
+	public Lancamento tipo(Integer tipo) {
 		this.tipo = tipo;
 		return this;
 	}
@@ -153,7 +153,7 @@ public class Lancamentos implements Serializable {
 		this.documento = documento;
 	}
 
-	public Lancamentos pessoa(Pessoa pessoa) {
+	public Lancamento pessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 		return this;
 	}
@@ -166,7 +166,7 @@ public class Lancamentos implements Serializable {
 		return conta;
 	}
 
-	public Lancamentos conta(Conta conta) {
+	public Lancamento conta(Conta conta) {
 		this.conta = conta;
 		return this;
 	}
@@ -183,10 +183,10 @@ public class Lancamentos implements Serializable {
 		if (this == o) {
 			return true;
 		}
-		if (!(o instanceof Lancamentos)) {
+		if (!(o instanceof Lancamento)) {
 			return false;
 		}
-		return id != null && id.equals(((Lancamentos) o).id);
+		return id != null && id.equals(((Lancamento) o).id);
 	}
 
 	@Override
@@ -196,7 +196,7 @@ public class Lancamentos implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Lancamentos [id=" + id + ", dataCompetencia=" + dataCompetencia + ", dataConciliacao=" + dataConciliacao
+		return "Lancamento [id=" + id + ", dataCompetencia=" + dataCompetencia + ", dataConciliacao=" + dataConciliacao
 				+ ", valor=" + valor + ", tipo=" + tipo + ", historico=" + historico + ", numeroDocumento="
 				+ numeroDocumento + ", pessoa=" + pessoa + ", conta=" + conta + ", centroCusto=" + centroCusto
 				+ ", documento=" + documento + "]";

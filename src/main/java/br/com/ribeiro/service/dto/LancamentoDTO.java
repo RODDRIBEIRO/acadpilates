@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.time.Instant;
 
 /**
- * A DTO for the {@link br.com.ribeiro.domain.Lancamentos} entity.
+ * A DTO for the {@link br.com.ribeiro.domain.Lancamento} entity.
  */
-public class LancamentosDTO extends AbstractDTO implements Serializable {
+public class LancamentoDTO extends AbstractDTO implements Serializable {
 
 	/**
 	 * 
@@ -161,7 +161,7 @@ public class LancamentosDTO extends AbstractDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LancamentosDTO [id=" + id + ", dataCompetencia=" + dataCompetencia + ", dataConciliacao="
+		return "LancamentoDTO [id=" + id + ", dataCompetencia=" + dataCompetencia + ", dataConciliacao="
 				+ dataConciliacao + ", valor=" + valor + ", tipo=" + tipo + ", historico=" + historico
 				+ ", numeroDocumento=" + numeroDocumento + ", pessoaId=" + pessoaId + ", pessoaNome=" + pessoaNome
 				+ ", contaId=" + contaId + ", contaDescricao=" + contaDescricao + ", documentoId=" + documentoId

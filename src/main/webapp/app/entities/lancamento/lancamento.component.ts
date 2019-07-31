@@ -3,18 +3,18 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from 'app/core';
 import { castToObject, castToQuery, ITEMS_PER_PAGE } from 'app/shared';
-import { Lancamentos, ILancamentos } from 'app/shared/model/lancamentos.model';
+import { Lancamento, ILancamento } from 'app/shared/model/lancamento.model';
 import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
-import { LancamentosService } from './lancamentos.service';
+import { LancamentoService } from './lancamento.service';
 
 @Component({
-  selector: 'jhi-lancamentos',
-  templateUrl: './lancamentos.component.html'
+  selector: 'jhi-lancamento',
+  templateUrl: './lancamento.component.html'
 })
-export class LancamentosComponent implements OnInit, OnDestroy {
+export class LancamentoComponent implements OnInit, OnDestroy {
   currentAccount: any;
-  lancamentos: ILancamentos[];
+  lancamento: ILancamento[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -26,11 +26,11 @@ export class LancamentosComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
-  currentSearch: ILancamentos;
+  currentSearch: ILancamento;
   queryCount: any;
 
   constructor(
-    protected lancamentosService: LancamentosService,
+    protected lancamentoService: LancamentoService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
     protected accountService: AccountService,
@@ -50,7 +50,7 @@ export class LancamentosComponent implements OnInit, OnDestroy {
 
   loadAll() {
     if (this.currentSearch) {
-      this.lancamentosService
+      this.lancamentoService
         .search({
           page: this.page - 1,
           query: this.currentSearch,
@@ -58,19 +58,19 @@ export class LancamentosComponent implements OnInit, OnDestroy {
           sort: this.sort()
         })
         .subscribe(
-          (res: HttpResponse<ILancamentos[]>) => this.paginateLancamentoss(res.body, res.headers),
+          (res: HttpResponse<ILancamento[]>) => this.paginateLancamento(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
       return;
     }
-    this.lancamentosService
+    this.lancamentoService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<ILancamentos[]>) => this.paginateLancamentoss(res.body, res.headers),
+        (res: HttpResponse<ILancamento[]>) => this.paginateLancamento(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -83,7 +83,7 @@ export class LancamentosComponent implements OnInit, OnDestroy {
   }
 
   transition() {
-    this.router.navigate(['/lancamentos'], {
+    this.router.navigate(['/lancamento'], {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
@@ -95,9 +95,9 @@ export class LancamentosComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
-    this.currentSearch = new Lancamentos();
+    this.currentSearch = new Lancamento();
     this.router.navigate([
-      '/lancamentos',
+      '/lancamento',
       {
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -113,7 +113,7 @@ export class LancamentosComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.currentSearch = query;
     this.router.navigate([
-      '/lancamentos',
+      '/lancamento',
       castToQuery({
         search: this.currentSearch,
         page: this.page,
@@ -128,19 +128,19 @@ export class LancamentosComponent implements OnInit, OnDestroy {
     this.accountService.identity().then(account => {
       this.currentAccount = account;
     });
-    this.registerChangeInLancamentoss();
+    this.registerChangeInLancamento();
   }
 
   ngOnDestroy() {
     this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: ILancamentos) {
+  trackId(index: number, item: ILancamento) {
     return item.id;
   }
 
-  registerChangeInLancamentoss() {
-    this.eventSubscriber = this.eventManager.subscribe('lancamentosListModification', response => this.loadAll());
+  registerChangeInLancamento() {
+    this.eventSubscriber = this.eventManager.subscribe('lancamentoListModification', response => this.loadAll());
   }
 
   sort() {
@@ -151,10 +151,10 @@ export class LancamentosComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateLancamentoss(data: ILancamentos[], headers: HttpHeaders) {
+  protected paginateLancamento(data: ILancamento[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.lancamentos = data;
+    this.lancamento = data;
   }
 
   protected onError(errorMessage: string) {

@@ -1,9 +1,9 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-lancamentos-heading">
-                <span *ngIf="!lancamentos.id">Cadastrar Lancamento</span>
-                <span *ngIf="lancamentos.id">Editar Lancamento</span>
+            <h2 id="jhi-lancamento-heading">
+                <span *ngIf="!lancamento.id">Cadastrar Lancamento</span>
+                <span *ngIf="lancamento.id">Editar Lancamento</span>
             </h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
@@ -14,27 +14,27 @@
                         </strong>
                     </div>
                     <div class="form-group card-body ">
-                        <div class="form-group" *ngIf="lancamentos.id">
+                        <div class="form-group" *ngIf="lancamento.id">
                             <label for="id">ID</label>
                             <input type="text" class="form-control col-md-6 col-lg-4" id="id" name="id"
-                                [(ngModel)]="lancamentos.id" readonly />
+                                [(ngModel)]="lancamento.id" readonly />
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-lg-4">
                                 <label class="form-control-label" for="field_dataCompetencia">Data Competência</label>
                                 <input id="field_dataCompetencia" type="date" class="form-control"
-                                    name="dataCompetencia" [(ngModel)]="lancamentos.dataCompetencia" />
+                                    name="dataCompetencia" [(ngModel)]="lancamento.dataCompetencia" />
                             </div>
                             <div class="form-group col-md-6 col-lg-4">
                                 <label class="form-control-label" for="field_dataConciliacao">Data Conciliação</label>
                                 <input id="field_dataConciliacao" type="date" class="form-control"
-                                    name="dataConciliacao" [(ngModel)]="lancamentos.dataConciliacao" />
+                                    name="dataConciliacao" [(ngModel)]="lancamento.dataConciliacao" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" for="field_conta">Conta de Movimento</label>
                             <select class="form-control col-md-6 col-lg-4" id="field_conta" name="conta"
-                                [(ngModel)]="lancamentos.contaId">
+                                [(ngModel)]="lancamento.contaId">
                                 <option [ngValue]="null"></option>
                                 <option [ngValue]="contaOption.id"
                                     *ngFor="let contaOption of contas; trackBy: trackById">
@@ -44,19 +44,19 @@
                         <div class="form-group">
                             <label class="form-control-label" for="field_tipo">Tipo de Lançamento</label>
                             <select class="form-control col-md-6 col-lg-4" id="field_tipo" name="tipo"
-                                [(ngModel)]="lancamentos.tipo">
+                                [(ngModel)]="lancamento.tipo">
                                 <option value="0">ENTRADA</option>
                                 <option value="1">SAIDA</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-control-label" for="field_centroCusto">Centro de Custo</label>
-                            <select class="form-control col-md-6 col-lg-4" id="field_centroCusto" name="centroCusto"
-                                [(ngModel)]="lancamentos.centroCustoId">
+                            <label class="form-control-label" for="field_centroCustos">Centro de Custo</label>
+                            <select class="form-control col-md-6 col-lg-4" id="field_centroCustos" name="centroCustos"
+                                [(ngModel)]="lancamento.centroCustosId">
                                 <option [ngValue]="null"></option>
                                 <option [ngValue]="centroCustoOption.id"
                                     *ngFor="let centroCustoOption of centroCustos; trackBy: trackById">
-                                    {{pessoaOption.centroCusto}}
+                                    {{centroCustoOption.descricao}}
                                 </option>
                             </select>
                         </div>
@@ -64,7 +64,7 @@
                             <div class="form-group col-md-6 col-lg-4">
                                 <label class="form-control-label" for="field_documento">Documento</label>
                                 <select class="form-control" id="field_documento" name="documento"
-                                    [(ngModel)]="lancamentos.documentoId">
+                                    [(ngModel)]="lancamento.documentoId">
                                     <option [ngValue]="null"></option>
                                     <option [ngValue]="documentoOption.id"
                                         *ngFor="let documentoOption of documentos; trackBy: trackById">
@@ -74,13 +74,13 @@
                             <div class="form-group col-md-6 col-lg-4">
                                 <label class="form-control-label" for="field_numeroDocumento">Nº do Documento</label>
                                 <input type="text" class="form-control" name="numeroDocumento"
-                                    id="field_numeroDocumento" [(ngModel)]="lancamentos.numeroDocumento" />
+                                    id="field_numeroDocumento" [(ngModel)]="lancamento.numeroDocumento" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" for="field_pessoa">Pessoa</label>
                             <select class="form-control col-md-6 col-lg-4" id="field_pessoa" name="pessoa"
-                                [(ngModel)]="lancamentos.pessoaId">
+                                [(ngModel)]="lancamento.pessoaId">
                                 <option [ngValue]="null"></option>
                                 <option [ngValue]="pessoaOption.id"
                                     *ngFor="let pessoaOption of pessoas; trackBy: trackById">{{pessoaOption.nome}}
@@ -90,12 +90,12 @@
                         <div class="form-group">
                             <label class="form-control-label" for="field_valor">Valor</label>
                             <input type="number" class="form-control col-md-6 col-lg-4" name="valor" id="field_valor"
-                                [(ngModel)]="lancamentos.valor" />
+                                [(ngModel)]="lancamento.valor" />
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" for="field_historico">Histórico</label>
                             <textarea class="form-control col-lg-8" id="field_historico" rows="3"
-                                [(ngModel)]="lancamentos.historico"> </textarea>
+                                [(ngModel)]="lancamento.historico"> </textarea>
                         </div>
                     </div>
                 </div>

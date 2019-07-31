@@ -1,48 +1,48 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <div *ngIf="lancamentos">
-            <h2><span>Lancamentos</span> {{lancamentos.id}}</h2>
+        <div *ngIf="lancamento">
+            <h2><span>Lancamento</span> {{lancamento.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
                 <dt><span>Descricao</span></dt>
                 <dd>
-                    <span>{{lancamentos.descricao}}</span>
+                    <span>{{lancamento.descricao}}</span>
                 </dd>
                 <dt><span>Data Competencia</span></dt>
                 <dd>
-                    <span>{{lancamentos.dataCompetencia}}</span>
+                    <span>{{lancamento.dataCompetencia}}</span>
                 </dd>
                 <dt><span>Data Vencimento</span></dt>
                 <dd>
-                    <span>{{lancamentos.dataVencimento}}</span>
+                    <span>{{lancamento.dataVencimento}}</span>
                 </dd>
                 <dt><span>Valor</span></dt>
                 <dd>
-                    <span>{{lancamentos.valor}}</span>
+                    <span>{{lancamento.valor}}</span>
                 </dd>
                 <dt><span>Status</span></dt>
                 <dd>
-                    <span>{{lancamentos.status}}</span>
+                    <span>{{lancamento.status}}</span>
                 </dd>
                 <dt><span>Tipo</span></dt>
                 <dd>
-                    <span>{{lancamentos.tipo}}</span>
+                    <span>{{lancamento.tipo}}</span>
                 </dd>
                 <dt><span>Observacao</span></dt>
                 <dd>
-                    <span>{{lancamentos.observacao}}</span>
+                    <span>{{lancamento.observacao}}</span>
                 </dd>
                 <dt><span>Pessoa</span></dt>
                 <dd>
-                    <div *ngIf="lancamentos.pessoaId">
-                        <a [routerLink]="['/pessoa', lancamentos.pessoaId, 'view']">{{lancamentos.pessoaNome}}</a>
+                    <div *ngIf="lancamento.pessoaId">
+                        <a [routerLink]="['/pessoa', lancamento.pessoaId, 'view']">{{lancamento.pessoaNome}}</a>
                     </div>
                 </dd>
                 <dt><span>Conta</span></dt>
                 <dd>
-                    <div *ngIf="lancamentos.contaId">
-                        <a [routerLink]="['/conta', lancamentos.contaId, 'view']">{{lancamentos.contaDescricao}}</a>
+                    <div *ngIf="lancamento.contaId">
+                        <a [routerLink]="['/conta', lancamento.contaId, 'view']">{{lancamento.contaDescricao}}</a>
                     </div>
                 </dd>
             </dl>
@@ -54,7 +54,7 @@
             </button>
 
             <button type="button"
-                    [routerLink]="['/lancamentos', lancamentos.id, 'edit']"
+                    [routerLink]="['/lancamento', lancamento.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>

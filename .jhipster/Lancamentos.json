@@ -7,14 +7,14 @@
             "otherEntityName": "pessoa",
             "relationshipType": "many-to-one",
             "otherEntityField": "nome",
-            "otherEntityRelationshipName": "lancamentos"
+            "otherEntityRelationshipName": "lancamento"
         },
         {
             "relationshipName": "conta",
             "otherEntityName": "conta",
             "relationshipType": "many-to-one",
             "otherEntityField": "descricao",
-            "otherEntityRelationshipName": "lancamentos"
+            "otherEntityRelationshipName": "lancamento"
         }
     ],
     "fields": [
@@ -51,7 +51,7 @@
     "dto": "mapstruct",
     "searchEngine": false,
     "service": "serviceImpl",
-    "entityTableName": "lancamentos",
+    "entityTableName": "lancamento",
     "databaseType": "sql",
     "jpaMetamodelFiltering": false,
     "pagination": "pagination"

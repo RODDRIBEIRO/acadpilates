@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
 
-export interface ILancamentos {
+export interface ILancamento {
   id?: number;
   dataCompetencia?: Moment;
   dataConciliacao?: Moment;
@@ -18,7 +18,7 @@ export interface ILancamentos {
   centroCustoDescricao?: string;
 }
 
-export class Lancamentos implements ILancamentos {
+export class Lancamento implements ILancamento {
   constructor(
     public id?: number,
     public dataCompetencia?: Moment,

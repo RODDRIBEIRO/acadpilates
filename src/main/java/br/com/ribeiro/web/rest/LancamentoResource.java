@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.ribeiro.service.LancamentosService;
-import br.com.ribeiro.service.dto.LancamentosDTO;
+import br.com.ribeiro.service.LancamentoService;
+import br.com.ribeiro.service.dto.LancamentoDTO;
 import br.com.ribeiro.web.rest.errors.BadRequestAlertException;
 import br.com.ribeiro.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.HeaderUtil;
@@ -35,134 +35,134 @@ import io.github.jhipster.web.util.ResponseUtil;
 import io.micrometer.core.annotation.Timed;
 
 /**
- * REST controller for managing {@link br.com.ribeiro.domain.Lancamentos}.
+ * REST controller for managing {@link br.com.ribeiro.domain.Lancamento}.
  */
 @RestController
 @RequestMapping("/api")
-public class LancamentosResource {
+public class LancamentoResource {
 
-	private final Logger log = LoggerFactory.getLogger(LancamentosResource.class);
+	private final Logger log = LoggerFactory.getLogger(LancamentoResource.class);
 
-	private static final String ENTITY_NAME = "lancamentos";
+	private static final String ENTITY_NAME = "lancamento";
 
 	@Value("${jhipster.clientApp.name}")
 	private String applicationName;
 
-	private final LancamentosService lancamentosService;
+	private final LancamentoService lancamentoService;
 
-	public LancamentosResource(LancamentosService lancamentosService) {
-		this.lancamentosService = lancamentosService;
+	public LancamentoResource(LancamentoService lancamentoService) {
+		this.lancamentoService = lancamentoService;
 	}
 
 	/**
-	 * {@code POST  /lancamentos} : Create a new lancamentos.
+	 * {@code POST  /lancamento} : Create a new lancamento.
 	 *
-	 * @param lancamentosDTO the lancamentosDTO to create.
+	 * @param lancamentoDTO the lancamentoDTO to create.
 	 * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
-	 *         body the new lancamentosDTO, or with status {@code 400 (Bad Request)}
-	 *         if the lancamentos has already an ID.
+	 *         body the new lancamentoDTO, or with status {@code 400 (Bad Request)}
+	 *         if the lancamento has already an ID.
 	 * @throws URISyntaxException if the Location URI syntax is incorrect.
 	 */
-	@PostMapping("/lancamentos")
-	public ResponseEntity<LancamentosDTO> createLancamentos(@RequestBody LancamentosDTO lancamentosDTO)
+	@PostMapping("/lancamento")
+	public ResponseEntity<LancamentoDTO> createLancamento(@RequestBody LancamentoDTO lancamentoDTO)
 			throws URISyntaxException {
-		log.debug("REST request to save Lancamentos : {}", lancamentosDTO);
-		if (lancamentosDTO.getId() != null) {
-			throw new BadRequestAlertException("A new lancamentos cannot already have an ID", ENTITY_NAME, "idexists");
+		log.debug("REST request to save Lancamento : {}", lancamentoDTO);
+		if (lancamentoDTO.getId() != null) {
+			throw new BadRequestAlertException("A new lancamento cannot already have an ID", ENTITY_NAME, "idexists");
 		}
-		LancamentosDTO result = lancamentosService.save(lancamentosDTO);
+		LancamentoDTO result = lancamentoService.save(lancamentoDTO);
 		return ResponseEntity
-				.created(new URI("/api/lancamentos/" + result.getId())).headers(HeaderUtil
+				.created(new URI("/api/lancamento/" + result.getId())).headers(HeaderUtil
 						.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
 				.body(result);
 	}
 
 	/**
-	 * {@code PUT  /lancamentos} : Updates an existing lancamentos.
+	 * {@code PUT  /lancamento} : Updates an existing lancamento.
 	 *
-	 * @param lancamentosDTO the lancamentosDTO to update.
+	 * @param lancamentoDTO the lancamentoDTO to update.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-	 *         the updated lancamentosDTO, or with status {@code 400 (Bad Request)}
-	 *         if the lancamentosDTO is not valid, or with status
-	 *         {@code 500 (Internal Server Error)} if the lancamentosDTO couldn't be
+	 *         the updated lancamentoDTO, or with status {@code 400 (Bad Request)}
+	 *         if the lancamentoDTO is not valid, or with status
+	 *         {@code 500 (Internal Server Error)} if the lancamentoDTO couldn't be
 	 *         updated.
 	 * @throws URISyntaxException if the Location URI syntax is incorrect.
 	 */
-	@PutMapping("/lancamentos")
-	public ResponseEntity<LancamentosDTO> updateLancamentos(@RequestBody LancamentosDTO lancamentosDTO)
+	@PutMapping("/lancamento")
+	public ResponseEntity<LancamentoDTO> updateLancamento(@RequestBody LancamentoDTO lancamentoDTO)
 			throws URISyntaxException {
-		log.debug("REST request to update Lancamentos : {}", lancamentosDTO);
-		if (lancamentosDTO.getId() == null) {
+		log.debug("REST request to update Lancamento : {}", lancamentoDTO);
+		if (lancamentoDTO.getId() == null) {
 			throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
 		}
-		LancamentosDTO result = lancamentosService.save(lancamentosDTO);
+		LancamentoDTO result = lancamentoService.save(lancamentoDTO);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME,
-				lancamentosDTO.getId().toString())).body(result);
+				lancamentoDTO.getId().toString())).body(result);
 	}
 
 	/**
-	 * {@code GET  /lancamentos} : get all the lancamentos.
+	 * {@code GET  /lancamento} : get all the lancamento.
 	 *
 	 * @param pageable    the pagination information.
 	 * @param queryParams a {@link MultiValueMap} query parameters.
 	 * @param uriBuilder  a {@link UriComponentsBuilder} URI builder.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
-	 *         of lancamentos in body.
+	 *         of lancamento in body.
 	 */
-	@GetMapping("/lancamentos")
-	public ResponseEntity<List<LancamentosDTO>> getAllLancamentos(Pageable pageable,
+	@GetMapping("/lancamento")
+	public ResponseEntity<List<LancamentoDTO>> getAllLancamento(Pageable pageable,
 			@RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
-		log.debug("REST request to get a page of Lancamentos");
-		Page<LancamentosDTO> page = lancamentosService.findAll(pageable);
-		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/lancamentos");
+		log.debug("REST request to get a page of Lancamento");
+		Page<LancamentoDTO> page = lancamentoService.findAll(pageable);
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "api/lancamento");
 		return ResponseEntity.ok().headers(headers).body(page.getContent());
 	}
 
 	/**
-	 * {@code GET  /lancamentos/:id} : get the "id" lancamentos.
+	 * {@code GET  /lancamento/:id} : get the "id" lancamento.
 	 *
-	 * @param id the id of the lancamentosDTO to retrieve.
+	 * @param id the id of the lancamentoDTO to retrieve.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
-	 *         the lancamentosDTO, or with status {@code 404 (Not Found)}.
+	 *         the lancamentoDTO, or with status {@code 404 (Not Found)}.
 	 */
-	@GetMapping("/lancamentos/{id}")
-	public ResponseEntity<LancamentosDTO> getLancamentos(@PathVariable Long id) {
-		log.debug("REST request to get Lancamentos : {}", id);
-		Optional<LancamentosDTO> lancamentosDTO = lancamentosService.findOne(id);
-		return ResponseUtil.wrapOrNotFound(lancamentosDTO);
+	@GetMapping("/lancamento/{id}")
+	public ResponseEntity<LancamentoDTO> getLancamento(@PathVariable Long id) {
+		log.debug("REST request to get Lancamento : {}", id);
+		Optional<LancamentoDTO> lancamentoDTO = lancamentoService.findOne(id);
+		return ResponseUtil.wrapOrNotFound(lancamentoDTO);
 	}
 
 	/**
-	 * {@code DELETE  /lancamentos/:id} : delete the "id" lancamentos.
+	 * {@code DELETE  /lancamento/:id} : delete the "id" lancamento.
 	 *
-	 * @param id the id of the lancamentosDTO to delete.
+	 * @param id the id of the lancamentoDTO to delete.
 	 * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
 	 */
-	@DeleteMapping("/lancamentos/{id}")
-	public ResponseEntity<Void> deleteLancamentos(@PathVariable Long id) {
-		log.debug("REST request to delete Lancamentos : {}", id);
-		lancamentosService.delete(id);
+	@DeleteMapping("/lancamento/{id}")
+	public ResponseEntity<Void> deleteLancamento(@PathVariable Long id) {
+		log.debug("REST request to delete Lancamento : {}", id);
+		lancamentoService.delete(id);
 		return ResponseEntity.noContent()
 				.headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
 				.build();
 	}
 
 	/**
-	 * SEARCH /_search/lancamentos
+	 * SEARCH /_search/lancamento
 	 *
-	 * @param filter   the LancamentosDTO filter information
+	 * @param filter   the LancamentoDTO filter information
 	 * @param pageable the pagination information
 	 * @return the ResponseEntity with status 200 (OK) and the list of PessoaDTO in
 	 *         body
 	 */
-	@GetMapping("/_search/lancamentos")
+	@GetMapping("/_search/lancamento")
 	@Timed
-	public ResponseEntity<List<LancamentosDTO>> searchByFilter(LancamentosDTO filter,
+	public ResponseEntity<List<LancamentoDTO>> searchByFilter(LancamentoDTO filter,
 			@SortDefault.SortDefaults({ @SortDefault(sort = "descricao") }) Pageable pageable) {
-		log.debug("REST request to get a page of LancamentosDTO by filter : {}", filter);
-		Page<LancamentosDTO> page = lancamentosService.search(filter, pageable);
+		log.debug("REST request to get a page of LancamentoDTO by filter : {}", filter);
+		Page<LancamentoDTO> page = lancamentoService.search(filter, pageable);
 		HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(filter, page,
-				"/api/_search/lancamentos");
+				"/api/_search/lancamento");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}
 }

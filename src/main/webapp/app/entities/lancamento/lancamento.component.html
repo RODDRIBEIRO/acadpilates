@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">
             <strong>
-                <fa-icon [icon]="'search'"></fa-icon> Pesquisar Lancamentos
+                <fa-icon [icon]="'search'"></fa-icon> Pesquisar Lancamento
             </strong>
         </div>
         <div class="card-body">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <button id="btnGerar" class="btn btn-primary jh-create-entity create-box mb-1"
-                        [routerLink]="['/lancamentos/new']" title="Criar Nova Lancamentos">
+                        [routerLink]="['/lancamento/new']" title="Criar Nova Lancamento">
                         <fa-icon [icon]="'plus'" class="direita10"></fa-icon>
                         <span class="hidden-sm-down">Novo</span>
                     </button>
@@ -43,10 +43,10 @@
         </div>
     </div>
     <br />
-    <div class="alert alert-warning" *ngIf="lancamentos?.length === 0">
+    <div class="alert alert-warning" *ngIf="lancamento?.length === 0">
         <span>Nenhum Lancamento encontrado!</span>
     </div>
-    <div class="table-responsive" *ngIf="lancamentos?.length > 0">
+    <div class="table-responsive" *ngIf="lancamento?.length > 0">
         <table class="table table-striped">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
@@ -72,35 +72,35 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let lancamentos of lancamentos ;trackBy: trackId">
-                    <td><a [routerLink]="['/lancamentos', lancamentos.id, 'view' ]">{{lancamentos.id}}</a></td>
-                    <td>{{lancamentos.dataCompetencia | date:'short'}}</td>
-                    <td>{{lancamentos.dataConciliacao | date:'short'}}</td>
-                    <td>{{lancamentos.valor}}</td>
-                    <td>{{lancamentos.tipo}}</td>
-                    <td>{{lancamentos.historico}}</td>
+                <tr *ngFor="let lancamento of lancamento ;trackBy: trackId">
+                    <td><a [routerLink]="['/lancamento', lancamento.id, 'view' ]">{{lancamento.id}}</a></td>
+                    <td>{{lancamento.dataCompetencia | date:'short'}}</td>
+                    <td>{{lancamento.dataConciliacao | date:'short'}}</td>
+                    <td>{{lancamento.valor}}</td>
+                    <td>{{lancamento.tipo}}</td>
+                    <td>{{lancamento.historico}}</td>
                     <!--
                         <td>
-                            <div *ngIf="lancamentos.pessoaId">
+                            <div *ngIf="lancamento.pessoaId">
                                 <a
-                                [routerLink]="['../pessoa', lancamentos.pessoaId , 'view' ]">{{lancamentos.pessoaNome}}</a>
+                                [routerLink]="['../pessoa', lancamento.pessoaId , 'view' ]">{{lancamento.pessoaNome}}</a>
                             </div>
                         </td>
                     -->
                     <td class="text-right">
                         <div class="btn-group">
-                            <button type="submit" [routerLink]="['/lancamentos', lancamentos.id, 'view' ]"
+                            <button type="submit" [routerLink]="['/lancamento', lancamento.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                                 <fa-icon [icon]="'eye'"></fa-icon>
                                 <span class="d-none d-md-inline">Visualizar</span>
                             </button>
-                            <button type="submit" [routerLink]="['/lancamentos', lancamentos.id, 'edit']"
+                            <button type="submit" [routerLink]="['/lancamento', lancamento.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                                 <fa-icon [icon]="'pencil-alt'"></fa-icon>
                                 <span class="d-none d-md-inline">Editar</span>
                             </button>
                             <button type="submit"
-                                [routerLink]="['/', 'lancamentos', { outlets: { popup: lancamentos.id + '/delete'} }]"
+                                [routerLink]="['/', 'lancamento', { outlets: { popup: lancamento.id + '/delete'} }]"
                                 replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
                                 <fa-icon [icon]="'times'"></fa-icon>
                                 <span class="d-none d-md-inline">Excluir</span>
@@ -111,7 +111,7 @@
             </tbody>
         </table>
     </div>
-    <div [hidden]="lancamentos?.length === 0">
+    <div [hidden]="lancamento?.length === 0">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage">
             </jhi-item-count>

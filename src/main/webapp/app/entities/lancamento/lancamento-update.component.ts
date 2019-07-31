@@ -1,12 +1,12 @@
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ILancamentos } from 'app/shared/model/lancamentos.model';
+import { ILancamento } from 'app/shared/model/lancamento.model';
 import { IPessoa } from 'app/shared/model/pessoa.model';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { Observable } from 'rxjs';
 import { PessoaService } from '../pessoa';
-import { LancamentosService } from './lancamentos.service';
+import { LancamentoService } from './lancamento.service';
 import { IConta } from 'app/shared/model/conta.model';
 import { ContaService } from '../conta';
 import { IDocumento } from 'app/shared/model/documento.model';
@@ -16,12 +16,12 @@ import { CentroCustoService } from '../centro-custo';
 import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 @Component({
-  selector: 'jhi-lancamentos-update',
-  templateUrl: './lancamentos-update.component.html'
+  selector: 'jhi-lancamento-update',
+  templateUrl: './lancamento-update.component.html'
 })
-export class LancamentosUpdateComponent implements OnInit {
+export class LancamentoUpdateComponent implements OnInit {
   isSaving: boolean;
-  lancamentos: ILancamentos;
+  lancamento: ILancamento;
   pessoas: IPessoa[];
   contas: IConta[];
   documentos: IDocumento[];
@@ -33,7 +33,7 @@ export class LancamentosUpdateComponent implements OnInit {
   constructor(
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
-    protected lancamentosService: LancamentosService,
+    protected lancamentoService: LancamentoService,
     protected pessoaService: PessoaService,
     protected contaService: ContaService,
     protected documentoService: DocumentoService,
@@ -44,18 +44,18 @@ export class LancamentosUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ lancamentos }) => {
-      this.lancamentos = lancamentos;
+    this.activatedRoute.data.subscribe(({ lancamento }) => {
+      this.lancamento = lancamento;
       this.init();
-      if (!this.lancamentos.id) {
+      if (!this.lancamento.id) {
       }
     });
     this.pessoaService.search({ situacao: 1, filter: 'pessoa-is-null', size: 100 }).subscribe(
       (res: HttpResponse<IPessoa[]>) => {
-        if (!this.lancamentos.pessoaId) {
+        if (!this.lancamento.pessoaId) {
           this.pessoas = res.body;
         } else {
-          this.pessoaService.find(this.lancamentos.pessoaId).subscribe(
+          this.pessoaService.find(this.lancamento.pessoaId).subscribe(
             (subRes: HttpResponse<IPessoa>) => {
               this.pessoas = [subRes.body].concat(res.body);
             },
@@ -67,10 +67,10 @@ export class LancamentosUpdateComponent implements OnInit {
     );
     this.contaService.search({ situacao: 1, filter: 'conta-is-null', size: 100 }).subscribe(
       (res: HttpResponse<IConta[]>) => {
-        if (!this.lancamentos.contaId) {
+        if (!this.lancamento.contaId) {
           this.contas = res.body;
         } else {
-          this.contaService.find(this.lancamentos.contaId).subscribe(
+          this.contaService.find(this.lancamento.contaId).subscribe(
             (subRes: HttpResponse<IConta>) => {
               this.contas = [subRes.body].concat(res.body);
             },
@@ -82,10 +82,10 @@ export class LancamentosUpdateComponent implements OnInit {
     );
     this.documentoService.search({ situacao: 1, filter: 'documento-is-null', size: 100 }).subscribe(
       (res: HttpResponse<IDocumento[]>) => {
-        if (!this.lancamentos.documentoId) {
+        if (!this.lancamento.documentoId) {
           this.documentos = res.body;
         } else {
-          this.documentoService.find(this.lancamentos.documentoId).subscribe(
+          this.documentoService.find(this.lancamento.documentoId).subscribe(
             (subRes: HttpResponse<IDocumento>) => {
               this.documentos = [subRes.body].concat(res.body);
             },
@@ -95,10 +95,25 @@ export class LancamentosUpdateComponent implements OnInit {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
+    this.centroCustoService.search({ situacao: 1, filter: 'centro-custo-is-null', size: 100 }).subscribe(
+      (res: HttpResponse<ICentroCusto[]>) => {
+        if (!this.lancamento.centroCustoId) {
+          this.centroCustos = res.body;
+        } else {
+          this.centroCustoService.find(this.lancamento.centroCustoId).subscribe(
+            (subRes: HttpResponse<ICentroCusto>) => {
+              this.centroCustos = [subRes.body].concat(res.body);
+            },
+            (subRes: HttpErrorResponse) => this.onError(subRes.message)
+          );
+        }
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
   }
   init() {
-    this.dataCompetencia = this.lancamentos.dataCompetencia ? this.lancamentos.dataCompetencia.format(DATE_FORMAT) : undefined;
-    this.dataConciliacao = this.lancamentos.dataConciliacao ? this.lancamentos.dataConciliacao.format(DATE_FORMAT) : undefined;
+    this.dataCompetencia = this.lancamento.dataCompetencia ? this.lancamento.dataCompetencia.format(DATE_FORMAT) : undefined;
+    this.dataConciliacao = this.lancamento.dataConciliacao ? this.lancamento.dataConciliacao.format(DATE_FORMAT) : undefined;
   }
 
   previousState() {
@@ -107,14 +122,14 @@ export class LancamentosUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-    if (this.lancamentos.id !== undefined) {
-      this.subscribeToSaveResponse(this.lancamentosService.update(this.lancamentos));
+    if (this.lancamento.id !== undefined) {
+      this.subscribeToSaveResponse(this.lancamentoService.update(this.lancamento));
     } else {
-      this.subscribeToSaveResponse(this.lancamentosService.create(this.lancamentos));
+      this.subscribeToSaveResponse(this.lancamentoService.create(this.lancamento));
     }
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<ILancamentos>>) {
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<ILancamento>>) {
     result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
   }
 

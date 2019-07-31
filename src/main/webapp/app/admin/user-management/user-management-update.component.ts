@@ -62,7 +62,7 @@ export class UserMgmtUpdateComponent implements OnInit {
     if (this.user.id !== null) {
       this.userService.update(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
     } else {
-      this.user.langKey = 'en';
+      this.user.langKey = 'pt';
       this.userService.create(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
     }
   }

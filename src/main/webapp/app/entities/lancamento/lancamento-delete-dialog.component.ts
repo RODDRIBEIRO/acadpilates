@@ -4,18 +4,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { ILancamentos } from 'app/shared/model/lancamentos.model';
-import { LancamentosService } from './lancamentos.service';
+import { ILancamento } from 'app/shared/model/lancamento.model';
+import { LancamentoService } from './lancamento.service';
 
 @Component({
-  selector: 'jhi-lancamentos-delete-dialog',
-  templateUrl: './lancamentos-delete-dialog.component.html'
+  selector: 'jhi-lancamento-delete-dialog',
+  templateUrl: './lancamento-delete-dialog.component.html'
 })
-export class LancamentosDeleteDialogComponent {
-  lancamentos: ILancamentos;
+export class LancamentoDeleteDialogComponent {
+  lancamento: ILancamento;
 
   constructor(
-    protected lancamentosService: LancamentosService,
+    protected lancamentoService: LancamentoService,
     public activeModal: NgbActiveModal,
     protected eventManager: JhiEventManager
   ) {}
@@ -25,10 +25,10 @@ export class LancamentosDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.lancamentosService.delete(id).subscribe(response => {
+    this.lancamentoService.delete(id).subscribe(response => {
       this.eventManager.broadcast({
-        name: 'lancamentosListModification',
-        content: 'Deleted an lancamentos'
+        name: 'lancamentoListModification',
+        content: 'Deleted an lancamento'
       });
       this.activeModal.dismiss(true);
     });
@@ -36,26 +36,26 @@ export class LancamentosDeleteDialogComponent {
 }
 
 @Component({
-  selector: 'jhi-lancamentos-delete-popup',
+  selector: 'jhi-lancamento-delete-popup',
   template: ''
 })
-export class LancamentosDeletePopupComponent implements OnInit, OnDestroy {
+export class LancamentoDeletePopupComponent implements OnInit, OnDestroy {
   protected ngbModalRef: NgbModalRef;
 
   constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(({ lancamentos }) => {
+    this.activatedRoute.data.subscribe(({ lancamento }) => {
       setTimeout(() => {
-        this.ngbModalRef = this.modalService.open(LancamentosDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
-        this.ngbModalRef.componentInstance.lancamentos = lancamentos;
+        this.ngbModalRef = this.modalService.open(LancamentoDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+        this.ngbModalRef.componentInstance.lancamento = lancamento;
         this.ngbModalRef.result.then(
           result => {
-            this.router.navigate(['/lancamentos', { outlets: { popup: null } }]);
+            this.router.navigate(['/lancamento', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           },
           reason => {
-            this.router.navigate(['/lancamentos', { outlets: { popup: null } }]);
+            this.router.navigate(['/lancamento', { outlets: { popup: null } }]);
             this.ngbModalRef = null;
           }
         );

@@ -5,39 +5,39 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import br.com.ribeiro.service.dto.LancamentosDTO;
+import br.com.ribeiro.service.dto.LancamentoDTO;
 
 /**
- * Service Interface for managing {@link br.com.ribeiro.domain.Lancamentos}.
+ * Service Interface for managing {@link br.com.ribeiro.domain.Lancamento}.
  */
-public interface LancamentosService {
+public interface LancamentoService {
 
 	/**
-	 * Save a lancamentos.
+	 * Save a lancamento.
 	 *
-	 * @param lancamentosDTO the entity to save.
+	 * @param lancamentoDTO the entity to save.
 	 * @return the persisted entity.
 	 */
-	LancamentosDTO save(LancamentosDTO lancamentosDTO);
+	LancamentoDTO save(LancamentoDTO lancamentoDTO);
 
 	/**
-	 * Get all the lancamentos.
+	 * Get all the lancamento.
 	 *
 	 * @param pageable the pagination information.
 	 * @return the list of entities.
 	 */
-	Page<LancamentosDTO> findAll(Pageable pageable);
+	Page<LancamentoDTO> findAll(Pageable pageable);
 
 	/**
-	 * Get the "id" lancamentos.
+	 * Get the "id" lancamento.
 	 *
 	 * @param id the id of the entity.
 	 * @return the entity.
 	 */
-	Optional<LancamentosDTO> findOne(Long id);
+	Optional<LancamentoDTO> findOne(Long id);
 
 	/**
-	 * Delete the "id" lancamentos.
+	 * Delete the "id" lancamento.
 	 *
 	 * @param id the id of the entity.
 	 */
@@ -50,5 +50,5 @@ public interface LancamentosService {
 	 * @param pageable  pagination
 	 * @return list of PessoaDTO
 	 */
-	Page<LancamentosDTO> search(LancamentosDTO dto, Pageable pageable);
+	Page<LancamentoDTO> search(LancamentoDTO dto, Pageable pageable);
 }
