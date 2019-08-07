@@ -1,19 +1,21 @@
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import * as moment from 'moment';
+import { ICentroCusto } from 'app/shared/model/centro-custo.model';
+import { IConta } from 'app/shared/model/conta.model';
+import { IDocumento } from 'app/shared/model/documento.model';
 import { ILancamento } from 'app/shared/model/lancamento.model';
 import { IPessoa } from 'app/shared/model/pessoa.model';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { CentroCustoService } from '../centro-custo';
+import { ContaService } from '../conta';
+import { DocumentoService } from '../documento';
 import { PessoaService } from '../pessoa';
 import { LancamentoService } from './lancamento.service';
-import { IConta } from 'app/shared/model/conta.model';
-import { ContaService } from '../conta';
-import { IDocumento } from 'app/shared/model/documento.model';
-import { ICentroCusto, CentroCusto } from 'app/shared/model/centro-custo.model';
-import { DocumentoService } from '../documento';
-import { CentroCustoService } from '../centro-custo';
-import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+//import { Ng2CompleterModule } from 'ng2-completer';
 
 @Component({
   selector: 'jhi-lancamento-update',
@@ -122,6 +124,8 @@ export class LancamentoUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
+    this.lancamento.dataCompetencia = moment(this.dataCompetencia, DATE_FORMAT);
+    this.lancamento.dataConciliacao = moment(this.dataConciliacao, DATE_FORMAT);
     if (this.lancamento.id !== undefined) {
       this.subscribeToSaveResponse(this.lancamentoService.update(this.lancamento));
     } else {

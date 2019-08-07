@@ -1,12 +1,22 @@
 package br.com.ribeiro.domain;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 /**
  * A Pessoa.
@@ -54,7 +64,7 @@ public class Pessoa implements Serializable {
 
 	@Column(name = "email")
 	private String email;
-	
+
 	@NotNull
 	@Max(value = 1)
 	@Column(name = "categoria", nullable = false)

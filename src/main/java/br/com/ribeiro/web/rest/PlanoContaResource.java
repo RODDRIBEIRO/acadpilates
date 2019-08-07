@@ -28,7 +28,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.ribeiro.service.PlanoContaService;
 import br.com.ribeiro.service.dto.PlanoContaDTO;
-import br.com.ribeiro.service.dto.PlanoContaDTO;
 import br.com.ribeiro.web.rest.errors.BadRequestAlertException;
 import br.com.ribeiro.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.HeaderUtil;

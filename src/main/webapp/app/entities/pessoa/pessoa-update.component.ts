@@ -1,12 +1,11 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { momentTz } from 'app/shared';
-import * as moment from 'moment';
 import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { IContato, Contato } from 'app/shared/model/contato.model';
-import { IEndereco, Endereco } from 'app/shared/model/endereco.model';
-import { IPessoa, Pessoa } from 'app/shared/model/pessoa.model';
+import { IContato } from 'app/shared/model/contato.model';
+import { IEndereco } from 'app/shared/model/endereco.model';
+import { IPessoa } from 'app/shared/model/pessoa.model';
+import * as moment from 'moment';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { Observable } from 'rxjs';
 import { PessoaService } from './pessoa.service';
