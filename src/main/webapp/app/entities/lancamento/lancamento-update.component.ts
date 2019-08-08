@@ -2,20 +2,21 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
-import * as moment from 'moment';
 import { ICentroCusto } from 'app/shared/model/centro-custo.model';
 import { IConta } from 'app/shared/model/conta.model';
 import { IDocumento } from 'app/shared/model/documento.model';
 import { ILancamento } from 'app/shared/model/lancamento.model';
 import { IPessoa } from 'app/shared/model/pessoa.model';
+import * as moment from 'moment';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CentroCustoService } from '../centro-custo';
 import { ContaService } from '../conta';
 import { DocumentoService } from '../documento';
 import { PessoaService } from '../pessoa';
 import { LancamentoService } from './lancamento.service';
-//import { Ng2CompleterModule } from 'ng2-completer';
+import { castToQuery } from 'app/shared';
+import { COMBO_PAGE_SIZE, ID_PAIS_BR, AUTOCOMPLETE_DELAY, AUTOCOMPLETE_PAGE_SIZE } from 'app/app.constants';
 
 @Component({
   selector: 'jhi-lancamento-update',
@@ -25,9 +26,12 @@ export class LancamentoUpdateComponent implements OnInit {
   isSaving: boolean;
   lancamento: ILancamento;
   pessoas: IPessoa[];
+  pessoa: IPessoa;
   contas: IConta[];
   documentos: IDocumento[];
   centroCustos: ICentroCusto[];
+
+  autocompleteDelay = AUTOCOMPLETE_DELAY;
 
   dataCompetencia: string;
   dataConciliacao: string;
@@ -151,5 +155,25 @@ export class LancamentoUpdateComponent implements OnInit {
 
   trackById(index: number, item: any) {
     return item.id;
+  }
+
+  pessoaCompleteMethod(event) {
+    this.pessoaService
+      .autocomplete(
+        castToQuery({
+          query: event.query,
+          pessoaNome: this.lancamento.pessoaNome,
+          situacao: true,
+          page: 0,
+          size: AUTOCOMPLETE_PAGE_SIZE
+        })
+      )
+      .subscribe((res: HttpResponse<ILancamento[]>) => (this.pessoas = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+  }
+
+  pessoaSelect(selected: IPessoa) {
+    this.pessoa = selected;
+    this.lancamento.pessoaId = selected.id;
+    this.lancamento.pessoaNome = selected.nome;
   }
 }

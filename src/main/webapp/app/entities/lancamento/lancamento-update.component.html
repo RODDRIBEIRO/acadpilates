@@ -85,22 +85,22 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="for">
                             <label class="form-control-label" for="field_pessoa">Pessoa</label>
+                            <p-autoComplete class="w-100 col-md-8" [(ngModel)]="lancamento.pessoaNome" name="nome"
+                                [delay]="autocompleteDelay" [suggestions]="pessoas"
+                                (completeMethod)="pessoaCompleteMethod($event)" (onSelect)="pessoaSelect($event)">
+                                <ng-template let-value pTemplate="item">
+                                    <div style="width: 99%">
+                                        <div class="row">
+                                            <div class="col-md-6">{{value.nome}}</div>
+                                        </div>
+                                    </div>
+                                </ng-template>
 
-                            <input type="text" class="form-control" name="nome" id="field_nome"
-                                [(ngModel)]="lancamento.pessoaNome" required minlength="1" maxlength="100"
-                                autocomplete="off" />
-                            <!--
-                                <select class="form-control col-md-6 col-lg-4" id="field_pessoa" name="pessoa"
-                                [(ngModel)]="lancamento.pessoaId">
-                                <option [ngValue]="null"></option>
-                                <option [ngValue]="pessoaOption.id"
-                                *ngFor="let pessoaOption of pessoas; trackBy: trackById">{{pessoaOption.nome}}
-                            </option>
-                        </select>
-                    -->
+                            </p-autoComplete>
                         </div>
+
                         <div class="form-group">
                             <label class="form-control-label" for="field_historico">Histórico</label>
                             <textarea class="form-control col-lg-8" id="field_historico" rows="3" name="historico"
@@ -114,7 +114,7 @@
                     </button>
                     <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
                         class="btn btn-primary">
-                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Savar</span>
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Salvar</span>
                     </button>
                 </div>
         </form>
