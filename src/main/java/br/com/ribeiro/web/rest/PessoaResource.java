@@ -166,4 +166,13 @@ public class PessoaResource {
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}
 
+	@GetMapping("/_autocomplete/pessoas")
+	public ResponseEntity<List<PessoaDTO>> autocompleteByFilter(PessoaDTO filter, Pageable pageable) {
+		log.debug("REST request to get a page of PessoaDTO by autocomplete filter : {}", filter);
+		Page<PessoaDTO> page = pessoaService.autocomplete(filter, pageable);
+		HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(filter, page,
+				"/api/_autocomplete/pessoas");
+		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	}
+
 }

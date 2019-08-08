@@ -104,11 +104,11 @@ public final class PaginationUtil {
 		return headers;
 	}
 
+	// Converter objeto para QueryString
 	public static <T> HttpHeaders generateSearchPaginationHttpHeaders(AbstractDTO query, Page<T> page, String baseUrl) {
 		String escapedQuery;
 		try {
-			escapedQuery = URLEncoder.encode(JacksonUtil.toQueryParams(query), "UTF-8"); // TODO Converter objeto para
-																							// QueryString
+			escapedQuery = URLEncoder.encode(JacksonUtil.toQueryParams(query), "UTF-8");
 			escapedQuery = escapedQuery.replace("%3D", "=").replace("%26", "&");
 			System.out.println(escapedQuery);
 		} catch (UnsupportedEncodingException e) {
@@ -145,8 +145,7 @@ public final class PaginationUtil {
 		}
 		String escapedQuery;
 		try {
-			escapedQuery = URLEncoder.encode(JacksonUtil.toQueryParams(query), "UTF-8"); // TODO Converter objeto para
-																							// QueryString
+			escapedQuery = URLEncoder.encode(JacksonUtil.toQueryParams(query), "UTF-8"); // Converter objeto para QueryString
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}

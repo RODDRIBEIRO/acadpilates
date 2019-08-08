@@ -136,4 +136,11 @@ public class PessoaServiceImpl extends AbstractService implements PessoaService 
 		}
 		return pessoaRepository.findAll(predicate, pageable).map(pessoaMapper::toDto);
 	}
+
+	@Transactional(readOnly = true)
+	public Page<PessoaDTO> autocomplete(PessoaDTO query, Pageable pageable) {
+		log.debug("Request to autocomplete for a page of Pessoa for query {}", query);
+		return pessoaRepository.findPessoaDtoList(query, pageable);
+	}
+
 }

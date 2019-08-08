@@ -74,8 +74,8 @@
             <tbody>
                 <tr *ngFor="let lancamento of lancamento ;trackBy: trackId">
                     <td><a [routerLink]="['/lancamento', lancamento.id, 'view' ]">{{lancamento.id}}</a></td>
-                    <td>{{lancamento.dataCompetencia | date:'short'}}</td>
-                    <td>{{lancamento.dataConciliacao | date:'short'}}</td>
+                    <td>{{lancamento.dataCompetencia | date:'shortDate'}}</td>
+                    <td>{{lancamento.dataConciliacao | date:'shortDate'}}</td>
                     <td>{{lancamento.valor}}</td>
                     <td>{{lancamento.tipo}}</td>
                     <td>{{lancamento.historico}}</td>

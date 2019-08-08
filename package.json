@@ -8,6 +8,7 @@
     "node_modules"
   ],
   "dependencies": {
+    "@angular/animations": "8.0.0",
     "@angular/common": "8.0.0",
     "@angular/compiler": "8.0.0",
     "@angular/core": "8.0.0",
@@ -33,7 +34,8 @@
     "rxjs": "6.5.2",
     "swagger-ui": "2.2.10",
     "tslib": "1.10.0",
-    "zone.js": "0.9.1"
+    "zone.js": "0.9.1",
+    "primeng": "^7.0.0"
   },
   "devDependencies": {
     "@angular/cli": "8.0.2",

@@ -9,9 +9,7 @@ import br.com.ribeiro.domain.Documento;
 /**
  * Spring Data repository for the Documento entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface DocumentoRepository extends JpaRepository<Documento, Long>, QuerydslPredicateExecutor<Documento> {
 
 }
-	

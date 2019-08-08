@@ -95,8 +95,8 @@ public class LancamentoServiceImpl implements LancamentoService {
 	 * Search corresponding to the query.
 	 *
 	 * @param LancamentoDTO the query of the search
-	 * @param query          the query of the search
-	 * @param pageable       the pagination information
+	 * @param query         the query of the search
+	 * @param pageable      the pagination information
 	 * @return the list of entities
 	 */
 	@Override
@@ -104,11 +104,12 @@ public class LancamentoServiceImpl implements LancamentoService {
 	public Page<LancamentoDTO> search(LancamentoDTO query, Pageable pageable) {
 		log.debug("Request to search for a page of LancamentoDTO for query {}", query);
 		BooleanExpression predicate = qLancamento.id.isNotNull();
-		/*
-		 * if (isNotEmpty(query.getDescricao())) { predicate =
-		 * predicate.and(qLancamento.descricao.containsIgnoreCase(query.getDescricao())
-		 * ); }
-		 */
+
+		if (isNotEmpty(query.getCentroCustoDescricao())) {
+			predicate = predicate
+					.and(qLancamento.centroCusto.descricao.containsIgnoreCase(query.getCentroCustoDescricao()));
+		}
+
 		return lancamentoRepository.findAll(predicate, pageable).map(lancamentoMapper::toDto);
 	}
 }

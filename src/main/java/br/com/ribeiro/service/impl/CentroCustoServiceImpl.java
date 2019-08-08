@@ -4,6 +4,8 @@ import static br.com.ribeiro.service.util.NullUtil.isNotEmpty;
 
 import java.util.Optional;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,14 +13,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-
 import br.com.ribeiro.domain.CentroCusto;
 import br.com.ribeiro.domain.QCentroCusto;
 import br.com.ribeiro.repository.CentroCustoRepository;
 import br.com.ribeiro.service.CentroCustoService;
 import br.com.ribeiro.service.dto.CentroCustoDTO;
-import br.com.ribeiro.service.dto.ContaDTO;
 import br.com.ribeiro.service.mapper.CentroCustoMapper;
 
 /**

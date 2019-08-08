@@ -1,4 +1,5 @@
 package br.com.ribeiro.service.dto;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -7,10 +8,11 @@ import java.util.Objects;
  */
 public class PaisDTO implements Serializable {
 
+    private static final long serialVersionUID = -4001456324375078552L;
+
     private Long id;
 
     private String nomePais;
-
 
     public Long getId() {
         return id;
@@ -51,9 +53,6 @@ public class PaisDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "PaisDTO{" +
-            "id=" + getId() +
-            ", nomePais='" + getNomePais() + "'" +
-            "}";
+        return "PaisDTO{" + "id=" + getId() + ", nomePais='" + getNomePais() + "'" + "}";
     }
 }

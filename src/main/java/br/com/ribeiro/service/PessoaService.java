@@ -51,6 +51,8 @@ public interface PessoaService {
 	 * @param pageable  pagination
 	 * @return list of PessoaDTO
 	 */
-	Page<PessoaDTO> search(PessoaDTO dto, Pageable pageable);
+    Page<PessoaDTO> search(PessoaDTO dto, Pageable pageable);
+    
+    Page<PessoaDTO> autocomplete(PessoaDTO dto, Pageable pageable);
 
 }

@@ -16,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<IPessoa[]>;
 export class PessoaService {
   public resourceUrl = SERVER_API_URL + 'api/pessoas';
   public resourceSearchUrl = SERVER_API_URL + 'api/_search/pessoas';
+  public resourceAutocompleteUrl = SERVER_API_URL + 'api/_autocomplete/pessoas';
 
   constructor(protected http: HttpClient) {}
 
@@ -50,6 +51,20 @@ export class PessoaService {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  search(req?: any): Observable<EntityArrayResponseType> {
+    return this.http.get<IPessoa[]>(this.resourceSearchUrl, {
+      params: createRequestOption(req),
+      observe: 'response'
+    });
+  }
+
+  autocomplete(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<IPessoa[]>(this.resourceAutocompleteUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
   protected convertDateFromClient(pessoa: IPessoa): IPessoa {
     const copy: IPessoa = Object.assign({}, pessoa, {
       dataNascimento: pessoa.dataNascimento != null && pessoa.dataNascimento.isValid() ? pessoa.dataNascimento.toJSON() : null
@@ -69,12 +84,5 @@ export class PessoaService {
     });
 
     return res;
-  }
-  // Criado o serviço de busca do Backend
-  search(req?: any): Observable<EntityArrayResponseType> {
-    return this.http.get<IPessoa[]>(this.resourceSearchUrl, {
-      params: createRequestOption(req),
-      observe: 'response'
-    });
   }
 }

@@ -52,6 +52,8 @@ public class PessoaDTO extends AbstractDTO implements Serializable {
 
 	private List<ContatoDTO> contatos = new ArrayList<>();
 
+	private String query;
+
 	public Long getId() {
 		return id;
 	}
@@ -172,6 +174,18 @@ public class PessoaDTO extends AbstractDTO implements Serializable {
 		this.contatos = contatos;
 	}
 
+	public Boolean getSituacao() {
+		return this.situacao;
+	}
+
+	public String getQuery() {
+		return this.query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -195,10 +209,12 @@ public class PessoaDTO extends AbstractDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PessoaDTO{" + "id=" + getId() + ", nome='" + getNome() + "'" + ", tipo=" + getTipo() + ", cpfCnpj='"
-				+ getCpfCnpj() + "'" + ", rgInscEst='" + getRgInscEst() + "'" + ", dataCadastro='" + getDataCadastro()
-				+ "'" + ", dataNascimento='" + getDataNascimento() + "'" + ", foto='" + getFoto() + "'" + ", situacao='"
-				+ isSituacao() + "'" + ", categoria=" + getCategoria() + ", sexo='" + getSexo() + ", email="
-				+ getEmail() + "}";
+		return "{" + " id='" + getId() + "'" + ", nome='" + getNome() + "'" + ", tipo='" + getTipo() + "'"
+				+ ", cpfCnpj='" + getCpfCnpj() + "'" + ", rgInscEst='" + getRgInscEst() + "'" + ", dataCadastro='"
+				+ getDataCadastro() + "'" + ", dataNascimento='" + getDataNascimento() + "'" + ", sexo='" + getSexo()
+				+ "'" + ", email='" + getEmail() + "'" + ", foto='" + getFoto() + "'" + ", fotoContentType='"
+				+ getFotoContentType() + "'" + ", situacao='" + isSituacao() + "'" + ", categoria='" + getCategoria()
+				+ "'" + ", enderecos='" + getEnderecos() + "'" + ", contatos='" + getContatos() + "'" + ", query='"
+				+ getQuery() + "'" + "}";
 	}
 }
