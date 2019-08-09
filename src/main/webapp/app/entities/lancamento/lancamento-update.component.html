@@ -85,19 +85,14 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="for">
+                        <div class="form-group">
                             <label class="form-control-label" for="field_pessoa">Pessoa</label>
-                            <p-autoComplete class="w-100 col-md-8" [(ngModel)]="lancamento.pessoaNome" name="nome"
+                            <p-autoComplete class="w-100" [(ngModel)]="lancamento.pessoaNome" name="nome"
                                 [delay]="autocompleteDelay" [suggestions]="pessoas"
                                 (completeMethod)="pessoaCompleteMethod($event)" (onSelect)="pessoaSelect($event)">
                                 <ng-template let-value pTemplate="item">
-                                    <div style="width: 99%">
-                                        <div class="row">
-                                            <div class="col-md-6">{{value.nome}}</div>
-                                        </div>
-                                    </div>
+                                    <span>{{value.nome}}</span>
                                 </ng-template>
-
                             </p-autoComplete>
                         </div>
 

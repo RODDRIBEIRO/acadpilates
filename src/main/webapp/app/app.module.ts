@@ -67,6 +67,6 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
 })
 export class AcadpilatesAppModule {
   constructor(private dpConfig: NgbDatepickerConfig) {
-    this.dpConfig.minDate = { year: moment().year() - 100, month: 1, day: 1 };
+    this.dpConfig.minDate = { day: 1, month: 1, year: moment().year() - 100 };
   }
 }

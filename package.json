@@ -35,7 +35,7 @@
     "swagger-ui": "2.2.10",
     "tslib": "1.10.0",
     "zone.js": "0.9.1",
-    "primeng": "^7.0.0"
+    "primeng": "^8.0.0"
   },
   "devDependencies": {
     "@angular/cli": "8.0.2",

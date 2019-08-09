@@ -29,6 +29,13 @@
     "@angular-devkit/core" "8.0.2"
     rxjs "6.4.0"
 
+"@angular/animations@8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-8.0.0.tgz#6286094babdb3879f7aefcd73aa31772469e50b4"
+  integrity sha512-hggSRi83rmocLwzrKZtmFcqPdivKSJqp2yiYaiNmJ2yQWJ1JW/Lurypv9H347RWxmwCCwC2kV8embTGbOXIFDQ==
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/cli@8.0.2":
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-8.0.2.tgz#b64c044342f0af2ed7e78e51c54087693407a47b"
@@ -8283,6 +8290,11 @@ pretty-format@^24.0.0, pretty-format@^24.8.0:
     ansi-regex "^4.0.0"
     ansi-styles "^3.2.0"
     react-is "^16.8.4"
+
+primeng@^8.0.0:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-8.0.2.tgz#c29f33dd1644ed44268a62eb2db0334a10c8ebea"
+  integrity sha512-MCY2oYXt0TLqDHcuMD2yqe/pg7OCCTvK/szqInkhXn8a76KA0yLDmm+hF+gaH/xQShqnYuazb23GlYVZi8zFDQ==
 
 private@^0.1.6, private@~0.1.5:
   version "0.1.8"
