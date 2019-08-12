@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { DATE_FORMAT, DATE_TIME_FORMAT, MASK } from 'app/shared/constants/input.constants';
 import { IContato } from 'app/shared/model/contato.model';
 import { IEndereco } from 'app/shared/model/endereco.model';
 import { IPessoa } from 'app/shared/model/pessoa.model';
@@ -29,6 +29,8 @@ export class PessoaUpdateComponent implements OnInit {
 
   foto?: any;
   fotoContentType?: string;
+
+  mask = MASK;
 
   constructor(
     protected dataUtils: JhiDataUtils,
@@ -174,7 +176,7 @@ export class PessoaUpdateComponent implements OnInit {
   }
 
   changePessoaTipo(value: number) {
-    if (value) {
+    if (!value) {
       this.pessoa.tipo = value;
     } else {
       this.pessoa.tipo = undefined;

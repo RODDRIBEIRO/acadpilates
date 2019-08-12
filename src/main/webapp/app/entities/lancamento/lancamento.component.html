@@ -56,7 +56,7 @@
                     <th jhiSortBy="dataCompetencia"><span>Data Competência</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="dataConciliacao"><span>Data Conciliação</span>
+                    <th jhiSortBy="dataConciliacao"><span>Conta</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
                     <th jhiSortBy="valor"><span>Valor</span>
@@ -75,9 +75,12 @@
                 <tr *ngFor="let lancamento of lancamento ;trackBy: trackId">
                     <td><a [routerLink]="['/lancamento', lancamento.id, 'view' ]">{{lancamento.id}}</a></td>
                     <td>{{lancamento.dataCompetencia | date:'shortDate'}}</td>
-                    <td>{{lancamento.dataConciliacao | date:'shortDate'}}</td>
+                    <td>{{lancamento.contaDescricao}}</td>
                     <td>{{lancamento.valor}}</td>
-                    <td>{{lancamento.tipo}}</td>
+                    <td>
+                        <span *ngIf="lancamento.tipo==0">Entrada</span>
+                        <span *ngIf="lancamento.tipo==1">Saída</span>
+                    </td>
                     <td>{{lancamento.historico}}</td>
                     <!--
                         <td>

@@ -19,6 +19,7 @@ import { AcadpilatesAccountModule } from './account/account.module';
 import { AcadpilatesEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TextMaskModule } from 'angular2-text-mask';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
 
@@ -26,6 +27,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    TextMaskModule,
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-' }),
     NgJhipsterModule.forRoot({
       // set below to true to make alerts look like toast

@@ -172,7 +172,6 @@ export class LancamentoUpdateComponent implements OnInit {
   }
 
   pessoaSelect(selected: IPessoa) {
-    this.pessoa = selected;
     this.lancamento.pessoaId = selected.id;
     this.lancamento.pessoaNome = selected.nome;
   }
